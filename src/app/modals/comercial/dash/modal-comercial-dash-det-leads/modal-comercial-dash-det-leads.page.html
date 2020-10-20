@@ -1,0 +1,27 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Lead</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="closeModal()" color="secondary">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  <ion-list>
+    <ion-text style="text-align: center;" *ngIf="leadsItens.length == 0 || !leadsItens ">Não existem dados</ion-text>
+    <ion-item *ngFor="let item of leadsItens">
+      <ion-label>
+        <p><strong>{{ item.clienteNome | titlecase }}</strong></p>
+      </ion-label>
+      <ion-label>
+        <p>{{ item.total  | currency:'R$ ':true:'1.2-2' }}</p>
+      </ion-label>
+      <ion-label>
+        <p><strong>{{ item.situacao | titlecase }}</strong></p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

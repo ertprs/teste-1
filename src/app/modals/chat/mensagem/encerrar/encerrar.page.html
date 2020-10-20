@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Encerrar</ion-title>
+    <ion-buttons slot="primary" (click)="closeModal()">
+      <ion-button>
+       
+        <ion-icon slot="end"  name="close-circle-outline"></ion-icon>
+        
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-text style="text-align: center;">
+    <p> Oi <strong>{{currentUser.nome}}</strong>, me parece que rolou um papo comercial aqui.</p>
+    <p style="margin-left: 6%; margin-right: 6%;">Por favor me informe ou confirme qual o valor da oportunidade que você negociou neste atendimento e também ja me fale sobre o desfecho. 😉</p>
+   
+  </ion-text>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Classificar</ion-label>
+    <ion-select  okText="Confirmar" cancelText="Cancelar" [(ngModel)]="dadosConversa.intencao "> 
+      <ion-select-option value="0" selected>SELECIONAR OPÇÃO</ion-select-option>
+      <ion-select-option value="ATENDIMENTO" *ngIf="dadosConversa.intencao.toUpperCase() != 'COMERCIAL'">Atendimento</ion-select-option>
+      <ion-select-option value="COMERCIAL" >Comercial</ion-select-option>
+      <ion-select-option value="CONTATO" *ngIf="dadosConversa.intencao.toUpperCase() != 'COMERCIAL'">Contato</ion-select-option>
+      <ion-select-option value="FINANCEIRO" *ngIf="dadosConversa.intencao.toUpperCase() != 'COMERCIAL'">Financeiro</ion-select-option>
+      <ion-select-option value="SUPORTE" *ngIf="dadosConversa.intencao.toUpperCase() != 'COMERCIAL'">Suporte</ion-select-option>
+      <ion-select-option value="" *ngIf="dadosConversa.intencao.toUpperCase() != 'COMERCIAL'">Outros</ion-select-option>
+    </ion-select>
+    
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Situação</ion-label>
+    <ion-select [(ngModel)]="dadosConversa.conversao " okText="Confirmar" cancelText="Cancelar">
+      <ion-select-option value="1" [disabled]="dadosConversa.intencao != 'COMERCIAL' ">Ganhamos</ion-select-option>
+      <ion-select-option value="2" [disabled]="dadosConversa.intencao != 'COMERCIAL' ">Perdemos</ion-select-option>
+      <ion-select-option value="0" [disabled]="dadosConversa.intencao == 'COMERCIAL' ">Não aplica</ion-select-option>
+    </ion-select>
+    
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Valor da oportunidade?</ion-label>
+    <ion-input autofocus="true" *ngIf="dadosConversa.conversao != 0 " [readonly]="qtdProdutosVisitados > 0" [(ngModel)]="dadosConversa.valor" name="valor" required="true" type="text" value="{{dadosConversa.valor}}" style="text-align: right;"></ion-input>
+    <ion-input autofocus="true" *ngIf="dadosConversa.conversao == 0 " [(ngModel)]="dadosConversa.valor" value="0" readonly type="text"  style="text-align: right;"></ion-input>
+  </ion-item>
+
+
+  
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="chatEncerrar()" color="success" expand="block">
+      Encerrar
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,43 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Config > Telegram </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('compConfiguracoesChatHome',{})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+
+<ion-content class="default-content">
+  <ion-text class="label-margin" color="primary">
+    <h1>Vamos configurar seu telegram!</h1>
+  </ion-text>
+  
+  <ion-item class="ionitem">
+    <ion-label>Informe o token de seu BOT.</ion-label>
+    <ion-textarea placeholder='Digite aqui o token' [(ngModel)]="telegramToken" style="padding: 8px;"></ion-textarea>
+  </ion-item>
+  
+  <ion-grid class="label-margin" style="display: grid;">
+    <ion-label style="font-size: 12px;">Telegram é uma plataforma de envio e recebimento de mensagens.</ion-label>
+    <ion-label style="font-size: 12px;">Se você não sabe como criar um bot para conectar a sua Lara acesse o link abaixo e siga as orientações do documento.</ion-label>
+    <ion-label style="font-weight: bold; text-decoration: none; margin-top: 15px;"><a href="#" onclick="window.open('https://api.assistentelara.com.br/build/manuais/manualtelegram.pdf', '_system', 'location=yes');" >Manual</a></ion-label>
+  </ion-grid>
+
+  <ion-toolbar>
+    <ion-button expand="block" color='danger'(click)="delete()" *ngIf="telegranId">Expirar</ion-button>
+    <ion-button expand="block" color='success'(click)="add()" *ngIf="!telegranId">Sincronizar</ion-button>
+  </ion-toolbar>
+
+</ion-content>
+
+<ion-footer>
+ 
+</ion-footer>

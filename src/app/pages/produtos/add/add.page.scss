@@ -1,0 +1,31 @@
+ion-input {
+    text-transform: uppercase;
+}
+ion-label {
+    width: 25vw;
+   
+}
+ion-textarea{
+    border: 1px solid #FF8C00;
+    width: 100%;
+}
+ion-input {
+    border: 1px solid #92949c;
+    width: 100%;
+    margin: 0;
+    --padding-bottom:4px;
+    --padding-end:4px;
+    --padding-start:4px;
+    --padding-top:4px;
+}
+.labellong{
+    width: 100%;
+}
+
+.rowtitulo{
+    margin-top: 2px;;
+}
+.rowsubtitulo{
+    margin: 1px;
+    padding: 2px;
+}

@@ -1,0 +1,50 @@
+.ionitem{
+    border:1px solid #92949c;
+    margin: 0px;
+    border-radius: 10px;
+    margin-left: 1px;
+    margin-right: 1px;
+    margin-top: 5px;;
+    ion-label{
+        color: #92949c;
+        position: absolute;
+        margin-top: 2px;
+        left: 2px;
+        top:0;
+        margin-bottom: 5px;
+        font-size: small;
+        width: 100% !important;
+    }
+    ion-label.toggle{
+      color: #92949c;
+      position: unset;
+      margin-top: unset;
+      left: 2px;
+      top: unset;
+      margin-bottom: unset;
+      font-size: small;
+      width: 100% !important;
+    }
+    ion-select{
+        width: 100% !important;
+        --padding-end:1px;
+        --padding-start:1px;
+        max-width: 100%;
+        min-width:100%;
+    }
+    p{
+        width: 100%;
+        display: block;
+        word-wrap: break-word; 
+    }
+    ion-textarea{
+        padding-top: 10px !important;
+    }
+    
+    @media only screen and (max-width: 600px) {
+        
+            border:0.02em solid #92949c;
+        
+        
+    }
+  }

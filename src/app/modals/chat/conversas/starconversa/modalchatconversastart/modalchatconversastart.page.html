@@ -1,0 +1,55 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Selecionar template</ion-title>
+  </ion-toolbar>
+ 
+ 
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<ion-content>
+ 
+  <ion-grid *ngIf="!formarFrase" style="margin-top: 20px;">
+    <ion-row *ngIf="itemsTemplates.length == 0">
+      <ion-col>
+      <p style="font-size: small;text-align: center;">Não existem templates cadastradas</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-grid>
+        <ion-row *ngFor="let item of itemsTemplates" style="cursor: pointer;border-bottom: 1px solid black;" >
+          <ion-col (click)="selecionarFrase(item)">
+            <p style="font-size: small;" class="color_frase_{{ item.aprovado }}">{{ item.texto }} </p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-row>
+  </ion-grid>
+
+
+
+  <ion-grid *ngIf="formarFrase" style="margin-top: 20px;">
+    <ion-row *ngFor="let itemFrase of itemsFrase"> 
+      <ion-col>
+        {{ itemFrase.nome }}
+      </ion-col>
+      <ion-col>
+        <ion-input value="custom"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" color="danger" (click)="cancelarFrase()">Cancelar</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="full" color="success" (click)="iniciarConversa()">Iniciar conversa</ion-button>
+      </ion-col>
+     
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>

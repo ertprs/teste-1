@@ -1,0 +1,39 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="dadosBanco.length === 0">Adicionar Banco</ion-title>
+    <ion-title *ngIf="dadosBanco.length > 0">Atualizar Banco</ion-title>
+     
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+
+  <ion-item class="boxionitem">
+    <ion-icon name="wallet-outline" slot="start"></ion-icon>
+    <ion-label color="success" stacked >Banco</ion-label>
+    <ion-select  okText="Selecionar" cancelText="Cancelar" [(ngModel)]="dadosBanco.codBanco" >
+      <ion-select-option *ngFor="let item of bancos" value="{{item.cod}}">{{item.cod}}-{{item.nome}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item class="boxionitem">
+    <ion-label color="success" stacked >Conta</ion-label>
+    <ion-input type="text" [(ngModel)]="dadosBanco.conta"></ion-input>
+  </ion-item>
+  
+  <ion-item class="boxionitem">
+    <ion-label color="success" stacked >Dígito</ion-label>
+    <ion-input type="text" [(ngModel)]="dadosBanco.contaDigito"></ion-input>
+  </ion-item>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" color='success' (click)='submitForm()'  *ngIf="!bancoUid || bancoUid.length === 0">Incluir</ion-button>
+    <ion-button expand="block" color='secondary' (click)='atualizar()' *ngIf="bancoUid?.length > 0">Atualizar</ion-button>
+  </ion-toolbar>
+</ion-footer>

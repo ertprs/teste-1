@@ -1,0 +1,19 @@
+<ion-list>
+
+  <ion-item lines="none"   style="cursor: pointer;" mode="md" *ngIf="dadosMensagem.es == 'e' && dadosMensagem.processoIa == false"  (click)="modalCreate()">
+    <ion-icon name="arrow-undo-outline" slot="start"></ion-icon>
+    <ion-label>
+      Responder
+    </ion-label>
+  </ion-item>
+
+  <ion-item lines="none" (click)="activeForward('encaminhar')" style="cursor: pointer;">
+    <ion-icon slot='start' name="arrow-redo-outline"></ion-icon>
+    <ion-label>
+      Encaminhar
+    </ion-label>
+  </ion-item>
+
+</ion-list>
+
+ 

@@ -1,0 +1,45 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Configurações Gerais</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('compConfiguracoesHome',{})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="success" (click)="gravar()">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  <ion-list class="ionitem">
+    <ion-item>
+      <ion-label class="toggle">Inatividade</ion-label>
+     
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked>Tempo (minutos)</ion-label>
+            <ion-input type="text" [disabled]="timeoutActive" [(ngModel)]="dadosGerais.timeout" [brmasker]="{mask:'0000', len:4, type:'num'}"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-text>
+          <p style="font-size: small;">
+            Configure o tempo máximo de inatividade na tela. Quando for detectado inatividade na tela pelo tempo que você configurou a Lara irá fazer o logout automático do usuario.
+          </p>
+        </ion-text>
+
+      </ion-row>
+     
+    </ion-grid>
+  </ion-list>
+</ion-content>

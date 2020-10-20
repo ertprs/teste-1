@@ -1,0 +1,92 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title class="titulo">Lista de Transmissão</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('chatContatoHome',{})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab class="float-fab-right" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="success" [disabled]="dadosTransmissao.nome == '' || dadosTransmissao.nome == undefined" (click)="transmissaoAdd()">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+<ion-content class="default-content">
+
+  <ion-toolbar mode='ios'>
+    <ion-item class="ionitem" style="margin-top: 20px; display: grid;">
+      <ion-label color="primary" stacked >Nome</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosTransmissao.nome"></ion-input>
+    </ion-item>
+  </ion-toolbar>
+
+  <ion-item class="ionitem" style="margin-top: 20px; display: grid;padding-top: 10px;">
+    
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-searchbar mode="ios" animated placeholder="Pesquisar" (ionCancel)='searchClear($event)' (keyup)="contatoSearch($event)"></ion-searchbar>
+            <!-- <ion-button color="secondary" expand="block" (click)="functionExecute('modalFiltrosPesquisaTransmissao', {})"><ion-icon name="funnel-outline"></ion-icon></ion-button> -->
+            <ion-button color="secondary" expand="block" (click)="listaTransmissaoFiltros()"><ion-icon name="funnel-outline"></ion-icon></ion-button>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+      <ion-row *ngIf="contatosSelecionados && transmissaoId">
+        <ion-col>
+          <ion-chip color="secondary" (click)="filterList('todos', '')">
+            Exibir Todos
+          </ion-chip>
+          <ion-chip color="secondary" >
+            <ion-checkbox mode='ios' [(ngModel)]="fastFiltro" (ionChange)="fastFiltre($event)"> </ion-checkbox>
+            Participantes
+          </ion-chip>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          
+          <ion-list class="contatos-list">
+            <ion-item-sliding #i *ngFor="let item of filtered; let i = id"  style="padding: 0 !important;">
+                
+                <ion-chip *ngIf="item.canal != 'lista'" slot="start" outline="true" color="light" style="height: 50px;width: 80px; cursor: pointer;" >
+                  <ion-checkbox mode='ios' [(ngModel)]="item.selecionado" (ionChange)="contactsToForward($event,item)"></ion-checkbox>
+                  <ion-icon name="person-circle-outline" [ngStyle]="{'position':'absolute','padding-left':'25px',  'font-size':'40px','color': item.photo  }" ></ion-icon>
+                  <ion-badge class="badgeorigem"><img src="../../../../assets/img/{{ item.canal}}.svg" /></ion-badge>
+                  <ion-badge class="badgefavorito" *ngIf="item.favorito == 1 "><img src="../../../assets/img/star.svg" /></ion-badge>
+                
+                </ion-chip>
+                <ion-label style='font-size: small;' style="position:absolute;padding-left:85px">
+                  
+                  <p style="cursor: pointer;"><strong>{{ item.nome | titlecase }}</strong></p>
+                  <p><ion-icon name="business-outline"></ion-icon>&nbsp;{{ item.nomeClienteVinculado | titlecase }}</p>
+                </ion-label>
+              
+            </ion-item-sliding>
+          </ion-list>
+        
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    
+
+    
+   
+    
+  </ion-item>
+
+  
+
+
+
+  <ion-button *ngIf="transmissaoId" expand="block" color="danger" style="margin-left: 6%; margin-right: 6%;" (click)="transmissaoDelete()">Excluir</ion-button>
+</ion-content>

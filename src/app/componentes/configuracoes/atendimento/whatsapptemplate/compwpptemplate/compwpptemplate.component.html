@@ -1,0 +1,63 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <!-- <ion-icon name="arrow-back-outline" slot="start" class='btnVoltar' (click)="functionExecute('btnBack',{componente:'home'})" style="cursor: pointer;"></ion-icon> -->
+    <ion-title class="titulo">Modelo de mensagens para WhatsApp API</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('compatendimentodetalhe',{});">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+<ion-content class="default-content">
+
+
+  <ion-item class="ionitem">
+    <ion-text style="text-align: justify;font-size: small;">
+      <p><strong>Atenção</strong></p>
+      <p> A criação de templates/modelos de mensagens é utiliizada para envios ativos, ou seja, chamar um contato que não tenha chamado você nas ultimas 24 horas.</p>
+      <p>Todos os modelos que você cadastrar precisaram ser aprovados pelo <strong>Facebook WhatsApp</strong>. Esta aprovação normalmente ocorre entre 2 e 4 dias uteis para acontecer, porem não existe um prazo oficial por parte do Facebook WhatsApp </p>
+      <p><strong>Dica</strong></p>
+      <p>Tente ser o mais especifico possivél, evite mensagens genéricas, em hipótese alguma faça uma mensagem que envolva conteúde que possa ser considerado SPAM (Comercial e/ou Financeiro)</p>
+      <p>Lembre-se que são modelos de mensagens que poderam ser utilizados em grande escala então será necesssário criar caracteres "coringas" na formulação da mensagens, solicite ajuda do nosso suporte para entender melhor esta parte.</p>
+      <p>De prefêrencia para templates que contenham apenas textos, elas costumam ser aprovadas mais facilmente e rapidamente. Modelos que contenham aexo exigem além da aprovação um prazo de testes que irá limitar o número de disparos.</p>
+    </ion-text>
+    
+  </ion-item>
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Digite aqui o modelo de sua mensagem. </ion-label>
+    <ion-textarea rows="4" [(ngModel)]="dadosTemplate.texto"></ion-textarea>
+    
+  </ion-item>
+  <ion-button expand="block" color="success" (click)="adicionar()">Incluir modelo</ion-button>
+  
+
+ <ion-list *ngFor="let item of items" style="padding: 0px;"> 
+  <ion-item-sliding style="padding: 0px;">
+   <ion-item lines='none' style="cursor: pointer;">
+     <ion-label slot="start">
+       <p>Código: {{  item.createAt }}</p>
+
+     </ion-label>
+     <ion-label slot="end">
+      <p>{{ item.createAt | date:"dd/MM/yyyy HH:mm" }}</p>
+    </ion-label>
+    <ion-text>
+      <p><strong>Template</strong></p>
+      <p style="text-align: justify;">{{ item.texto }}</p>
+      
+    </ion-text>
+   </ion-item>
+   
+    <ion-item-options side="end">
+      <ion-item-option (click)="delete(item)" color="danger" >Delete</ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+
+
+ </ion-list>
+
+</ion-content>

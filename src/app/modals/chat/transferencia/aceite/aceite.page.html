@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Aceitar Transferência</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+      <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  <ion-text color="dark" style="text-align: center;">
+    <p>
+      Olá <strong>{{currentUser.nome}}</strong>
+    </p>
+    <p>
+      {{dadosNotificacao.motivo}}
+    </p>
+  </ion-text>
+  <ion-list *ngIf="rejeicao === true">
+    <ion-item lines='none' >
+        
+      <ion-textarea rows="5" maxRows="5" placeholder="Digite um motivo..." style="padding: 10px; resize: none; white-space: pre-wrap;border:0;" [(ngModel)]="motivoRejeicao"></ion-textarea>
+
+    </ion-item>
+    
+  </ion-list>
+
+  
+
+</ion-content>
+<ion-footer>
+  
+  <ion-toolbar>
+
+    <ion-list *ngIf="rejeicao === true">
+      <ion-button [disabled]="motivoRejeicao == ''"  (click)="confirmRejeiteTransferencia()" color="success" expand="block">
+        Rejeitar Transferência
+      </ion-button>
+      <ion-button (click)="rejeitarTransferencia(false)" color="primary" expand="block">
+        Voltar
+      </ion-button>
+    </ion-list>
+
+    <ion-list *ngIf="rejeicao === false">
+      <ion-button (click)="confirmAceiteTransferencia()" color="success" expand="block">
+        Aceitar Transferência
+      </ion-button>
+      <ion-button (click)="rejeitarTransferencia(true)" color="danger" expand="block">
+        Rejeitar
+      </ion-button>
+    </ion-list>
+  </ion-toolbar>
+</ion-footer>

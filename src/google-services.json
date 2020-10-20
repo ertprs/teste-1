@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "274470688564",
+    "firebase_url": "https://lara2-3b332.firebaseio.com",
+    "project_id": "lara2-3b332",
+    "storage_bucket": "lara2-3b332.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274470688564:android:c018d0c4e511b9835d7761",
+        "android_client_info": {
+          "package_name": "com.larasocial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "274470688564-khavhsjraljmvaqklhl2jvqfcib0otuh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDndvLAWuMVGoKjJUfeMHh9412jpooQnlg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "274470688564-khavhsjraljmvaqklhl2jvqfcib0otuh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

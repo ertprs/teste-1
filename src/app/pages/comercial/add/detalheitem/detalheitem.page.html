@@ -1,0 +1,43 @@
+
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalhe do item</ion-title>
+     
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-icon name="gift-outline" slot="start"></ion-icon>
+    <ion-input type="text" placeholder='Produto' [(ngModel)]="dadosItem.produtoDescricao" disabled style="font-size: small;"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="calculator-outline" slot="start"></ion-icon>
+    <ion-input type="number"   style="text-align: right;" [(ngModel)]="dadosItem.qtd" (keyup)="calculando()"  ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="cash-outline" slot="start"></ion-icon>
+    <ion-input type="number" style="text-align: right;" [(ngModel)]="dadosItem.vrUnitario" (keyup)="calculando()"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="cash-outline" slot="start"></ion-icon>
+    <ion-input type="number"  disabled style="text-align: right;" [(ngModel)]="dadosItem.vrTotal" (keyup)="calculando()"></ion-input>
+  </ion-item>
+
+</ion-content>
+
+<ion-footer mode='ios'>
+ 
+  <ion-toolbar>
+    <ion-button expand="block" color='success' (click)="atualizar()" >Gravar</ion-button>
+    
+  </ion-toolbar>
+</ion-footer>
+

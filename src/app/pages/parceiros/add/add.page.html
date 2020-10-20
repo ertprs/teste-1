@@ -1,0 +1,134 @@
+  
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Parceiro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="fGroup">
+    <ion-item>
+      <ion-icon name="document-text-outline" slot="start"></ion-icon>
+      <ion-input type="text" placeholder='CPF/CNPJ' formControlName="documento"></ion-input>
+      <div *ngIf="fGroup.controls.documento.errors" style="position: absolute;bottom: 2px;width: 100%; display: block;">
+        <p *ngIf="fGroup.controls.documento.errors.required" class="validerror" style="font-size: 8px; color: red;">&nbsp;Obrigatório</p>
+      </div>
+    </ion-item>
+    
+    <ion-item>
+      <ion-icon name="business-outline" slot="start"></ion-icon>
+      <ion-input type="text" placeholder='Apelido' formControlName="apelido" ></ion-input>
+      <div *ngIf="fGroup.controls.apelido.errors" style="position: absolute;bottom: 2px;width: 100%; display: block;">
+        <p class="validerror" style="font-size: 8px; color: red;" *ngIf="fGroup.controls.apelido.errors.required" >&nbsp;Obrigatório</p>
+      </div>
+    </ion-item>
+  
+    <ion-item>
+      <ion-icon name="person-outline" slot="start"></ion-icon>
+      <ion-input type="text" placeholder='Nome' formControlName="nome"></ion-input>
+      <div *ngIf="fGroup.controls.nome.errors" style="position: absolute;bottom: 2px;width: 100%; display: block;">
+        <p class="validerror" style="font-size: 8px; color: red;" *ngIf="fGroup.controls.nome.errors.required" >&nbsp;Obrigatório</p>
+      </div>
+    </ion-item>
+  
+    <ion-item>
+      <ion-icon name="receipt-outline" slot="start"></ion-icon>
+      <ion-input type="text" placeholder='Inscrição Estadual' formControlName="ie"></ion-input>
+      <div *ngIf="fGroup.controls.ie.errors" style="position: absolute;bottom: 2px;width: 100%; display: block;">
+        <p class="validerror" style="font-size: 8px; color: red;" *ngIf="fGroup.controls.ie.errors.required" >&nbsp;Obrigatório</p>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="receipt-outline" slot="start"></ion-icon>
+      <ion-input type="text" placeholder='Inscrição Municipal' formControlName="im"></ion-input>
+      <div *ngIf="fGroup.controls.im.errors" style="position: absolute;bottom: 2px;width: 100%; display: block;">
+        <p class="validerror" style="font-size: 8px; color: red;" *ngIf="fGroup.controls.im.errors.required" >&nbsp;Obrigatório</p>
+      </div>
+    </ion-item>
+
+    <ion-item lines='none' style="display: flex; align-items: center;">
+      <ion-icon name="business-outline" slot="start"></ion-icon>
+      <ion-label class="label-divider" color="primary" stacked >Endereço</ion-label>
+    </ion-item>
+
+    <ion-grid class="endereco-form">
+      <ion-row>
+        <ion-col >
+          <ion-select  value="Rua" okText="Selecionar" cancelText="Cancelar" placeholder='Rua' [(ngModel)]="dadosParceiro.logradouro" [ngModelOptions]="{standalone: true}">
+            <ion-select-option value="Rua">Rua</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col size="9">
+          <ion-item>
+            <ion-input type="text" placeholder='Logradouro' formControlName="logradouro"></ion-input>
+          </ion-item>
+        </ion-col>
+        
+      </ion-row>
+      <ion-row>
+        <ion-col >
+          <ion-item>
+            <ion-input type="text" placeholder='Número' formControlName="numero"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-input type="text" placeholder='Bairro' formControlName="bairro"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col >
+          <ion-item>
+            <ion-input type="text" placeholder='CEP' formControlName="cep"></ion-input>
+          </ion-item>
+        </ion-col>
+        
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-input type="text" placeholder='Complemento' formControlName="complemento"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input type="text" placeholder='UF' formControlName="estado"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-input type="text" placeholder='Cidade' formControlName="cidadeNome"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-item lines='none' style="display: flex; align-items: center;">
+      <ion-icon name="clipboard-outline" slot="start"></ion-icon>
+      <ion-label class="label-divider" color="primary" stacked >Notas</ion-label>
+    </ion-item>
+
+    <!-- <ion-item lines='none'>
+      <ion-label color="primary" stacked >Notas</ion-label>
+    </ion-item> -->
+  
+    <ion-item >
+      <ion-textarea placeholder="Notas sobre o cliente" rows="6" [(ngModel)]="dadosParceiro.notas" [ngModelOptions]="{standalone: true}"></ion-textarea>
+    </ion-item>
+  </form>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button *ngIf="!toUpdate" expand="block" color='success' (click)='add()' [disabled]="!fGroup.valid">Adicionar</ion-button>
+    <ion-button *ngIf="toUpdate" expand="block" color='success' (click)='update()' [disabled]="!fGroup.valid">Atualizar</ion-button>
+  </ion-toolbar>
+</ion-footer>

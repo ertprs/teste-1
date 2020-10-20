@@ -1,0 +1,106 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Contato</ion-title>
+    <ion-buttons slot="primary" (click)="closeModal()">
+      <ion-button>
+       
+        <ion-icon slot="end"  name="close-circle-outline"></ion-icon>
+        
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <form [formGroup]="fGroup">
+  
+  
+    <ion-item>
+      <ion-icon name="chevron-forward-outline" slot="start"></ion-icon>
+      <ion-select disabled="true" formControlName="canal" okText="Confirmar" cancelText="Cancelar" (ionChange)="setMask()">
+        <ion-select-option value="0" disabled>SELECIONAR OPÇÃO</ion-select-option>
+        <ion-select-option value="email">E-mail</ion-select-option>
+        <ion-select-option value="whatsapp">WhatsApp</ion-select-option>
+        <ion-select-option value="telfixo">Tel. fixo</ion-select-option>
+        <ion-select-option value="telegram">Telegram</ion-select-option>
+        <ion-select-option value="facebook">Facebook</ion-select-option>
+        <ion-select-option value="whatsappdirect">WhatsApp API</ion-select-option>
+      </ion-select>
+      <div *ngIf="fGroup.controls.nome.errors" style="position: absolute;bottom: 2px;width: 100%;
+      display: block;">
+        <p class="validerror" style="font-size: 8px; color: red;" *ngIf="fGroup.controls.nome.errors.required" >&nbsp;Obrigatório</p>
+      
+      </div>
+    </ion-item>
+  
+    <ion-item>
+      <ion-icon name="person-outline" slot="start"></ion-icon>
+      <ion-input type="text" placeholder='Nome' disabled="true" formControlName="nome" ></ion-input>
+      <div *ngIf="fGroup.controls.nome.errors" style="position: absolute;bottom: 2px;width: 100%;
+      display: block;">
+        <p class="validerror" style="font-size: 8px; color: red;" *ngIf="fGroup.controls.nome.errors.required" >&nbsp;Obrigatório</p>
+        <p class="validerror" style="font-size: 8px; color: red;" *ngIf="fGroup.controls.nome.errors.minlength" >&nbsp;Min. 3 caractéres</p>
+      </div>
+
+    </ion-item>
+
+    
+    <ion-item>
+      <ion-icon name="{{iconOrigem}}" slot="start"></ion-icon>
+      <ion-input type="text" placeholder='{{placeholderOrigem}}' disabled="true" formControlName="origem" [mask]="actualMask"></ion-input>
+      <div *ngIf="fGroup.controls.origem.errors" style="position: absolute;bottom: 2px;width: 100%;
+      display: block;">
+        <p class="validerror" style="font-size: 8px; color: red;" *ngIf="fGroup.controls.nome.errors.required" >&nbsp;Obrigatório</p>
+        <p class="validerror" style="font-size: 8px; color: red;" *ngIf="fGroup.controls.nome.errors.email && dadosContato.canal == 'email'" >&nbsp;Email inválido</p>
+
+      </div>
+      
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="business-outline" slot="start"></ion-icon>
+      <ion-input type="text"  placeholder='Cliente' disabled [(ngModel)]="dadosContato.nomeClienteVinculado" [ngModelOptions]="{ standalone:true }"></ion-input>
+     
+      <p class="validerror" style="font-size: 8px; color: red;">&nbsp;</p>
+      
+    </ion-item>
+
+    <ion-item mode="ios" class="nolines" lines='none'>
+      <ion-checkbox slot="start" mode="ios" disabled="true" [(ngModel)]="dadosContato.favorito" [ngModelOptions]="{ standalone:true }" (click)="checkFavorito($event)"></ion-checkbox>
+      <ion-label>
+        <p><strong>Favorito</strong></p>
+        <p color='medium' style="word-wrap: break-word; ">Dê preferência de atendimento aos seus clientes VIPs</p>
+      </ion-label> 
+    </ion-item>
+
+    <ion-item mode="ios" class="nolines" lines='none'>
+      <ion-checkbox slot="start" mode="ios" disabled="true" [(ngModel)]="dadosContato.livechat" [ngModelOptions]="{ standalone:true }" (click)="liveChatFavorito($event)"></ion-checkbox>
+      <ion-label>
+        <p><strong>LiveChat</strong></p>
+        <p color='medium'>Conversas diretas e sem interação do BOT</p>
+      </ion-label>
+    </ion-item>
+    
+    <ion-item lines='none'>
+      <ion-label color="primary" stacked >Anotações</ion-label>
+      <ion-textarea placeholder="Notas sobre o cliente" rows="6" disabled="true" formControlName="notas" ></ion-textarea>
+    </ion-item>
+
+  </form>
+  
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <!-- <ion-button expand="block" color='success' (click)='submitForm()'  *ngIf="!this.contatoUid" [disabled]="!fGroup.valid">Salvar</ion-button>
+    <ion-button expand="block" color='secondary' (click)='submitForm()'  *ngIf="this.contatoUid" [disabled]="!fGroup.valid">Atualizar</ion-button>
+    <ion-button expand="block" color='danger' (click)='delete()' *ngIf="this.contatoUid">Excluir</ion-button> -->
+    <ion-button expand="block" color='secondary' (click)="editarContato()">Editar Contato</ion-button>
+  </ion-toolbar>
+</ion-footer>

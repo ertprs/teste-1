@@ -1,0 +1,29 @@
+export interface Itusernotificacao {
+    createAt?:number;
+    titulo?:string;
+    anotacoes?:string;
+    tipo?:string;
+    acao_cod?:number;
+    acao_nome?:string;
+    acao_robo_cod?:number;
+    acao_robo_nome?:string;
+    situacao?:number;
+    show_alert?:boolean; 
+    alert_visualizado?:boolean;
+    Destusuario_uid?:string;
+    Destusuario_nome?:string; 
+    Remusuario_uid?:string; 
+    Remusuario_nome?:string; 
+    empresa_uid?:string;
+    empresa_nome?:string;
+    dataAlerta?:number;
+    dataAlerta_dia?:number;
+    dataAlerta_mes?:number;
+    dataAlerta_ano?:number;
+    dataAlerta_hora?:number;
+    dataAlerta_minuto?:number;
+    alertInWPP?:boolean; 
+    alertInEmail?:boolean; 
+    alertInPlataforma?:boolean;
+
+}

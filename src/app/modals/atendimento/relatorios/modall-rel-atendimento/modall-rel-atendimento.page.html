@@ -1,0 +1,23 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Relatórios</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-text>
+      <p style="font-size:x-small;text-align: center;">Selecione o relatório abaixo</p>
+    </ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<ion-content style="margin-top: 30px;;">
+    <ion-list *ngFor="let item of relatorios" lines='full' >
+      <ion-item style="cursor: pointer;" (click)="selecionar(item.acao)"> 
+        <ion-label>{{ item.nome | titlecase }}</ion-label>
+      </ion-item>
+    </ion-list>
+</ion-content>

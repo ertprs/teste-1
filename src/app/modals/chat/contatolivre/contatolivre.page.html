@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>contatolivre</ion-title>
+    <ion-buttons slot="primary" (click)="closeModal()">
+      <ion-button>
+       
+        <ion-icon slot="end"  name="close-circle-outline"></ion-icon>
+        
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-text color="dark" style="text-align: center;">
+    <p>
+      Olá <strong>{{currentUser.nome}}</strong>
+    </p>
+    <p>
+      {{dadosNotificacao.mensagem}}
+    </p>
+  </ion-text>
+
+</ion-content>
+
+<ion-footer>
+  
+  <ion-toolbar>
+
+    <ion-list>
+      <ion-button (click)="confirmContatoLivre()" color="success" expand="block">
+        Sim
+      </ion-button>
+      <ion-button (click)="closeModal()" color="danger" expand="block">
+        Não
+      </ion-button>
+    </ion-list>
+    
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,56 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cond. Pagamento {{dadosCond.length}}</ion-title>
+     
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+  <ion-item class="boxionitem">
+    <ion-icon name="caret-forward-outline" slot="start"></ion-icon>
+    <ion-label color="success" stacked >Nome</ion-label>
+    <ion-input type="text" [(ngModel)]="dadosCond.nome"></ion-input>
+   
+    
+    
+  </ion-item>
+
+  <ion-item class="boxionitem">
+    <ion-icon name="keypad-outline" slot="start"></ion-icon>
+    <ion-label color="success" stacked >Qtd. Parcelas</ion-label>
+    <ion-input type="number" placeholder=''[(ngModel)]="dadosCond.qtdParcelas" ></ion-input>
+   
+    
+    
+  </ion-item>
+  <ion-item class="boxionitem"> 
+    <ion-icon name="wallet-outline" slot="start"></ion-icon>
+    <ion-label color="success" stacked >Vr. min. parcela</ion-label>
+    <ion-input type="number" placeholder='' [(ngModel)]="dadosCond.vrMinmoParcela" ></ion-input>
+   
+    
+    
+  </ion-item>
+  <ion-item class="boxionitem">
+     
+    <ion-icon name="barcode-outline" slot="start"></ion-icon>
+    <ion-label color="success" stacked >Forma de pagamento</ion-label>
+    <ion-select  okText="Selecionar" cancelText="Cancelar" [(ngModel)]="dadosCond.meioPagamento" >
+      <ion-select-option  >Boleto e C. Crédito</ion-select-option>
+      <ion-select-option  >Apenas C. Crédito</ion-select-option>
+      <ion-select-option  >Apenas Boleto</ion-select-option>
+   
+    </ion-select>
+    
+  </ion-item>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" color='success' (click)='submitForm()'  *ngIf="!condUid || condUid.length === 0">Incluir</ion-button>
+    <ion-button expand="block" color='secondary' (click)='atualizar()' *ngIf="condUid?.length > 0">Atualizar</ion-button>
+  </ion-toolbar>
+</ion-footer>

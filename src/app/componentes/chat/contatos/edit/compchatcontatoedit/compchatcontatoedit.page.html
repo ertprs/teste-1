@@ -1,0 +1,111 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title class="titulo">Contato</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="functionExecute('chatContatoHome',{})" color="secondary" >
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+
+<ion-fab class="float-fab-right" horizontal="end" vertical="top" slot="fixed" #fab >
+  <ion-fab-button color="success" (click)="gravar()" [disabled]="dadosContato.nome == '' || dadosContato.origem_wpp == '' ">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+ 
+</ion-fab>
+
+
+<ion-content>
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item  class="ionitem">
+          <ion-label >Nome</ion-label>
+          <ion-input type="text" [(ngModel)]="dadosContato.nome"></ion-input>
+         
+        </ion-item>
+      
+        <ion-item  class="ionitem">
+          <ion-label >Cargo</ion-label>
+          <ion-input type="text" [(ngModel)]="dadosContato.cargo"></ion-input>
+          
+        </ion-item>  
+        <ion-item  class="ionitem">
+          <ion-label >E-mail</ion-label>
+          <ion-input type="text" [(ngModel)]="dadosContato.origem_email" ></ion-input>
+         
+        </ion-item>
+
+        <ion-item  class="ionitem">
+          <ion-label >N. celular 1</ion-label>
+          <ion-input type="text" [(ngModel)]="dadosContato.origem_wpp" ></ion-input>
+         
+        </ion-item>
+        <ion-item  class="ionitem"  >
+          <ion-label >N. celular 2</ion-label>
+          <ion-input type="text" [(ngModel)]="dadosContato.origem_1" ></ion-input>
+         
+        </ion-item>
+        
+        <ion-item  class="ionitem">
+          <ion-label >Telegram ID</ion-label>
+          <ion-input type="text" [(ngModel)]="dadosContato.origem_telegram" readonly ></ion-input>
+         
+        </ion-item>
+        <ion-item  class="ionitem">
+          <ion-label >Facebook ID</ion-label>
+          <ion-input type="text" [(ngModel)]="dadosContato.origem_facebook" readonly ></ion-input>
+         
+        </ion-item>
+
+
+        <ion-item  class="ionitem">
+          <ion-label >Grupo</ion-label>
+          <ion-input type="text" [(ngModel)]="dadosContato.grupo" readonly ></ion-input>
+          <ion-button slot="end" color="secondary" (click)="abrirConsultaGrupo('grupo')">
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <ion-item  class="ionitem">
+          <ion-label >Sub Grupo</ion-label>
+          <ion-input type="text" [(ngModel)]="dadosContato.subGrupo" readonly ></ion-input>
+          <ion-button slot="end" color="secondary" (click)="abrirConsultaGrupo('subgrupo')">
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+
+
+
+        <ion-item class="ionitem">
+          <ion-label color="primary" stacked >Notas</ion-label>
+          <ion-textarea rows="6" [(ngModel)]="dadosContato.notas" ></ion-textarea>
+        </ion-item>
+        <ion-item  class="ionitem">
+          <ion-label >Parceiro</ion-label>
+          <ion-input type="text" readonly  [(ngModel)]="dadosContato.parceiroNome"></ion-input>
+          <ion-button slot="end" color="secondary" (click)="AbrirConsultaParceiros()">
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <ion-item  class="ionitem">
+          <ion-label >Usuário vinculado</ion-label>
+          <ion-input type="text" readonly [(ngModel)]="dadosContato.usuarioNome"></ion-input>
+         
+        </ion-item>
+
+
+
+      </ion-col>
+    </ion-row>
+   
+  </ion-grid>
+  <ion-toolbar mode="ios">
+    <ion-button expand="full" *ngIf="contatoUid" (click)="delete(dadosContato.uid)" color="danger" [disabled]="!libDelete"><ion-icon name="trash-outline" slot="start"></ion-icon>Deletar</ion-button>
+  </ion-toolbar>
+</ion-content>

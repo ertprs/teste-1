@@ -1,0 +1,162 @@
+<ion-header mode='ios' >
+  <ion-toolbar>
+    <ion-title class="titulo">Casos - Relatórios</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('btnBack',{componente:'home'})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+<ion-content>
+  
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+         
+        <ion-item lines= 'none' style="font-size: small;">
+          <ion-item style="width: 40vw;" class="ionitem" (click)="abrirModalFiltroData()" >
+            <ion-label >Data</ion-label>
+            <ion-input placeholder="dd/MM/yyyy" readonly style="font-size: small;" [(ngModel)]="filtroSelect.dataIniString"></ion-input>&nbsp;<span style="font-size: x-small;">até</span>&nbsp;
+            <ion-input placeholder="dd/MM/yyyy" readonly style="font-size: small;" [(ngModel)]="filtroSelect.dataFimString"></ion-input>&nbsp;
+            <ion-icon name="calendar-outline" class="ion-icon"  color='secondary' style="cursor:pointer;" slot="end"></ion-icon>
+          </ion-item>
+          <ion-item style="width: 15vw;" class="ionitem">
+            <ion-label >Departamento</ion-label>
+            <ion-select (ionChange)="carregarTipos()" okText="Selecionar" [(ngModel)]="filtroSelect.departamentoUid" cancelText="Cancelar" mode='ios'  style="font-size: small;">
+             
+              <ion-select-option *ngFor="let item of departamentos"value="{{item.id}}">{{ item.nome | titlecase }}</ion-select-option>
+              
+             
+            </ion-select>
+          </ion-item>
+          <ion-item style="width: 15vw;" class="ionitem" style="display: none;">
+            <ion-label >Tipo</ion-label>
+            <ion-select okText="Selecionar" cancelText="Cancelar" mode='ios' [(ngModel)]="filtroSelect.tipoUid"  style="font-size: small;">
+              <ion-select-option value="0">Todos</ion-select-option>
+              <ion-select-option *ngFor="let item of tipos"value="{{item.id}}">{{ item.nome | titlecase }}</ion-select-option>
+              
+             
+            </ion-select>
+          </ion-item>
+
+          <ion-item style="width: 20vw;" class="ionitem" (click)="abrirModalFiltroUser('relatorios')">
+            <ion-label >Operador</ion-label>
+            <ion-input placeholder="Todos" readonly style="font-size: small;" [(ngModel)]="filtroSelect.operador"></ion-input>&nbsp;
+   
+            <ion-icon name="person-outline" class="ion-icon" color='secondary' style="cursor:pointer;margin-right: 10px;" *ngIf="filtroSelect.operador == null"></ion-icon>
+            <ion-icon name="close-circle-outline" color='danger'style="cursor:pointer;margin-right: 10px;" *ngIf="filtroSelect.operador != null" (click)="limparUser()"></ion-icon>
+          </ion-item>
+          
+          
+          
+          <ion-button color="secondary" (click)="gerarRelatorio()"><ion-icon name="funnel-outline"></ion-icon></ion-button>
+
+
+
+          
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="relatorioItems.length> 0">
+    <!-- CABECALHO DO RESULTADO -->
+    <ion-row>
+      <ion-col style="text-align: center" color='success'>
+        <ion-card color='secondary' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Total</ion-card-subtitle>
+            <ion-card-title>
+              <p>{{ dashTotal }}</p>
+            
+
+            </ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col style="text-align: center ">
+        <ion-card color='warning' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Sem resposta</ion-card-subtitle>
+            <ion-card-title>
+                <p >{{ dashSemResposta }}</p>
+              
+                
+
+            </ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col style="text-align: center; ">
+        <ion-card color='secondary' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Em andamento</ion-card-subtitle>
+            <ion-card-title>
+              <p >{{ dashEmAndamento }}</p>
+             
+              
+            </ion-card-title>
+        
+          </ion-card-header>
+        
+          <ion-card-content>
+            
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col style="text-align: center; ">
+        <ion-card color='success' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Finalizados</ion-card-subtitle>
+            <ion-card-title>
+              <p >{{ dashFinalizados }}</p>
+             
+              
+            </ion-card-title>
+        
+          </ion-card-header>
+        
+          <ion-card-content>
+            
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      
+    </ion-row>
+    <!-- LISTA DE RESULTADOS -->
+    <ion-row style="font-size:small">
+      <ion-col class="ion-col-grid"><strong>Data</strong></ion-col>
+      <ion-col class="ion-col-grid"><strong>Número</strong></ion-col>
+      <ion-col class="ion-col-grid"><strong>Departamento</strong></ion-col>
+      <ion-col class="ion-col-grid"><strong>Tipo</strong></ion-col>
+      <ion-col class="ion-col-grid"><strong>Operador</strong></ion-col>
+      <ion-col class="ion-col-grid"><strong>Situação</strong></ion-col>
+      
+    </ion-row>
+    <ion-row *ngFor="let item of relatorioItems">
+      <ion-col class="ion-col-grid">{{ item.createAt | date:"dd-MM-yyyy HH:mm"}}</ion-col>
+      <ion-col class="ion-col-grid" style="text-align: left;">{{ item.numero }}</ion-col>
+      <ion-col class="ion-col-grid">{{ item.departamentoNome | titlecase }}</ion-col>
+      <ion-col class="ion-col-grid">{{ item.tipoNome || titlecase }}</ion-col>
+      <ion-col class="ion-col-grid">{{ item.usuarioNome | titlecase }}</ion-col>
+      <ion-col class="ion-col-grid">{{ item.situacaoNome | titlecase }}</ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

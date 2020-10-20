@@ -1,0 +1,78 @@
+.ionitem{
+    border:1px solid #92949c;
+    margin: 1px;
+    border-radius: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+    cursor: pointer;
+    ion-label{
+        color: #92949c;
+        position: absolute;
+        margin-top: 2px;
+        left: 2px;
+        top:0;
+        margin-bottom: 3px;
+        font-size: small;
+        width: 100% !important;
+    }
+    ion-select{
+        width: 100% !important;
+        --padding-end:1px;
+        --padding-start:1px;
+        max-width: 100%;
+        min-width:100%;
+    }
+    p{
+        width: 100%;
+        display: block;
+        word-wrap: break-word; 
+    }
+    ion-textarea{
+        padding-top: 10px !important;
+    }
+    
+    @media only screen and (max-width: 600px) {
+        
+            border:0.02em solid #92949c;
+        
+            
+    }
+}
+
+.myCustomSelect{
+    max-width: 100% !important;
+  }
+
+
+  .alert-tappable.alert-radio {
+    height: auto;
+    contain: content;
+}
+
+.alert-radio-label.sc-ion-alert-md,
+.alert-radio-label.sc-ion-alert-ios {
+    white-space: normal;
+}
+
+
+
+.alert-wrapper .sc-ion-alert-md,
+.alert-wrapper .sc-ion-alert-ios
+{width: 500px;min-width: 500px !important;max-width: 500px !important;
+}
+
+.select-full-width {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+  }
+
+
+
+  .alert-wrapper {
+    min-width: 400px;//what ever you like
+ }
+ 
+ .alert-radio-label {
+    white-space: normal!important;
+ }

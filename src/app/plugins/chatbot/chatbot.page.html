@@ -1,0 +1,97 @@
+<ion-header mode='ios'>
+  <ion-toolbar mode='ios'>
+    <ion-title>Lara Assistente Digital</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Identificacao do contato  -->
+<ion-content *ngIf="!conversaIniciada"  >
+
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-item class="ionitem">
+        <ion-label color="primary" stacked >Qual nome quer ser chamado?</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosIdentificacao.nome" ></ion-input>
+       
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item class="ionitem">
+        <ion-label color="primary" stacked >Qual o seu número de telefone</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosIdentificacao.telefone"></ion-input>
+       
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item class="ionitem">
+        <ion-label color="primary" stacked >Qual seu e-mail?</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosIdentificacao.email" ></ion-input>
+       
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row> 
+    <ion-col size="1" style="text-align: right;">
+      <ion-checkbox [(ngModel)]="dadosIdentificacao.isCheckedWpp" [disabled]="dadosIdentificacao.telefone === '' " style="--size:15px"></ion-checkbox>
+    </ion-col>
+    <ion-col style="font-size: small;text-align: left;">
+      Eu autorizo receber notificações através do WhatsApp
+    </ion-col>
+  </ion-row>
+
+</ion-grid>
+  
+
+
+</ion-content>
+
+
+<!-- Conversa já ativas  -->
+<ion-content *ngIf="conversaIniciada" >
+
+  <ion-grid>
+    <ion-row *ngFor="let item of mensagensList">
+      <ion-col class="mensagem_{{item.er}}">
+        
+        <p *ngIf="item.tipo == 'texto' ">
+          {{ item.mensagem}} 
+        </p>
+        <p class="enviadoPor_{{ item.er}}">
+          <strong>{{ item.por | titlecase }} </strong>&nbsp;  {{ item.createAt | date:'dd/MM/yy HH:mm:ss' }}
+        </p>
+      </ion-col>
+    </ion-row>
+
+    
+
+  </ion-grid>
+    
+  
+  
+  </ion-content>
+
+<ion-footer>
+  <ion-toolbar style="padding: 5px;" mode='ios' *ngIf="!conversaIniciada">
+    <ion-label >
+      <ion-button expand="full" color="secondary" (click)="contatoIdent()" [disabled]="dadosIdentificacao.nome == ''   ">Iniciar</ion-button>
+    </ion-label>
+  </ion-toolbar>
+
+
+  <ion-toolbar style="padding: 5px;" mode='ios' *ngIf="conversaIniciada">
+    <ion-item class="ionitem">
+   
+      <ion-input type="text" [(ngModel)]="mensagemEnviar"  (keyup.enter)="sendMensagem()"></ion-input>
+      <ion-button slot="end" (click)="sendMensagem()"><ion-icon name="send-outline" ></ion-icon></ion-button>
+      
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

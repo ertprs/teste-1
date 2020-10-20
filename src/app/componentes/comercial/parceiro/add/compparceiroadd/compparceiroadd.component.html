@@ -1,0 +1,244 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title class="titulo">Parceiro de negócio</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="functionExecute('compComercialHome',{})" color="secondary" >
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<!-- NOVO -->
+<div *ngIf="!parceiroUid && !viewConsulta">
+  <ion-fab class="float-fab-right" vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="success" (click)="parceiroAdd()" >
+      <ion-icon name="save-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</div>
+
+<!-- JA EXISTE -->
+<div *ngIf="parceiroUid && !viewConsulta">
+  <ion-fab class="float-fab-right" horizontal="end" vertical="top" slot="fixed" #fab>
+    <ion-fab-button>
+      <ion-icon name="grid-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list>
+      <ion-fab-button color="success" (click)="parceiroAtualizar()" >
+        <ion-icon name="save-outline"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button color="danger" (click)="parceiroDelete()" >
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-fab-button>
+
+
+
+    </ion-fab-list>
+  </ion-fab>
+</div>
+
+<ion-content>
+  <div *ngIf="viewConsulta">
+    <ion-item lines="none" style="padding-top: 20px;" >
+      <ion-item class="ionitem" style="width: 25vw;">
+        <ion-label color="primary" stacked >CPF ou CNPJ</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosConsulta.documento " (keyup)="limparCampo($event,'number')" ></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 25vw;" *ngIf="dadosConsulta.documento.length === 11 ">
+        <ion-label color="primary" stacked >Data nascimento</ion-label>
+        <ion-input type="date" [(ngModel)]="dadosConsulta.dtNascimento"></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 25vw;" *ngIf="dadosConsulta.documento.length === 11 || dadosParceiro.libCNPJ == true">
+        <ion-label color="primary" stacked >CEP</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosConsulta.cep" (keyup)="limparCampo($event,'number')" ></ion-input>
+        
+      </ion-item>
+      
+    </ion-item>
+    <ion-button color="success" (click)="validarDados()" expand="block" >Buscar dados</ion-button>
+  </div>
+
+
+  <div *ngIf="!viewConsulta">
+    <!-- DADOS PF -->
+    <ion-item lines="none" style="padding-top: 20px;" *ngIf="dadosParceiro.libCPF">
+      <ion-item class="ionitem" style="width: 70vw;" >
+        <ion-label color="primary" stacked >Nome</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.razaoSocial" ></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 25vw;" >
+        <ion-label color="primary" stacked >Apelido</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.nomeFantasia" ></ion-input>
+      
+      </ion-item>
+      
+    </ion-item>
+    <ion-item lines='none' style="padding-top: 20px;" *ngIf="dadosParceiro.libCPF">
+      <ion-item class="ionitem" style="width: 40vw;" >
+        <ion-label color="primary" stacked >CPF</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.documento" readonly ></ion-input>
+        
+      </ion-item>  
+      <ion-item class="ionitem" style="width: 20vw;" >
+        <ion-label color="primary" stacked >Situação RF</ion-label>
+        <ion-input type="text" style="font-size: x-small;"  [(ngModel)]="dadosParceiro.documentoSituacao" readonly ></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 20vw;" >
+        <ion-label color="primary" stacked >Data</ion-label>
+        <ion-input style="font-size: x-small;" type="text" [(ngModel)]="dadosParceiro.documentoData" readonly ></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 20vw;" >
+        <ion-label color="primary" stacked >Comprovante</ion-label>
+        <ion-input style="font-size: x-small;" type="text" [(ngModel)]="dadosParceiro.documentoComprovanteNumero" readonly ></ion-input>
+        
+      </ion-item>
+    </ion-item>
+  
+    <!-- DADOS PJ -->
+    <ion-item lines="none" style="padding-top: 20px;" *ngIf="dadosParceiro.libCNPJ">
+      <ion-item class="ionitem" style="width: 50vw;" >
+        <ion-label color="primary" stacked >Razão Social</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.razaoSocial" ></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 15vw;" >
+        <ion-label color="primary" stacked >Nome fantasia</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.nomeFantasia" ></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 10vw;" >
+        <ion-label color="primary" stacked >Data abertura</ion-label>
+        <ion-input type="text" style="font-size: x-small;"  [(ngModel)]="dadosParceiro.dataAbertura" readonly ></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 10vw;" >
+        <ion-label color="primary" stacked >Situação</ion-label>
+        <ion-input style="font-size: x-small;" type="text" [(ngModel)]="dadosParceiro.empresaSituacao" readonly ></ion-input>
+        
+      </ion-item>
+      
+    </ion-item>
+    
+    <ion-item lines="none" style="padding-top: 20px;" *ngIf="dadosParceiro.libCNPJ">
+      <ion-item class="ionitem" style="width: 40vw;" >
+        <ion-label color="primary" stacked >CNPJ</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.documento" readonly ></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 40vw;" >
+        <ion-label color="primary" stacked >Inscrição Estadual</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.inscricaoIE" (keyup)="limparCampo($event,'number')" ></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 40vw;" >
+        <ion-label color="primary" stacked >Inscrição Municipal</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.inscricaoIM" (keyup)="limparCampo($event,'number')"></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 40vw;" >
+        <ion-label color="primary" stacked >Inscrição SUFRAMA</ion-label>
+        <ion-input type="text"  [(ngModel)]="dadosParceiro.inscricaoSUFRAMA" (keyup)="limparCampo($event,'number')" ></ion-input>
+        
+      </ion-item>
+   
+      
+    </ion-item>
+  
+  
+    <!-- DADOS CADSTRO -->
+    <ion-item lines="none" style="padding-top: 20px;" *ngIf="dadosParceiro.libCadastro">
+      <ion-item class="ionitem" style="width: 15vw;" >
+        <ion-label color="primary" stacked >Logradouro</ion-label>
+        <ion-select [(ngModel)]="dadosParceiro.endereco.logradouro">
+          <ion-select-option *ngFor="let item2 of Logradouros " value="{{ item2.sigla | lowercase }}">{{ item2.nome | titlecase }}</ion-select-option>
+    
+        </ion-select>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 50vw;" >
+        <ion-label color="primary" stacked >Endereço</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.endereco.endereco" ></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 10vw;" >
+        <ion-label color="primary" stacked >Número</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.endereco.numero" ></ion-input>
+        
+      </ion-item>
+      
+    </ion-item>
+    <ion-item lines="none" style="padding-top: 10px;" *ngIf="dadosParceiro.libCadastro" >
+      <ion-item class="ionitem" style="width: 20vw;" >
+        <ion-label color="primary" stacked >CEP</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.endereco.cep" ></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 100vw;" >
+        <ion-label color="primary" stacked >Complemento</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.endereco.complemento" ></ion-input>
+        
+      </ion-item>
+    </ion-item>
+    <ion-item lines="none" style="padding-top: 10px;" *ngIf="dadosParceiro.libCadastro">
+      <ion-item class="ionitem" style="width: 30vw;" >
+        <ion-label color="primary" stacked >Bairro</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.endereco.bairro" ></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 25vw;" >
+        <ion-label color="primary" stacked >UF</ion-label>
+       
+        <ion-select [(ngModel)]="dadosParceiro.endereco.estado" (ionChange)="limparCidades()">
+          <ion-select-option *ngFor="let item of UFs" value="{{ item.sigla }}">{{ item.nome | titlecase }}</ion-select-option>
+    
+  
+        </ion-select>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 25vw;" >
+        <ion-label color="primary" stacked >Cidade</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.endereco.cidade" readonly ></ion-input>
+        <ion-button slot="end" color="secondary" (click)="abrirConsultaCidade()" >
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-item class="ionitem" style="width: 10vw;" >
+        <ion-label color="primary" stacked >Cod. IBGE</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.endereco.ibgeCOd" readonly ></ion-input>
+       
+        
+      </ion-item>
+      
+    </ion-item>
+
+
+    <!-- DADOS CONTATO -->
+    <ion-item lines="none" style="padding-top: 20px;" *ngIf="dadosParceiro.libCadastro">
+      <ion-item class="ionitem" style="width: 30vw;" >
+        <ion-label color="primary" stacked >Telefone</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.contato.telefone" (keyup)="limparCampo($event,'number')"></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 40vw;" >
+        <ion-label color="primary" stacked >E-mail</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.contato.email" ></ion-input>
+      
+      </ion-item>
+      <ion-item class="ionitem" style="width: 40vw;" >
+        <ion-label color="primary" stacked >Site</ion-label>
+        <ion-input type="text" [(ngModel)]="dadosParceiro.contato.site" ></ion-input>
+      
+      </ion-item>
+      
+    </ion-item>
+  </div>
+  
+ 
+
+</ion-content>

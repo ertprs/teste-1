@@ -1,0 +1,51 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <!-- <ion-icon name="arrow-back-outline" slot="start" class='btnVoltar' (click)="functionExecute('compConfiguracoesHome',{componente:'home'})" style="cursor: pointer;"></ion-icon> -->
+    <ion-title color='primary'>Configurações Produtos</ion-title>
+  </ion-toolbar>
+  <!-- BARRA DE PESQUISA -->
+  <ion-toolbar mode="ios" class="header-busca" style="margin-top: 10px;">
+    <ion-searchbar #q  animated placeholder="Pesquisar"(keyup.enter)="search(q.value)" ></ion-searchbar>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('compConfiguracoesHome',{})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<ion-fab class="float-fab-left" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="success" (click)="functionExecute('CompConfiguracoesProdutoAddComponent',{})">
+    <ion-icon name="add-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+<ion-content class="default-content">
+
+  <ion-list *ngFor="let item of produtos; let i = id"  style="padding: 0px;">
+    <ion-item-sliding #i>
+  
+      <ion-item  (click)="i.open();" style="cursor: pointer;padding: 0px;">
+        <ion-avatar slot="start" style="height: 50px; width: 50px; margin-right: unset; margin-inline-end: 32px;">
+          <img *ngIf="!item.photoURL" src="../../../../../../assets/img/productlogo.png" style="transform: scale(1.2); object-fit: cover; filter: invert(10%) sepia(11%) saturate(0%) hue-rotate(181deg) brightness(88%) contrast(200%);">
+          <img *ngIf="item.photoURL" src="{{item.photoURL}}">
+        </ion-avatar> 
+        <ion-label>
+          <p><strong>{{ item.descricaoCurta | titlecase }}</strong></p>
+          <p>SKU: {{item.sku}}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="secondary"  (click)="functionExecute('CompConfiguracoesProdutoAddComponent',item)"><ion-icon name="pencil-outline" slot="icon-only"></ion-icon></ion-item-option>
+        <ion-item-option color="danger" (click)="delete(item)" ><ion-icon name="trash-outline" slot="icon-only"></ion-icon></ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+
+
+</ion-content>
+

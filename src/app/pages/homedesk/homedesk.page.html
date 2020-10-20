@@ -1,0 +1,17 @@
+
+
+<ion-content style="overflow: none;">
+  <ion-grid class="home-dashboard " style="overflow: hidden !important; height: 100vh !important">
+      <ion-row>
+        <ion-col size="3" class="home-dashboard" [ngStyle]="{ 'display': displayContainers.leftContainer }">
+          <div #processContainerEsquerdo >
+  
+          </div>
+        </ion-col>
+        <ion-col  [size]="displayContainers.rightSize" class="home-dashboard">
+          <div #processContainer>
+          </div>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,269 @@
+<ion-header mode='ios' >
+  <ion-toolbar>
+    <ion-title class="titulo">{{ titulo | titlecase }}</ion-title>
+    <ion-label slot="end" style="text-align: right;">
+      
+      
+    </ion-label>
+  </ion-toolbar>
+ 
+  
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="functionExecute('compComercialHome',{})" color="secondary">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+
+<ion-content style="height: 80vh;">
+  
+  <!-- LINHA DE BOTOES -->
+  <ion-item lines="none" style="padding-top: 20px;" >
+    <ion-button size="default" slot="start" color="secondary" disabled>Copiar</ion-button>
+    <ion-button size="default" slot="start" color="danger" disabled>Cancelar</ion-button>
+
+    <ion-button size="default" slot="end" color="success" *ngIf="dadosOrcamento.notaUid" (click)="abrirNotaViewVer(dadosOrcamento.notaUid)">Ver nota fiscal</ion-button>
+    <ion-button size="default" slot="end" color="success" *ngIf="!dadosOrcamento.notaUid" [disabled]="!pedidoUid " (click)="abrirNotaView()">Emitir nota fiscal</ion-button>
+    <ion-button size="default" slot="end" color="success" [disabled]="dadosOrcamento.notaUid" (click)="gravar()">Gravar</ion-button>
+  </ion-item>
+
+  <ion-item lines="none" style="padding-top: 20px;" >
+    <ion-item class="ionitem" style="width: 23vw;" >
+      <ion-label color="primary" stacked >#</ion-label>
+      <ion-input type="text" readonly (click)="infoCampoAutomatico()" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 23vw;" >
+      <ion-label color="primary" stacked >Data</ion-label>
+      <ion-input type="text" readonly (click)="infoCampoAutomatico()" value="{{ dadosOrcamento.createAt | date:'dd/MM/yy HH:mm' }}" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 50vw;" >
+      <ion-label color="primary" stacked >Parceiro de negócio</ion-label>
+      <ion-input type="text" value="{{ dadosOrcamento.parceiroNome | titlecase }}" readonly ></ion-input>
+      <ion-item-group slot="end" >
+        <ion-button color="secondary" (click)="AbrirConsultaParceiros('orc-parceiro')">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+        <ion-button  color="secondary" (click)="abrirHistorico()" [disabled]="dadosOrcamento.parceiroUid == '' ">
+          <ion-icon name="reader-outline"></ion-icon>
+        </ion-button>
+      </ion-item-group>
+      
+    </ion-item>
+    
+  </ion-item>
+
+  <ion-item lines="none" style="padding-top: 10px;" >
+    <ion-item class="ionitem" style="width: 50vw;" >
+      <ion-label color="primary" stacked >Transportadora</ion-label>
+      <ion-input type="text" readonly value="{{ dadosOrcamento.transportadoraNome | titlecase }}" ></ion-input>
+      <ion-button slot="end" color="secondary" (click)="AbrirConsultaParceiros('orc-transportadora')">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Frete por conta</ion-label>
+      <ion-select [(ngModel)]="dadosOrcamento.frete" >
+        <ion-select-option  value="PorContaDoEmitente">Por conta do emitente</ion-select-option>
+        <ion-select-option  value="PorContaDoDestinatario">Por conta do destinatário/remetente</ion-select-option>
+        <ion-select-option  value="PorContaDeTerceiros">Por conta de terceiros</ion-select-option>
+        <ion-select-option  value="SemFrete">Sem frete</ion-select-option>
+  
+      </ion-select>
+      
+    </ion-item>
+  </ion-item>
+
+  <ion-item lines="none" style="padding-top: 10px;" >
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Vendedor</ion-label>
+      <ion-input type="text" readonly value="{{ dadosOrcamento.vendedorNome | titlecase }}"></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 45vw;" >
+      <ion-label color="primary" stacked >Condição de pagamento</ion-label>
+      <ion-select [(ngModel)]="dadosOrcamento.condPagamento" >
+        <ion-select-option  value="0">A vista</ion-select-option>
+       
+  
+      </ion-select>
+      <ion-item slot="end" lines="none">
+        <ion-button color="secondary" >
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+        <ion-button  color="success"  (click)="abrirLancamentoDuplicatas()">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+      
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 23vw;" >
+      <ion-label color="primary" stacked >Validade</ion-label>
+      <ion-input type="date"  [(ngModel)]="dadosOrcamento.validade"></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked ># Pedido de compra</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosOrcamento.pedidoCompra" ></ion-input>
+      
+    </ion-item>
+   
+  </ion-item>
+
+
+  <ion-item-divider style="margin-top: 20px;">
+    <ion-label>
+      Informações fiscais
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines="none" style="padding-top:10px;" >
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >CFOP</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosOrcamento.cfop" readonly ></ion-input>
+      <ion-button slot="end" color="secondary" (click)="abrirCFOP()">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item class="ionitem" style="width: 50vw;" >
+      <ion-label color="primary" stacked >Descrição</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosOrcamento.cfopDescricao " readonly > </ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 20vw;" >
+      <ion-label color="primary" stacked >Tipo operação</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosOrcamento.cfopTipoOperacao " readonly > </ion-input>
+      
+    </ion-item>
+   
+  </ion-item>
+
+
+  <ion-item-divider style="margin-top: 20px;">
+    <ion-label>
+      Itens adicionados 
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines='none' style="margin-top: 10px;" >
+    <ion-item class="ionitem" style="width: 20vw;" >
+      <ion-label color="primary" stacked >Código</ion-label>
+      <ion-input type="text"  #q (keyup.enter)="consultarProduto(q.value)" [(ngModel)]="dadosOrcamentoNewItem.codigo" ></ion-input>
+      <ion-button slot="end" color="secondary" *ngIf="dadosOrcamentoNewItem.codigo =='' " >
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+      <ion-button slot="end" color="success" *ngIf="dadosOrcamentoNewItem.codigo !='' " >
+        <ion-icon name="caret-forward-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item class="ionitem" style="width: 35vw;" >
+      <ion-label color="primary" stacked >Descrição</ion-label>
+      <ion-input type="text" readonly value="{{ dadosOrcamentoNewItem.descricao | titlecase }}"></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 10vw;" >
+      <ion-label color="primary" stacked >Vr. Unitario</ion-label>
+      <ion-input type="text" style="text-align: right;" placeholder="0,000000" (keyup)="limparCampo($event,'number')"  [(ngModel)]="dadosOrcamentoNewItem.vrUnitario"></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 10vw;" >
+      <ion-label color="primary" stacked >Qtd</ion-label>
+      <ion-input type="text" style="text-align: right;" placeholder="0,00000" (keyup)="limparCampo($event,'number')"  [(ngModel)]="dadosOrcamentoNewItem.quantidade" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 10vw;" >
+      <ion-label color="primary" stacked >Vr. total</ion-label>
+      <ion-input type="text" style="text-align: right;" placeholder="0,00" readonly value="{{ dadosOrcamentoNewItem.vrTotal }}"></ion-input>
+      
+    </ion-item>
+    <ion-item lines='none' style=" margin-left: 1px;margin-right: 0px;--padding-end:0px" style="width: 8vw;">
+      <ion-button  color="success" (click)="NewItemAdd()">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+      
+    </ion-item>
+  </ion-item>
+  <ion-item-divider style="margin-top: 20px;">
+    <ion-label>
+      Lista de produtos adicionados
+    </ion-label>
+  </ion-item-divider>
+
+  <ion-list *ngFor="let item of orcamentoItens;  let i = id" style="padding:0px;">
+    <ion-item-sliding #i style="padding: 0 !important;" >
+      <ion-item style="cursor: pointer;" (click)="i.open();"> 
+      
+        <ion-label>
+          <p ><strong>{{ item.descricao | titlecase  }}</strong></p>
+          
+          <p style="font-size: small;">
+            Código: {{ item.codigo }}&nbsp;
+          </p>
+        </ion-label>
+        <ion-label slot="end" style="text-align: right;">
+          <p>{{ item.quantidade }} <strong>X</strong> {{ item.vrUnitario | currency:'R$ ':true:'1.2-2'  }}</p>
+          <p><strong>=</strong>&nbsp;{{ item.vrTotal | currency:'R$ ':true:'1.2-2'  }}</p>
+        </ion-label>
+        
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="pedidoItemEditar(item.id)" color='secondary' ><ion-icon name="create-outline" slot="icon-only"></ion-icon></ion-item-option>
+         <ion-item-option  color='danger' (click)="pedidosItensDelete(item.id)" ><ion-icon name="trash-outline" slot="icon-only"></ion-icon></ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col >
+       
+        
+      </ion-col>
+    </ion-row>
+    <ion-row>
+
+    </ion-row>
+  </ion-grid>
+  
+  
+  <!-- BOTAO ADICIONAR 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
+    <ion-fab-button  color="success" (click)="estoqueAbrirConsulta()">
+      <ion-icon name="add-outline" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  -->
+
+</ion-content>
+
+<ion-footer mode="ios">
+  <ion-toolbar mode='ios'>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card color='secondary'>
+            <ion-card-header>
+              <ion-card-subtitle>Items</ion-card-subtitle>
+              <ion-card-title>{{ orcamentoItens.length }}</ion-card-title>
+            </ion-card-header>
+          
+          
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card color='secondary'>
+            <ion-card-header>
+              <ion-card-subtitle>Total</ion-card-subtitle>
+              <ion-card-title>{{ dadosOrcamento.total  | currency:'R$ ':true:'1.2-2' }}</ion-card-title>
+            </ion-card-header>
+          
+          
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  
+</ion-footer>

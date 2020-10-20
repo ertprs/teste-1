@@ -1,0 +1,92 @@
+.ionitem{
+  border:1px solid #92949c;
+  margin: 5px;
+  border-radius: 10px;
+//   margin-left: 6%;
+//   margin-right: 6%;
+  
+  ion-label{
+      color: #92949c;
+      position: absolute;
+      margin-top: 2px;
+      left: 2px;
+      top:0;
+      margin-bottom: 5px;
+      font-size: small;
+      width: 100% !important;
+  }
+  ion-select{
+      width: 100% !important;
+      --padding-end:1px;
+      --padding-start:1px;
+      max-width: 100%;
+      min-width:100%;
+  }
+  p{
+      width: 100%;
+      display: block;
+      word-wrap: break-word; 
+  }
+  ion-textarea{
+      padding-top: 10px !important;
+  }
+  
+  @media only screen and (max-width: 600px) {
+      border:0.02em solid #92949c;
+  }
+}
+
+.contatos-list {
+  width: 100%;
+  overflow-y: auto;
+  height: calc(70vh - 150px);
+
+  @media only screen and (min-width: 1024px){
+      height: calc(79vh - 150px);
+  }
+}
+
+
+.badgeorigem{
+  position:absolute;
+  left: 25px;
+  top: 10px;
+  z-index: 5;
+  background: transparent;
+  width: 35px;
+}
+
+.box-detail{
+  margin: 2px;
+  border: 1px solid #FF8C00;
+  padding: 0px;
+  border-radius: 10px;
+ 
+
+  .box-titulo{
+      padding: 5px;
+      height: 30px;
+      border-radius: 10px 10px 0 0px;
+      background: rgba(#FF8C00, 0.5);
+      ion-card-subtitle {
+          padding-left: 10px;
+      }
+      ion-card-content{
+          padding: 5px;
+      }
+  }
+
+  @media only screen and (max-width: 600px) {
+      //titulos de pagina
+      min-width: 100%;
+      max-width: 100%;
+  }
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}

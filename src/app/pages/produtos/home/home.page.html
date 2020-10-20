@@ -1,0 +1,94 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+     
+    </ion-buttons>
+    <ion-title>Produtos</ion-title>
+  </ion-toolbar>
+  <ion-toolbar mode="ios" class="header-busca" >
+    <ion-searchbar animated placeholder="Pesquisar"></ion-searchbar>
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+
+ <!-- LISTA DE PRODUTOS -->
+ <ion-list *ngIf="!produtos.length">
+  <ion-item>
+    <ion-avatar slot="start">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-avatar>
+    <ion-label>
+      <h3>
+        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+      </h3>
+      <p>
+        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+      </p>
+      <p>
+        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+      </p>
+    </ion-label>
+  </ion-item>
+</ion-list>
+
+<ion-list *ngIf="produtos">
+  <ion-item-sliding *ngFor="let item of produtos">
+    
+    <ion-item  detail='false' (click)="selecionar(item.id)" lines='none'>
+      <ion-thumbnail slot="start">
+        <img src="{{ item.photo }}">
+      </ion-thumbnail>
+      <ion-label>
+        <div class="alinharesquerda">
+          <p><strong>{{ item.descricaoCurta | titlecase }}</strong></p>
+          <p><strong>Estoque: </strong>{{ item.qtdDisponivel }} </p>
+        </div>
+        <div class="alinhardireita">
+          <p><strong style="font-size: large;">{{ item.vrVenda | currency:'BRL':true:'1.2-4' }}</strong></p>
+        </div>
+        
+        
+      </ion-label>
+
+    </ion-item>
+
+    <ion-item-options side="end">
+      <ion-item-option color='medium' routerLink="/produtos/add/{{item.id}}" routerDirection="forward"  >Editar</ion-item-option>
+      
+     
+
+  
+    </ion-item-options> 
+
+  </ion-item-sliding>
+</ion-list>
+
+
+ <!-- MENU GERAL LARA -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-avatar>
+        <img src="./../../../assets/img/lara-fundo-azul.jpg">
+      </ion-avatar>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <!-- Lara -->
+      <ion-fab-button  >
+        <ion-avatar>
+          <img src="./../../../assets/img/lara-fundo-azul.jpg">
+        </ion-avatar>
+      </ion-fab-button>
+      
+      <!-- Contatos -->
+      <ion-fab-button  routerLink="/produtos/add" routerDirection="forward" >
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-fab-button>
+
+     
+
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

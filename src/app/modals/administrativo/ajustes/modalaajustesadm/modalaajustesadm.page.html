@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>MODAL EXCLUSIVO DE CODIGO</ion-title>
+    <ion-title>SE NVC NAO SABE MEXER AQUI NAO É PARA MEXER</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-toolbar>
+    <ion-button color="primary" (click)="contatoAjusteDuplicidade()">Verificar duplicidade de contatos</ion-button>
+    <ion-button color="primary" (click)="imprimirMatriz()">Imprimir matriz</ion-button>
+
+
+    <ion-button color="primary" (click)="migrarContatoSql()">Migrar contatos para mysql</ion-button>
+
+
+
+    <ion-button color="primary" (click)="ajusteFinalContatos()">Ajuste FInal contatos</ion-button>
+
+    <ion-button color="primary" (click)="ajusteTransferencia()">Ajuste Transferencia</ion-button>
+
+
+    <ion-button color="primary" (click)="importarParceiros()">Importar parceiros de negocio</ion-button>
+
+
+    <ion-button color="primary" (click)="backupRecorrencia()">Recuperar backup recorrencia</ion-button>
+
+
+    <ion-button color="primary" (click)="backupEstoque()">Recuperar backup estoque</ion-button>
+
+
+  </ion-toolbar>
+  <ion-list>
+    <ion-item *ngFor="let item of log">
+      <ion-label>
+        <p style="font-size: small;">{{item.createAt | date:'dd-MM-yyyy HH:mm:ss'}}</p>
+      </ion-label>
+      <ion-text>
+        <p style="font-size: small;">{{item.mensagem}}</p>
+      </ion-text>
+      
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,75 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Criar conta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button (click)="voltar()" color="secondary">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content class="cadastro-content">
+  <ion-item class="ion-item" lines='none'>
+    <ion-label class="max-width-label" color="primary" stacked >Nome</ion-label>
+    <ion-input type="text" placeholder="Informe seu nome" [(ngModel)]="userDados.nome"></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-item" lines='none'>
+    <ion-label class="max-width-label" color="primary" stacked >CPF ou CNPJ</ion-label>
+    <ion-input type="number" placeholder="Informe CPF ou CNPJ" [(ngModel)]="userDados.documento"></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-item" lines='none'>
+    <ion-label class="max-width-label" color="primary" stacked >Nome empresa</ion-label>
+    <ion-input type="text" placeholder="Informe nome empresa" [(ngModel)]="userDados.nomeempresa"></ion-input>
+  </ion-item>
+  <ion-item class="ion-item" lines='none'>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-label class="max-width-label" color="primary" stacked >Número de seu WhatsApp</ion-label>
+          <ion-input  type="number" placeholder="5511999999999" [(ngModel)]="userDados.tellWhats"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text class="font-size:x-small;text-align: justify;" color="primary" style="opacity: 0.9;"> <ion-icon name="information-circle-outline"></ion-icon> Enviaremos uma mensagem em seu whatsapp para validar seu cadastro</ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <ion-item class="ion-item" lines='none'>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-label class="max-width-label" color="primary" stacked >Cupom Promocional/Código de liberação</ion-label>
+          <ion-input type="text" [(ngModel)]="userDados.cupom"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text class="font-size:x-small;text-align: justify;" color="primary" style="opacity: 0.9;"> <ion-icon name="information-circle-outline"></ion-icon> Se você tiver um cupom promocional ou um código de acesso informe agora.</ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <ion-item class="ion-item" lines='none'>
+    <ion-label class="max-width-label" color="primary" stacked >E-mail</ion-label>
+    <ion-input type="email" placeholder="Informe seu e-mail" [(ngModel)]="userDados.email"></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-item" lines='none'>
+    <ion-label class="max-width-label" color="primary" stacked >Senha</ion-label>
+    <ion-input type="password" placeholder="Informe sua senha" [(ngModel)]="userDados.senha"></ion-input>
+  </ion-item>
+
+</ion-content>
+
+<ion-footer mode='ios'>
+  <ion-button expand="block" style="margin-left: 6%; margin-right: 6%;" (click)="cadastro()"> Criar minha conta</ion-button>
+</ion-footer>
+

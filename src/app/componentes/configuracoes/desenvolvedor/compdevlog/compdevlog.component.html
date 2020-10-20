@@ -1,0 +1,40 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <!-- <ion-icon name="arrow-back-outline" slot="start" class='btnVoltar' (click)="functionExecute('btnBack',{componente:'home'})" style="cursor: pointer;"></ion-icon> -->
+    <ion-title class="titulo">Área do desenvolvedor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('compconfiguracoeshome',{});">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  <ion-text style="text-align: center;font: x-small;">
+    <p>
+      Os registros são classificados em 3 tipos (leve,moderado e critico).
+    </p>
+    <p>
+      Os registros ficam disponíveis por 5 dias depois deste período são apagados, exceto, registros classificados como criticos. Estes ficaram armazenados por 30 dias.
+    </p>
+  </ion-text>
+  <ion-grid style="font-size: small;margin-top: 30px;">
+    <ion-row *ngFor="let item of itemsLog">
+        <ion-col class="cor_chamada_{{ item.params.nivel }}" size="1">
+          API - {{ item.tipo }}
+        </ion-col>
+        <ion-col size="2">
+          {{ item.createAt | date:'dd-MM-yyyy H:mm'}}
+        </ion-col>
+        <ion-col>
+          {{ item.params.nivel }} - {{ item.params.msg }}
+        </ion-col>
+        <ion-col size="2">
+          {{ item.params.ipCliente }}
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+ 
+</ion-content>

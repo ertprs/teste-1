@@ -1,0 +1,169 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title class="titulo">Dados de Contato</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('chatContatoHome',{})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+<ion-fab class="float-fab-right" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="success" [disabled]="(dadosContato.nome == '' || dadosContato.nome == undefined) || (dadosContato.origem == '' || dadosContato.origem == undefined)" (click)="submitForm()">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+
+
+
+
+<ion-content class="default-content">
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Canal</ion-label>
+    <ion-select  [(ngModel)]="dadosContato.canal" okText="Confirmar" cancelText="Cancelar" [disabled]="contatoId"> 
+      <ion-select-option value="0" disabled>SELECIONAR OPÇÃO</ion-select-option>
+        <ion-select-option value="email">E-mail</ion-select-option>
+        <ion-select-option value="whatsapp">WhatsApp</ion-select-option>
+        <ion-select-option value="telfixo">Tel. fixo</ion-select-option>
+        <ion-select-option value="telegram">Telegram</ion-select-option>
+        <ion-select-option value="facebook">Facebook</ion-select-option>
+        <ion-select-option value="whatsappdirect">WhatsApp API</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Nome</ion-label>
+    <ion-input type="text" [(ngModel)]="dadosContato.nome"></ion-input>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Email</ion-label>
+    <ion-input type="text" [(ngModel)]="dadosContato.email"></ion-input>
+  <ion-button fill="clear" color="dark" [disabled]="dadosContato.email == undefined || dadosContato.email == ''" (click)="copyForClipboard($event, { button: 'email',  data: dadosContato.email })" (ionBlur)="copyUndo()"><ion-icon name="copy-outline"></ion-icon></ion-button>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Telefone</ion-label>
+    <ion-input type="text" [(ngModel)]="dadosContato.origem" [disabled]="contatoId"></ion-input>
+    <ion-button fill="clear" color="dark" [disabled]="dadosContato.origem == undefined || dadosContato.origem == ''" (click)="copyForClipboard($event, { button: 'telefone',  data: dadosContato.origem })" (ionBlur)="copyUndo()"><ion-icon name="copy-outline"></ion-icon></ion-button>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Empresa</ion-label>
+    <ion-input type="text" placeholder="Selecionar empresa..." [(ngModel)]="dadosContato.nomeClienteVinculado" [disabled]="true"></ion-input>
+    <ion-button fill="clear" [disabled]="contatoId == undefined || contatoId == ''" color="dark" slot="end" (click)="functionExecute('modalContatoViewParceiros',{contatoId: contatoId})"><ion-icon name="link-outline"></ion-icon></ion-button>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-checkbox slot="start" mode="ios" [(ngModel)]="dadosContato.favorito" (click)="contatoCheckboxes($event, 'favorito')"></ion-checkbox>
+    <ion-label>
+      <p><strong>Favorito</strong></p>
+      <p color='medium' style="word-wrap: break-word; ">Dê preferência de atendimento aos seus clientes VIPs</p>
+    </ion-label> 
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-checkbox slot="start" mode="ios" [(ngModel)]="dadosContato.livechat" (click)="contatoCheckboxes($event, 'livechat')"></ion-checkbox>
+    <ion-label>
+      <p><strong>LiveChat</strong></p>
+      <p color='medium'>Conversas diretas e sem interação do BOT</p>
+    </ion-label>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Data de Nascimento</ion-label>
+    <ion-input type="date" [(ngModel)]="dadosContato.dataNascimento"></ion-input>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Grupo</ion-label>
+    <ion-select [(ngModel)]="dadosContato.grupo" okText="Confirmar" cancelText="Cancelar">
+      <ion-select-option *ngFor="let grupo of grupos" >{{grupo.nome}}</ion-select-option>
+    </ion-select>
+    <ion-button [disabled]="contatoId == undefined || contatoId == ''" fill="clear" color="dark" slot="end" (click)="functionExecute('modalContatoSelectGrupo',{})"><ion-icon name="add"></ion-icon></ion-button>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Subgrupo</ion-label>
+    <ion-select [(ngModel)]="dadosContato.subgrupo" okText="Confirmar" cancelText="Cancelar">
+      <ion-select-option *ngFor="let grupo2 of grupos" >{{grupo2.nome}}</ion-select-option>
+    </ion-select>
+    <ion-button [disabled]="contatoId == undefined || contatoId == ''" fill="clear" color="dark" slot="end" (click)="functionExecute('modalContatoSelectGrupo',{})"><ion-icon name="add"></ion-icon></ion-button>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Cidade</ion-label>
+    <ion-input type="text" [(ngModel)]="dadosContato.cidade"></ion-input>
+    <!-- <ion-select [(ngModel)]="dadosContato.cidade" okText="Okay" cancelText="Dismiss">
+      <ion-select-option value="0" disabled>SELECIONAR OPÇÃO</ion-select-option>
+      <ion-select-option *ngFor="let cidade of cidades" [value]="cidade">{{cidade}}</ion-select-option>
+    </ion-select> -->
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Estado</ion-label>
+    <ion-input type="text" [(ngModel)]="dadosContato.estado"></ion-input>
+    <!-- <ion-select [(ngModel)]="dadosContato.estado" okText="Okay" cancelText="Dismiss" (ionChange)="estadoSelect(dadosContato.estado)">
+      <ion-select-option value="0" disabled>SELECIONAR OPÇÃO</ion-select-option>
+      <ion-select-option *ngFor="let estado of dataEstados.default.estados" [value]="estado.sigla">{{estado.nome}}</ion-select-option>
+    </ion-select> -->
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Notas</ion-label>
+    <ion-textarea rows="6" [(ngModel)]="dadosContato.notas"></ion-textarea>
+  </ion-item>
+
+  <ion-grid class="screen-border" style="margin-top: 30px; margin-bottom: 30px;">
+    <ion-row>
+      <ion-col class="box-detail">
+        <ion-card-header class="box-titulo">
+          <ion-card-subtitle >Notificações</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-list>
+                  <ion-item><ion-checkbox mode="ios" color="primary" [(ngModel)]="dadosContato.administracao" (click)="contatoCheckboxes($event, 'administracao')"></ion-checkbox> &nbsp; Administração </ion-item>
+                  <ion-item><ion-checkbox mode="ios" color="primary" [(ngModel)]="dadosContato.atendimento" (click)="contatoCheckboxes($event, 'atendimento')"></ion-checkbox> &nbsp; Atendimento </ion-item>
+                  <ion-item><ion-checkbox mode="ios" color="primary" [(ngModel)]="dadosContato.cadastro" (click)="contatoCheckboxes($event, 'cadastro')"></ion-checkbox> &nbsp; Cadastro </ion-item>
+                  <ion-item><ion-checkbox mode="ios" color="primary" [(ngModel)]="dadosContato.comercial" (click)="contatoCheckboxes($event, 'comercial')"></ion-checkbox> &nbsp; Comercial </ion-item>
+                  <ion-item><ion-checkbox mode="ios" color="primary" [(ngModel)]="dadosContato.financeiro" (click)="contatoCheckboxes($event, 'financeiro')"></ion-checkbox> &nbsp; Financeiro </ion-item>
+                  <ion-item><ion-checkbox mode="ios" color="primary" [(ngModel)]="dadosContato.fiscal" (click)="contatoCheckboxes($event, 'fiscal')"></ion-checkbox> &nbsp; Fiscal </ion-item>
+                  <ion-item><ion-checkbox mode="ios" color="primary" [(ngModel)]="dadosContato.supervisao" (click)="contatoCheckboxes($event, 'supervisao')"></ion-checkbox> &nbsp; Supervisão </ion-item>
+                  <ion-item><ion-checkbox mode="ios" color="primary" [(ngModel)]="dadosContato.suporte" (click)="contatoCheckboxes($event, 'suporte')"></ion-checkbox> &nbsp; Suporte </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-label style="font-size: small;text-align: center;">
+          <p><strong>Cadastrado em </strong> {{ dadosContato.createAt | date:'dd/MM/yyyy' }} </p>
+          <p *ngIf="dadosContato.usuarioNome != '' " ><strong>Por </strong>{{ dadosContato.usuarioNome}}</p>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-chip class="iniciarConversa" outline='true' mode='ios' color='dark' *ngIf="contatoId" (click)="novaConversa(dadosContato)"> 
+    <ion-icon name="chatbubbles-outline"></ion-icon>
+    <ion-label>Iniciar conversa</ion-label>
+  </ion-chip>
+  <ion-button *ngIf="contatoId" expand="block" color="danger" style="margin-left: 6%; margin-right: 6%;" (click)="delete()">Excluir</ion-button>
+
+ 
+
+
+</ion-content>
+

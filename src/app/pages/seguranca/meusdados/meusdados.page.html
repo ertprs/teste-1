@@ -1,0 +1,61 @@
+<ion-header mode='ios'>
+  
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Meus dados</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-item lines='none' >
+    <ion-avatar slot="start">
+      <img src="{{ currentUser.photo }}">
+    </ion-avatar>
+  </ion-item>
+
+  <ion-toolbar>
+    <ion-item class="boxionitem">
+      <ion-icon name="person-outline" slot="start"></ion-icon>
+      <ion-label color="primary" stacked >Nome</ion-label>
+      <ion-input type="text" [(ngModel)]="currentUser.nome" ></ion-input>
+    </ion-item>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-item class="boxionitem">
+      <ion-icon name="at-outline" slot="start"></ion-icon>
+      <ion-label color="primary" stacked >Email</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-item class="boxionitem">
+      <ion-icon name="calendar-outline" slot="start"></ion-icon>
+      <ion-label color="primary" stacked >Data de Nascimento</ion-label>
+      <ion-input type="date"></ion-input>
+    </ion-item>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-item class="boxionitem">
+      <ion-icon name="keypad-outline" slot="start"></ion-icon>
+      <ion-label color="primary" stacked >Telefone</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+  </ion-toolbar>
+
+  
+</ion-content>
+  
+<ion-footer>
+  <ion-toolbar>
+
+    <ion-button expand="block" color='success' (click)='userUpdate()'>Salvar</ion-button>
+    
+  </ion-toolbar>
+</ion-footer>

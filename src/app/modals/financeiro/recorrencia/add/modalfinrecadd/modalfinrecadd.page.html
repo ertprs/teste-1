@@ -1,0 +1,84 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Recorrência</ion-title>
+  </ion-toolbar>
+ 
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="modalClose()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<ion-content>
+  <ion-item lines="none" style="padding-top: 20px;" >
+    
+    <ion-item class="ionitem" style="width: 50vw;" >
+      <ion-label color="primary" stacked >Parceiro de negócio</ion-label>
+      <ion-input type="text"  [(ngModel)]="dadosRecorrencia.parceiroNome" readonly ></ion-input>
+      <ion-button slot="end" color="secondary" (click)="AbrirConsultaParceiros()">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    
+  </ion-item>
+  <ion-item lines="none" style="padding-top: 10px;" >
+    
+    <ion-item class="ionitem" style="width: 50vw;" >
+      <ion-label color="primary" stacked >Periodicidade</ion-label>
+      <ion-select [(ngModel)]="dadosRecorrencia.periodo" >
+        <ion-select-option value="mensal">Mensal</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item class="ionitem" style="width: 50vw;" >
+      <ion-label color="primary" stacked >Valor</ion-label>
+      <ion-input type="text"  [(ngModel)]="dadosRecorrencia.valor" style="text-align: right;"  (keyup)="limparCampo($event,'number')" ></ion-input>
+     
+    </ion-item>
+    
+  </ion-item>
+
+  <ion-item lines="none" style="padding-top: 10px;" >
+    
+    <ion-item class="ionitem" style="width: 50vw;" >
+      <ion-label color="primary" stacked >Dia Noto</ion-label>
+      <ion-input type="number"  [(ngModel)]="dadosRecorrencia.diaNota" style="text-align: right;" ></ion-input>
+     
+    </ion-item>
+
+
+    <ion-item class="ionitem" style="width: 50vw;" >
+      <ion-label color="primary" stacked >Dia Cobrança</ion-label>
+      <ion-input type="number"  [(ngModel)]="dadosRecorrencia.diaVencimento" style="text-align: right;" ></ion-input>
+     
+    </ion-item>
+
+    
+
+    
+  </ion-item>
+
+
+  <ion-item lines="none" style="padding-top: 10px;" *ngIf="recorrenciaUid">
+    
+    <ion-item class="ionitem" style="width: 50vw;" >
+      <ion-label color="primary" stacked >Último processo </ion-label>
+      <ion-input type="text" *ngIf="dadosRecorrencia.ultimoFechamento && dadosRecorrencia.ultimoFechamento > 0" readonly value="{{ dadosRecorrencia.ultimoFechamento | date:'dd/MM/yyyy'  }}"  ></ion-input>
+     
+    </ion-item>
+
+
+    <ion-item class="ionitem" style="width: 50vw;" >
+      <ion-label color="primary" stacked >Próximo processo</ion-label>
+      <ion-input type="text" *ngIf="dadosRecorrencia.proximoFechamento && dadosRecorrencia.proximoFechamento > 0"  readonly value='{{ dadosRecorrencia.proximoFechamento | date:"dd/MM/yyyy" }}' ></ion-input>
+     
+    </ion-item>
+
+    
+
+    
+  </ion-item>
+  
+</ion-content>
+<ion-footer>
+  <ion-button expand="full" color="success" (click)="gravar()" >Gravar</ion-button>
+</ion-footer>

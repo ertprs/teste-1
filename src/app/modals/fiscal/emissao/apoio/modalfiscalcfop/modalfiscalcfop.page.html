@@ -1,0 +1,141 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>CFOP</ion-title>
+  </ion-toolbar>
+ 
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="close()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content >
+
+  <ion-item lines="none" style="padding-top: 20px;" >
+    <ion-item class="ionitem" style="width: 25vw;" >
+      <ion-label color="primary" stacked >Tipo</ion-label>
+      <ion-select [(ngModel)]="dadosCfop.tipo" >
+        <ion-select-option value="1|Entrada dentro do estado">Entrada Dentro do estado</ion-select-option>
+        <ion-select-option value="2|Entrada interestadual">Entrada interestadual</ion-select-option>
+        <ion-select-option value="3|Entrada internacional">Entrada internacional</ion-select-option>
+
+        <ion-select-option value="5|Saida dentro do estado">Saída dentro do estado</ion-select-option>
+        <ion-select-option value="6|saida interestadual">Saída interestadual</ion-select-option>
+        <ion-select-option value="7|Entrada interestadual">Saída internacional</ion-select-option>
+      </ion-select>
+      
+    </ion-item>
+
+    <ion-item class="ionitem" style="width: 25vw;" >
+      <ion-label color="primary" stacked >Código</ion-label>
+      <ion-input type="number" maxlength="3" [(ngModel)]="dadosCfop.codigo"></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 50vw;" >
+      <ion-label color="primary" stacked >Nome</ion-label>
+      <ion-input type="text"  [(ngModel)]="dadosCfop.nome"></ion-input>
+      
+    </ion-item>
+
+  </ion-item>
+  <ion-item  lines="none" style="padding-top: 10px;">
+    <ion-item class="ionitem" style="width: 25vw;" >
+     
+      <ion-label style="font-size: small;">PIS</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosCfop.impostos.pis.aliquota" ></ion-input>
+     
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 60vw;" >
+      
+      <ion-label style="font-size: small;">Sit. Tributária</ion-label>
+     
+      <select  [(ngModel)]="dadosCfop.impostos.pis.situacaoTributariaSelect" style="width: 100%;">
+        <option *ngFor="let item of CSTPISCOFINS" value="{{item.codigo}}|{{item.nome}}">{{ item.codigo }} - {{ item.nome | titlecase }}</option>
+      </select>
+    </ion-item>
+  </ion-item>
+
+  <ion-item  lines="none" style="padding-top: 10px;">
+    <ion-item class="ionitem" style="width: 25vw;" >
+     
+      <ion-label style="font-size: small;">COFINS</ion-label>
+      <ion-input type="text"  [(ngModel)]="dadosCfop.impostos.cofins.aliquota"></ion-input>
+     
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 60vw;" >
+      
+      <ion-label style="font-size: small;">Sit. Tributária</ion-label>
+     
+      <select [(ngModel)]="dadosCfop.impostos.cofins.situacaoTributariaSelect" style="width: 100%;">
+        <option *ngFor="let item of CSTPISCOFINS" value="{{item.codigo}}|{{item.nome}}">{{ item.codigo }} - {{ item.nome | titlecase }}</option>
+      </select>
+    </ion-item>
+  </ion-item>
+
+
+  <ion-list  lines="none" style="padding-top: 20px;">
+    <ion-item >
+      <ion-checkbox slot="start" [(ngModel)]="dadosCfop.calcularICMS" ></ion-checkbox>
+      <ion-label style="font-size: small;">Calcular ICMS</ion-label>
+      
+    </ion-item>
+    <ion-item >
+      <ion-checkbox slot="start" [(ngModel)]="dadosCfop.calcularIPI"></ion-checkbox>
+      <ion-label style="font-size: small;">Calcular IPI</ion-label>
+      
+    </ion-item>
+    <ion-item >
+      <ion-checkbox slot="start" [(ngModel)]="dadosCfop.calcularPIS" ></ion-checkbox>
+      <ion-label style="font-size: small;">Calcular PIS</ion-label>
+      
+    </ion-item>
+    <ion-item >
+      <ion-checkbox slot="start" [(ngModel)]="dadosCfop.calcularCOFINS"></ion-checkbox>
+      <ion-label style="font-size: small;">Calcular Cofins</ion-label>
+      
+    </ion-item>
+  </ion-list>
+  <ion-list  lines="none" style="padding-top: 20px;">
+    <ion-button expand="full" color="success" (click)="gravar()">Inserir</ion-button>
+  </ion-list>
+
+  <ion-list *ngFor="let item of listaCfop ;  let i = id" >
+    <ion-item-sliding #i style="padding: 0 !important;" >
+      <ion-item style="cursor: pointer;"  (click)="i.open();">
+        <ion-label style="font-size: small;">
+          <p>{{ item.codigo }} - {{ item.nome | titlecase }}</p>
+          <p>
+            <span *ngIf="item.calcularICMS" style="color:green">ICMS</span>
+            <span *ngIf="!item.calcularICMS" style="color:red">ICMS</span>
+            &nbsp;
+            <span *ngIf="item.calcularIPI" style="color:green">IPI</span>
+            <span *ngIf="!item.calcularIPI" style="color:red">IPI</span>
+            &nbsp;
+            <span *ngIf="item.calcularPIS" style="color:green">PIS</span>
+            <span *ngIf="!item.calcularPIS" style="color:red">PIS</span>
+            &nbsp;
+            <span *ngIf="item.calcularCOFINS" style="color:green">COFINS</span>
+            <span *ngIf="!item.calcularCOFINS" style="color:red">COFINS</span>
+            
+          </p>
+          
+        </ion-label>
+        <ion-label slot="end" style="font-size: small;text-align: right;">
+            <p>{{item.cfop}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="selecionar(item)" color='success' ><ion-icon name="checkmark-outline" slot="icon-only"></ion-icon></ion-item-option>
+         <ion-item-option  color='danger' (click)="deletar(item.id)" ><ion-icon name="trash-outline" slot="icon-only"></ion-icon></ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+
+
+
+    
+  </ion-list>
+</ion-content>

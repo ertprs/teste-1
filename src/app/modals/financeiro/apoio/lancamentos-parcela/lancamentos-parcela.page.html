@@ -1,0 +1,62 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Lançamento de parcelas</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="closeModel()" color="secondary">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<ion-content>
+  
+    <ion-item lines="none" style="padding-top: 10px;" >
+      <ion-item class="ionitem" style="width: 30vw;" >
+        <ion-label color="primary" stacked >Parcela</ion-label>
+        <ion-input type="number"  [(ngModel)]="dadosParcela.parcela"></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 60vw;" >
+        <ion-label color="primary" stacked >Vencimento</ion-label>
+        <ion-input type="date"  [(ngModel)]=" dadosParcela.vencimento "></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 30vw;" >
+        <ion-label color="primary" stacked >Valor</ion-label>
+        <ion-input type="text"  [(ngModel)]=" dadosParcela.valor " style="text-align: right;"></ion-input>
+        
+      </ion-item>
+    </ion-item>
+    <ion-button expand="full" color="success" (click)="adicionarParcela()" >Adicionar</ion-button>
+   
+    <ion-list *ngFor="let item of listParcelas ;  let i = id" >
+      <ion-item-sliding #i style="padding: 0 !important;" >
+        <ion-item style="cursor: pointer;"  (click)="i.open();">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                {{ item.parcela }}
+              </ion-col>
+              <ion-col>
+                {{ item.vencimento}}
+              </ion-col>
+              <ion-col style="text-align: right;">
+                {{ item.valor | currency:'R$ ':true:'1.2-2' }}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item-options side="end">
+         <ion-item-option  color='danger' (click)="deletar(item.id)" ><ion-icon name="trash-outline" slot="icon-only"></ion-icon></ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+  
+  
+  
+  
+      
+    </ion-list>
+
+
+
+</ion-content>

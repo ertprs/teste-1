@@ -1,0 +1,32 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Filtro por data</ion-title>
+  </ion-toolbar>
+ 
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content style="padding-top: 30px;">
+  <ion-item>
+    <ion-label color="primary" stacked >Data inicial</ion-label>
+    <ion-input type="date" required [(ngModel)]="filtro.dataIni" ></ion-input>
+    <ion-input type="time"  [(ngModel)]="filtro.horaInit" ></ion-input>
+    
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" stacked >Data Fim</ion-label>
+    <ion-input type="date" required [(ngModel)]="filtro.dataFim" ></ion-input>
+    <ion-input type="time"  [(ngModel)]="filtro.horaFim" ></ion-input>
+    
+  </ion-item>
+</ion-content>
+<ion-footer>
+  <ion-toolbar mode='ios'>
+    <ion-button color="success" expand="full" (click)="executarFiltro()">Filtrar</ion-button>
+  </ion-toolbar>
+</ion-footer>

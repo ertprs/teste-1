@@ -1,0 +1,25 @@
+<ion-list *ngIf="cd == 'credito' ">
+  
+  <ion-item style="cursor: pointer;text-align: right;" lines="all" *ngIf="!item.isPago">
+    <p style="font-size:small;" >Confirmar pagamento</p>
+  </ion-item>
+  <ion-item style="cursor: pointer;text-align: right;" lines="all" *ngIf="libBoleto" (click)="executarAcao('2')">
+    <p style="font-size:small;" >Download boleto</p>
+  </ion-item>
+  <ion-item style="cursor: pointer;text-align: right;" lines="all" *ngIf="libCampainha">
+    <p style="font-size:small;" >Acionar campainha</p>
+  </ion-item>
+  <ion-item style="cursor: pointer;text-align: right;" lines="all" *ngIf="libBoleto">
+    <p style="font-size:small;" (click)="executarAcao('4')" >Enviar E-mail</p>
+  </ion-item>
+  <ion-item style="cursor: pointer;text-align: right;" lines="all" *ngIf="item.situacaoCod == 9" (click)="executarAcao('5')">
+    <p style="font-size:small;" >Processar novamente</p>
+  </ion-item>
+  <ion-item style="cursor: pointer;text-align: right;" lines="all" *ngIf="libBoleto">
+    <p style="font-size:small;" (click)="executarAcao('6')" >Enviar WhatsApp</p>
+  </ion-item>
+
+
+ 
+
+</ion-list>

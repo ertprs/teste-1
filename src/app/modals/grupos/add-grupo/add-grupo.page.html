@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Grupos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="success" (click)="grupoAdd()">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Nome</ion-label>
+    <ion-input type="text" [(ngModel)]="dadosGrupo.nome"></ion-input>
+  </ion-item>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button slot="end" color="danger" (click)="grupoDelete()">Excluir</ion-button>
+  </ion-toolbar>
+</ion-footer>
+
+

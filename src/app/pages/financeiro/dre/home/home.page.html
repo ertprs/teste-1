@@ -1,0 +1,58 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+    <ion-title>DRE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list class="boxionitem">
+    <ion-item>
+      <ion-label class="floattext" slot="start">+ Receitas</ion-label>
+      <ion-label class="floatvalue" slot="end">{{ dadosDre.receitas | currency:'BRL':true:'1.2-2' }}</ion-label>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label class="floattext" slot="start">- Impostos</ion-label>
+      <ion-label class="floatvalue" slot="end">{{ dadosDre.impostos | currency:'BRL':true:'1.2-2' }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="floattext" slot="start">= Receita liquida</ion-label>
+      <ion-label class="floatvalue" slot="end">{{ dadosDre.receitaLiquida | currency:'BRL':true:'1.2-2' }}</ion-label>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label class="floattext" slot="start">- Despesas operacionais</ion-label>
+      <ion-label class="floatvalue" slot="end">{{ dadosDre.despesasOperacionais | currency:'BRL':true:'1.2-2' }}</ion-label>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label class="floattext" slot="start">= EBITDA</ion-label>
+      <ion-label class="floatvalue" slot="end">{{ dadosDre.ebitda | currency:'BRL':true:'1.2-2' }}</ion-label>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label class="floattext" slot="start">- Depreciação</ion-label>
+      <ion-label class="floatvalue" slot="end">{{ dadosDre.depreciacao | currency:'BRL':true:'1.2-2' }}</ion-label>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label class="floattext" slot="start">- Resultados financeiros</ion-label>
+      <ion-label class="floatvalue" slot="end">{{ dadosDre.resultadosFinanceiros | currency:'BRL':true:'1.2-2' }}</ion-label>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label class="floattext" slot="start">- IR CSLL</ion-label>
+      <ion-label class="floatvalue" slot="end">{{ dadosDre.irCsll | currency:'BRL':true:'1.2-2' }}</ion-label>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label class="floattext" slot="start">= Lucro liquido</ion-label>
+      <ion-label class="floatvalue" slot="end">{{ dadosDre.lucroLiquido | currency:'BRL':true:'1.2-2' }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

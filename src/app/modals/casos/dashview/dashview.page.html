@@ -1,0 +1,37 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Casos</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-title color='primary' *ngIf="tipo == 'novo' " style="text-align: center;">Novos</ion-title>
+    <ion-title color='primary' *ngIf="tipo == 'semresposta' " style="text-align: center;">Sem resposta</ion-title>
+    <ion-title color='primary' *ngIf="tipo == 'emandamento' " style="text-align: center;">Em andamento</ion-title>
+  </ion-toolbar>
+ 
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+<ion-content style="padding-top: 20px;">
+  
+  <ion-list *ngFor="let item of items ">
+    <ion-item lines='full' style="cursor: pointer;" (click)="abrirTicket(item.id)">
+      <ion-label slot="start">
+        <p>Atendente: {{ item.usuarioNome | titlecase }}</p>
+        <p>Tipo: <strong>{{ item.departamentoNome | titlecase }} {{item.tipoNome | titlecase }}</strong></p>
+        <p>{{item.assunto | titlecase }}</p>
+      </ion-label>
+      <ion-label slot="end" style="text-align: right;">
+        <p>{{ item.createAt | date:'dd-MM-yyyy HH:mm' }}</p>
+        <p><strong>#{{ item.numero }}</strong></p>
+        <p>&nbsp;{{ item.parceiroNome | titlecase }}</p>
+        
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

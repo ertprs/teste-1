@@ -1,0 +1,29 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Produtos Visitados</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="closeModel()" color="secondary">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of itens">
+      <ion-thumbnail slot="start">
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-thumbnail>
+      <ion-label>
+        <p><strong>{{ item.descricaoCurta}}</strong></p>
+        <p>SKU: {{ item.sku }}</p>
+        <p><strong>Valor venda: </strong> {{ item.vrVenda }}</p>
+        <p>{{ item.createAt }}</p>
+      </ion-label>
+     
+    </ion-item>
+  </ion-list>
+  
+</ion-content>

@@ -1,0 +1,49 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Enviar por e-mail</ion-title>
+  </ion-toolbar>
+ 
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  <ion-item  style="margin-top: 10px;" lines='none'>
+    <ion-item class="ionitem" style="width: 100vw;">
+      <ion-label color="primary" stacked >E-mail destinatário</ion-label>
+      <ion-input type="text"  [(ngModel)]="dadosEmail.para" ></ion-input>
+    </ion-item>
+    
+  </ion-item>
+  <ion-item  style="margin-top: 10px;" lines='none'>
+    
+    <ion-item class="ionitem" style="width: 100vw;">
+      <ion-label color="primary" stacked >Assunto</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmail.assunto" ></ion-input>
+    </ion-item>
+
+  </ion-item>
+  <ion-item style="margin-top: 10px;" lines='none'>
+    
+    <ion-item class="ionitem" style="width: 100vw;" >
+      <ion-label color="primary" stacked >Anexo</ion-label>
+      <ion-input type="text"  [(ngModel)]="dadosEmail.anexo" readonly></ion-input>
+     
+      
+    </ion-item>
+
+  </ion-item>
+  <ion-item lines='none' style="margin-top: 20px;">
+    <ion-item  class="ionitem" style="width: 100%;">
+      <ion-label >Mensagem</ion-label>
+      <ion-textarea rows="6"  [innerHTML]="dadosEmail.mensagem" ></ion-textarea>
+    </ion-item>
+  </ion-item>
+</ion-content>
+<ion-footer>
+  <ion-button  expand="full" color='success' [disabled]="dadosEmail.mensagem == '' ||  dadosEmail.assunto == '' || dadosEmail.para == ''  " (click)="enviarEmail()" >Enviar</ion-button>
+</ion-footer>

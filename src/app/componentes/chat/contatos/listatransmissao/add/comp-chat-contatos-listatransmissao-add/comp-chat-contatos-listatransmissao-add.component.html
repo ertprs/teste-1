@@ -1,0 +1,65 @@
+<ion-header mode='ios' >
+  <ion-toolbar>
+    <ion-title class="titulo">Lista de Transmissão</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('chatContatoHome',{})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab class="float-fab-right" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="success" (click)="confirmTransmissao()">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content class="default-content">
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Descrição</ion-label>
+    <ion-input type="text" [(ngModel)]="dadosLista.nome"></ion-input>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label class="toggle">Habilitar WhatsApp</ion-label>
+    <ion-toggle mode="ios" color="success" [(ngModel)]="dadosLista.libWpp" (ionChange)="checkBoxLib($event,'libWpp')"></ion-toggle>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label class="toggle">Habilitar SMS</ion-label>
+    <ion-toggle mode="ios" color="success" [(ngModel)]="dadosLista.libSms" (ionChange)="checkBoxLib($event,'libSms')"></ion-toggle>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label class="toggle">Habilitar E-Mail</ion-label>
+    <ion-toggle mode="ios" color="success" [(ngModel)]="dadosLista.libEmail" disabled (ionChange)="checkBoxLib($event,'libEmail')"></ion-toggle>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Mensagem</ion-label>
+    <ion-textarea rows="3" [(ngModel)]="dadosLista.mensagem"></ion-textarea>
+  </ion-item>
+
+  <ion-item class="ionitem" *ngIf="dadosLista.anexo != '' ">
+    <ion-label color="primary" stacked >Anexo</ion-label>
+    <ion-input type="text" readonly [(ngModel)]="dadosLista.anexo"></ion-input>
+  </ion-item>
+
+  <ion-item class="ionitem" (click)="upload();" *ngIf="dadosLista.anexo== '' && plataforma == 'hybrid' ">
+    <ion-icon slot="start"  name="document-attach-outline"></ion-icon>
+    <ion-label>
+      Enviar Anexo 
+    </ion-label>
+  </ion-item>
+
+  <ion-item class="ionitem" (click)="uploadDesk();" *ngIf="dadosLista.anexo== '' && plataforma != 'hybrid' ">
+    <ion-icon slot="start"  name="document-attach-outline"></ion-icon>
+    <ion-label>
+      Enviar Anexo
+    </ion-label>
+  </ion-item>
+
+</ion-content>

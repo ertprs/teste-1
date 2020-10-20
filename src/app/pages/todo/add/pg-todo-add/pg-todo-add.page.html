@@ -1,0 +1,55 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+    </ion-buttons>
+    <ion-title color='primary'>Tarefa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+      <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content class="modal-content">
+  
+
+
+
+
+
+  <ion-item>
+    <ion-label color="primary" stacked >Título</ion-label>
+    <ion-input type="text" [(ngModel)]="dadosTarefa.titulo" ></ion-input>
+  </ion-item>
+  
+  <ion-item lines='none'>
+    <ion-label color="primary" stacked >Detalhes da tarefa</ion-label>
+    <ion-textarea placeholder="" rows="6" [(ngModel)]="dadosTarefa.descriaco"></ion-textarea>
+  </ion-item>
+
+  <ion-item *ngIf="!dadosTarefa.gerarLembrete">
+    <ion-label color="primary" stacked >Data de alerta</ion-label>
+    <ion-input type="date" [(ngModel)]="dadosTarefa.lembreteData" ></ion-input>
+    <ion-input type="time"  [(ngModel)]="dadosTarefa.lembretehora" ></ion-input>
+    
+  </ion-item>
+
+  <ion-item *ngIf="dadosTarefa.gerarLembrete">
+    <ion-icon name="alarm-outline" slot="start" color='success'></ion-icon>
+
+   
+    <ion-label style="margin-top: 17px;color: black;">{{dadosTarefa.lembreteTIme | date :'dd/MM/yyyy HH:mm'}}</ion-label>
+    <ion-icon name="close-circle-outline" color='danger'slot="end" style="cursor: pointer;" (click)="alarmDelete(tarefaUid,dadosTarefa)" ></ion-icon>
+  
+  </ion-item>
+
+</ion-content>
+
+<ion-footer class="modal-footer">
+  <ion-toolbar>
+    <ion-button expand="block" color='danger' (click)='delete()' *ngIf="this.tarefaUid">Deletar</ion-button>
+    <ion-button expand="block" color='success' (click)='add()' *ngIf="!this.tarefaUid">Incluir</ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,233 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Configurações da empresa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('compConfiguracoesHome',{})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="success" (click)="gravar()">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+
+  <ion-item lines="none" style="padding-top: 20px;" >
+    <ion-item class="ionitem" style="width: 100vw;">
+      <ion-label color="primary" stacked >Razão social</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.razaoSocial"  ></ion-input>
+      
+    </ion-item>
+   
+    
+  </ion-item>
+  <ion-item lines="none" style="padding-top: 20px;" >
+    <ion-item class="ionitem" style="width: 100vw;">
+      <ion-label color="primary" stacked >Razão fantasia</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.nomeFantasia"  ></ion-input>
+      
+    </ion-item>
+   
+    
+  </ion-item>
+
+  <ion-item lines="none" style="padding-top: 20px;" >
+    <ion-item class="ionitem" style="width: 20vw;">
+      <ion-label color="primary" stacked >CNPJ</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.cnpj" (keyup)="limparCampo($event,'number')" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 20vw;">
+      <ion-label color="primary" stacked >Inscrição Estadual</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.inscricaoEstadual" (keyup)="limparCampo($event,'number')" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 20vw;">
+      <ion-label color="primary" stacked >Inscrição Municipal</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.inscricaoMunicipal" (keyup)="limparCampo($event,'number')" ></ion-input>
+      
+    </ion-item>
+
+    <ion-item class="ionitem" style="width: 20vw;">
+      <ion-label color="primary" stacked >Optante pelo simples</ion-label>
+      <ion-select [(ngModel)]="dadosEmpresa.optanteSimplesNacional" >
+        <ion-select-option value="true">Sim</ion-select-option>
+        <ion-select-option value="false">Não</ion-select-option>
+      </ion-select>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 20vw;">
+      <ion-label color="primary" stacked >Regime especial tributário</ion-label>
+      <ion-select [(ngModel)]="dadosEmpresa.regimeEspecialTributacao" >
+        <ion-select-option value="0">Selecione</ion-select-option>
+        <ion-select-option value="1">Tributado</ion-select-option>
+        <ion-select-option value="2">Isenção / Imunidade</ion-select-option>
+        <ion-select-option value="3">Suspensão</ion-select-option>
+        <ion-select-option value="4">Simples Nacional</ion-select-option>
+        <ion-select-option value="5">ISS Fixo</ion-select-option>
+        <ion-select-option value="6">Isenção Parcial</ion-select-option>
+        
+      </ion-select>
+      
+    </ion-item>
+   
+    
+  </ion-item>
+
+  <ion-item lines="none" style="padding-top: 20px;" >
+    <ion-item class="ionitem" style="width: 50vw;">
+      <ion-label color="primary" stacked >Telefone comercial</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.telefoneComercial" (keyup)="limparCampo($event,'number')"  ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 50vw;">
+      <ion-label color="primary" stacked >E-mail</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.email"  ></ion-input>
+      
+    </ion-item>
+   
+    
+  </ion-item>
+
+  <!-- DADOS DO ENDERECO -->
+  <ion-item lines="none" style="padding-top: 20px;" >
+   
+    <ion-item class="ionitem" style="width: 90vw;" >
+      <ion-label color="primary" stacked >Endereço</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.endereco.logradouro" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 10vw;" >
+      <ion-label color="primary" stacked >Número</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.endereco.numero" (keyup)="limparCampo($event,'number')"  ></ion-input>
+      
+    </ion-item>
+    
+  </ion-item>
+  <ion-item lines="none" style="padding-top: 10px;"  >
+    <ion-item class="ionitem" style="width: 20vw;" >
+      <ion-label color="primary" stacked >CEP</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.endereco.cep" (keyup)="limparCampo($event,'number')" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 100vw;" >
+      <ion-label color="primary" stacked >Complemento</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.endereco.complemento" ></ion-input>
+      
+    </ion-item>
+  </ion-item>
+  <ion-item lines="none" style="padding-top: 10px;" >
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Bairro</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.endereco.bairro" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 25vw;" >
+      <ion-label color="primary" stacked >UF</ion-label>
+     
+      <ion-select [(ngModel)]="dadosEmpresa.endereco.uf" (ionChange)="limparCidades()">
+        <ion-select-option *ngFor="let item of UFs" value="{{ item.sigla }}">{{ item.nome | titlecase }}</ion-select-option>
+  
+
+      </ion-select>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 25vw;" >
+      <ion-label color="primary" stacked >Cidade</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.endereco.cidade" readonly ></ion-input>
+      <ion-button slot="end" color="secondary" (click)="abrirConsultaCidade()" >
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item class="ionitem" style="width: 10vw;" >
+      <ion-label color="primary" stacked >Cod. IBGE</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.endereco.codigoIbgeCidade" readonly ></ion-input>
+     
+      
+    </ion-item>
+    
+  </ion-item>
+
+  <ion-item-divider style="padding-top: 10px;">
+    <ion-label>
+      Dados emissão NFE Produção
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines="none" style="padding-top: 10px;" >
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Sequencial NFe</ion-label>
+      <ion-input type="number" [(ngModel)]="dadosEmpresa.emissaoNFeProduto.ambienteProducao.sequencialNFe" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Série</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.emissaoNFeProduto.ambienteProducao.serieNFe" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Sequencial Lote NFe</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.emissaoNFeProduto.ambienteProducao.sequencialLoteNFe" ></ion-input>
+      
+    </ion-item>
+    
+  </ion-item>
+
+
+
+  <ion-item-divider style="padding-top: 10px;">
+    <ion-label>
+      Dados emissão NFE Homologação
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines="none" style="padding-top: 10px;" >
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Sequencial NFe</ion-label>
+      <ion-input type="number" [(ngModel)]="dadosEmpresa.emissaoNFeProduto.ambienteHomologacao.sequencialNFe" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Série</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.emissaoNFeProduto.ambienteHomologacao.serieNFe" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Sequencial Lote NFe</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.emissaoNFeProduto.ambienteHomologacao.sequencialLoteNFe" ></ion-input>
+      
+    </ion-item>
+    
+  </ion-item>
+
+
+  <ion-item-divider style="padding-top: 10px;">
+    <ion-label>
+      Certificado Digital
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines="none" style="padding-top: 10px;" >
+    <ion-item class="ionitem" style="width: 70vw;" >
+      <ion-label color="primary" stacked >Arquivo</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEmpresa.certificado.arquivo" ></ion-input>
+      <ion-button color="secondary" slot="end" (click)="uploadDesk()">
+        <ion-icon name="attach-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Senha</ion-label>
+      <ion-input type="password" [(ngModel)]="dadosEmpresa.certificado.senha" ></ion-input>
+      
+    </ion-item>
+   
+    
+  </ion-item>
+
+
+
+
+</ion-content>

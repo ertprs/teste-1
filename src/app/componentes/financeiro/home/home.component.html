@@ -1,0 +1,205 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title class="titulo">Financeiro</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="functionExecute('btnBack',{componente:'home'})" color="secondary" >
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+
+<ion-fab class="float-fab-right" horizontal="end" vertical="top" slot="fixed" #fab>
+  <ion-fab-button>
+    <ion-icon name="grid-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list>
+    <ion-fab-button color="warning" >
+      <ion-icon name="expand-outline"></ion-icon>
+    </ion-fab-button>
+    
+    <ion-fab-button color="secondary" (click)="abrirRelatorios()" >
+      <ion-icon name="pie-chart-outline"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-button color="success" (click)="selecionarTipoNovo()" >
+      <ion-icon name="add-circle-outline"></ion-icon>
+    </ion-fab-button>
+
+
+  </ion-fab-list>
+</ion-fab>
+
+<ion-content class="default-content">
+  <ion-grid>
+    <ion-row>
+      <ion-col style="text-align: center" color='success'>
+        <ion-card color='secondary' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Minha conta</ion-card-subtitle>
+            <ion-card-title>
+              <p>R$ 0,00 </p>
+            
+
+            </ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-toolbar mode='ios' color="secondary" >
+              
+                <ion-icon name="create-outline" slot="end" style="cursor: pointer;" (click)="abrirDashView('novo')"></ion-icon>
+            
+            </ion-toolbar>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+
+      <ion-col style="text-align: center" color='success'>
+        <ion-card color='success' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Recebimentos</ion-card-subtitle>
+            <ion-card-title>
+              <ion-spinner name="circles" *ngIf="!dashRecebimentos" style="color: white;font-size: small;"></ion-spinner>
+              <p  *ngIf="dashRecebimentos" style="font-size: small;text-align: left;">Total: {{ dashRecebimentos |  currency:'R$ ':true:'1.2-2' }}</p>
+              <p style="font-size: small;text-align: left;">Vencidos: {{ 0 |  currency:'R$ ':true:'1.2-2' }}</p>
+
+            </ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-toolbar mode='ios' color="success" >
+              
+                <ion-icon name="create-outline" slot="end" style="cursor: pointer;" (click)="abrirDashView('semresposta')"></ion-icon>
+            
+            </ion-toolbar>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    
+      <ion-col style="text-align: center" color='success'>
+        <ion-card color='warning' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Pagamentos</ion-card-subtitle>
+            <ion-card-title>
+              <ion-spinner name="circles" *ngIf="!dashPagamentos" style="color: white;font-size: small;"></ion-spinner>
+              <p  style="font-size: small;text-align: left;" *ngIf="dashPagamentos" >{{ dashPagamentos |  currency:'R$ ':true:'1.2-2' }}</p>
+              <p style="font-size: small;text-align: left;">Vencidos: {{ 0 |  currency:'R$ ':true:'1.2-2' }}</p>
+            
+
+            </ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-toolbar mode='ios' color="warning" >
+              
+              <ion-icon name="create-outline" slot="end" style="cursor: pointer;" (click)="abrirDashView('emandamento')"></ion-icon>
+          
+          </ion-toolbar>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+     
+
+      <ion-col style="text-align: center" color='success'>
+        <ion-card color='secondary' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Resultados</ion-card-subtitle>
+            <ion-card-title>
+              <p>R$ 0,00</p>
+            
+
+            </ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-toolbar mode='ios' color="secondary" >
+              
+              <ion-icon name="create-outline" slot="end" style="cursor: pointer;" (click)="abrirDashView('emandamento')"></ion-icon>
+          
+          </ion-toolbar>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+
+    </ion-row>
+  </ion-grid>
+
+
+  <!-- BARRA DE CONSULTA -->
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+         
+        <ion-item lines= 'none' style="font-size: small;">
+          <ion-item style="width: 15vw;" class="ionitem">
+            <ion-label >Tipo</ion-label>
+            <ion-select  okText="Selecionar" [(ngModel)]="filtroSelect.tipo" cancelText="Cancelar" mode='ios'  style="font-size: small;">
+              <ion-select-option value="todos" >Todos</ion-select-option>
+              <ion-select-option value="credito" >Crédito</ion-select-option>
+              <ion-select-option value="debito" >Débito</ion-select-option>
+              
+             
+            </ion-select>
+          </ion-item>
+          <ion-item style="width: 30vw;" class="ionitem" (click)="abrirModalFiltroData()" >
+            <ion-label >Data</ion-label>
+            <ion-input placeholder="dd/MM/yyyy" readonly style="font-size: small;" [(ngModel)]="filtroSelect.dataIniString"></ion-input>&nbsp;<span style="font-size: x-small;">até</span>&nbsp;
+            <ion-input placeholder="dd/MM/yyyy" readonly style="font-size: small;" [(ngModel)]="filtroSelect.dataFimString"></ion-input>&nbsp;
+            <ion-icon name="calendar-outline" class="ion-icon"  color='secondary' style="cursor:pointer;" slot="end"></ion-icon>
+          </ion-item>
+          
+          <ion-item style="width: 40vw;" class="ionitem" >
+            <ion-label >Pesquisar por</ion-label>
+            <ion-input  [(ngModel)]="filtroSelect.buscarpor" style="font-size: small;" ></ion-input>
+          </ion-item>
+
+         
+          
+          
+          
+          <ion-button color="secondary" (click)="gerarFiltro()" ><ion-icon name="funnel-outline"></ion-icon></ion-button>
+
+
+
+          
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+ 
+  <ion-list  *ngFor="let item of registrosLancamentos; let i = id" style="padding: 0 !important;">
+    <ion-item-sliding #i style="padding: 0 !important;">
+      <ion-item style="cursor: pointer;" (click)="i.open();">
+        <ion-icon name="flag-outline" class="flag_color_{{item.c_d}}" slot="start"></ion-icon>
+        <ion-label style="font-size: small;">
+          <p *ngIf="item.nome != '' "><strong>{{ item.nome | titlecase }}&nbsp;</strong></p>
+          <p></p>
+          <p>Situação: {{ item.situacaoNome | titlecase }}</p>
+        </ion-label>
+        <ion-label style="font-size: small;text-align: right;" slot="end">
+          <p>{{ item.valor_principal |  currency:'R$ ':true:'1.2-2' }}</p>
+          <p>Vencimento {{ item.vencimento | date:'dd/MM/yyyy' }}</p>
+          
+        </ion-label>
+        
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color='secondary' (click)="functionExecute('compfinview', {id: item.id})"><ion-icon name="create-outline" slot="icon-only"></ion-icon></ion-item-option>
+        <ion-item-option color='danger' (click)="lancamentoCancelar(item.id)" *ngIf="!item.isCancelado"><ion-icon name="close-circle-outline" slot="icon-only"></ion-icon></ion-item-option>
+        <ion-item-option color='secondary' (click)="popoverItem($event,item)"><ion-icon name="chevron-down-outline" slot="icon-only"></ion-icon></ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    
+  </ion-list>
+
+
+
+</ion-content>

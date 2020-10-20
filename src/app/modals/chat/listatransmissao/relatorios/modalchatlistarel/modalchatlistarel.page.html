@@ -1,0 +1,57 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Detalhes da transmissão</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="closeModal()" color="secondary">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card color='secondary'>
+          <ion-card-header>
+            <ion-card-subtitle>Qtd Contatos</ion-card-subtitle>
+            <ion-card-title>0</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+           
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col>
+        <ion-card color='success'>
+          <ion-card-header>
+            <ion-card-subtitle>Qtd enviados</ion-card-subtitle>
+            <ion-card-title>0</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+           
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+
+      <ion-col>
+        <ion-card color='danger'>
+          <ion-card-header>
+            <ion-card-subtitle>Erros</ion-card-subtitle>
+            <ion-card-title>0</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+           
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

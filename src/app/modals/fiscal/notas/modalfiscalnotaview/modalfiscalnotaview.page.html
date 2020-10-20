@@ -1,0 +1,256 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Nota Fiscal</ion-title>
+  </ion-toolbar>
+ 
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="close()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+
+<ion-content>
+  
+  <ion-item-divider style="padding-top: 10px;font-size: small;background-color: transparent;"  >
+    <ion-label color="medium">
+     Dados da nota
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines="none" style="padding-top: 20px;" >
+   
+    
+    <ion-item class="ionitem" style="width: 100vw;" >
+      <ion-label color="primary" stacked >Destinatário</ion-label>
+      <ion-input type="text"  [(ngModel)]="informacoesoNota.dadosNota.parceiroNome" readonly  ></ion-input>
+      
+    </ion-item>
+  </ion-item>
+  <ion-item lines="none" style="padding-top: 20px;" >
+   
+    
+    <ion-item class="ionitem" style="width: 100vw;" >
+      <ion-label color="primary" stacked >Natureza Operacao</ion-label>
+      <ion-input type="text"  [(ngModel)]="informacoesoNota.dadosNota.naturezaOperacao"   ></ion-input>
+      
+    </ion-item>
+  </ion-item>
+  <ion-item lines="none" style="padding-top: 20px;" >
+    <ion-item class="ionitem" style="width: 23vw;" >
+      <ion-label color="primary" stacked >Ambiente</ion-label>
+    
+      <ion-select [(ngModel)]="informacoesoNota.dadosNota.ambienteEmissao" >
+        <ion-select-option value="Homologacao">Homologação</ion-select-option>
+        <ion-select-option value="Producao">Produção</ion-select-option>
+      </ion-select>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 23vw;" >
+      <ion-label color="primary" stacked >Número NF</ion-label>
+      <ion-input type="text" readonly [(ngModel)]="informacoesoNota.dadosNota.nfNumero" style="text-align: right;" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 23vw;" >
+      <ion-label color="primary" stacked >Data Emissão</ion-label>
+      <ion-input type="text"  [(ngModel)]="informacoesoNota.dadosNota.dataEmissao" readonly  ></ion-input>
+      
+    </ion-item>
+  </ion-item>
+
+  <ion-item lines="none" style="padding-top: 20px;" >
+   
+    <ion-item class="ionitem" style="width: 23vw;" >
+      <ion-label color="primary" stacked >Finalidade</ion-label>
+      <ion-select [(ngModel)]="informacoesoNota.dadosNota.finalidade" >
+        <ion-select-option value="Normal">Normal</ion-select-option>
+        <ion-select-option value="DevolucaoMercadoria">Devolução Mercadoria</ion-select-option>
+      </ion-select>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 23vw;" >
+      <ion-label color="primary" stacked >Tipo operação</ion-label>
+      <ion-select [(ngModel)]="informacoesoNota.dadosNota.tipoOperacao" >
+        <ion-select-option value="Entrada">Entrada</ion-select-option>
+        <ion-select-option value="Saida">Saida</ion-select-option>
+      </ion-select>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 23vw;" >
+      <ion-label color="primary" stacked >Consumidor final</ion-label>
+      <ion-select [(ngModel)]="informacoesoNota.dadosNota.consumidorFinal" >
+        <ion-select-option value="sim">Sim</ion-select-option>
+        <ion-select-option value="nao">Não</ion-select-option>
+      </ion-select>
+      
+    </ion-item>
+  </ion-item>
+  <ion-item lines="none" style="padding-top: 20px;" >
+    <ion-item class="ionitem" style="width: 23vw;" >
+      <ion-label color="primary" stacked >Enviar email</ion-label>
+    
+      <ion-select [(ngModel)]="informacoesoNota.dadosNota.enviarPorEmail" >
+        <ion-select-option value="sim">Sim</ion-select-option>
+        <ion-select-option value="nao">Não</ion-select-option>
+      </ion-select>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 60vw;" >
+      <ion-label color="primary" stacked >E-mail destinatário</ion-label>
+      <ion-input type="text"  [(ngModel)]="informacoesoNota.dadosNota.parceiroEmail" style="text-align: right;" ></ion-input>
+      
+    </ion-item>
+    
+  </ion-item>
+
+  <ion-item-divider style="padding-top: 10px;font-size: small;background-color: transparent;"  >
+    <ion-label color="medium">
+     Dados para transporte / Volumes
+    </ion-label>
+  </ion-item-divider>
+
+  <ion-item lines="none" style="padding-top: 20px;" >
+    
+    
+    <ion-item class="ionitem" style="width: 100vw;" >
+      <ion-label color="primary" stacked >Transportadora</ion-label>
+      <ion-input type="text"  [(ngModel)]="informacoesoNota.dadosNota.transportadoraNome" readonly style="text-align: right;" ></ion-input>
+      
+    </ion-item>
+    
+  </ion-item>
+
+  <ion-item lines="none" style="padding-top: 20px;" >
+    
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Modalidade</ion-label>
+      <ion-select [(ngModel)]="informacoesoNota.transporte.frete.modalidade" >
+        <ion-select-option  value="PorContaDoEmitente">Por conta do emitente</ion-select-option>
+        <ion-select-option  value="PorContaDoDestinatario">Por conta do destinatário/remetente</ion-select-option>
+        <ion-select-option  value="PorContaDeTerceiros">Por conta de terceiros</ion-select-option>
+        <ion-select-option  value="SemFrete">Sem frete</ion-select-option>
+  
+      </ion-select>
+      
+    </ion-item>
+
+    <ion-item class="ionitem" style="width: 20vw;" >
+      <ion-label color="primary" stacked >Espécie</ion-label>
+      <ion-input type="text"  [(ngModel)]="informacoesoNota.transporte.volume.especie" style="text-align: right;" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 50vw;" >
+      <ion-label color="primary" stacked >Marca</ion-label>
+      <ion-input type="text"  [(ngModel)]="informacoesoNota.transporte.volume.marca" style="text-align: right;" ></ion-input>
+      
+    </ion-item>
+    
+  </ion-item>
+
+  <ion-item lines="none" style="padding-top: 20px;" >
+    
+    <ion-item class="ionitem" style="width: 20vw;" >
+      <ion-label color="primary" stacked >Numeração</ion-label>
+      <ion-input type="text"  [(ngModel)]="informacoesoNota.transporte.volume.numeracao" style="text-align: right;" ></ion-input>
+      
+    </ion-item>
+
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Quantidade</ion-label>
+      <ion-input type="text"  [(ngModel)]="informacoesoNota.transporte.volume.quantidade" style="text-align: right;" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 40vw;" >
+      <ion-label color="primary" stacked >Peso Liquido</ion-label>
+      <ion-input type="text"  [(ngModel)]="informacoesoNota.transporte.volume.pesoLiquido" style="text-align: right;" ></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 40vw;" >
+      <ion-label color="primary" stacked >Peso Bruto</ion-label>
+      <ion-input type="text"  [(ngModel)]="informacoesoNota.transporte.volume.pesoBruto" style="text-align: right;" ></ion-input>
+      
+    </ion-item>
+    
+  </ion-item>
+
+  <ion-item-divider style="padding-top: 10px;font-size: small;background-color: transparent;"  >
+    <ion-label color="medium">
+     Informações adicionais
+    </ion-label>
+  </ion-item-divider>
+  
+  <ion-item lines="none" style="padding-top: 20px;" >
+    
+    <ion-item class="ionitem" style="width: 100vw;" >
+    
+      <ion-textarea rows="6" [(ngModel)]="informacoesoNota.informacoesAdicionais"></ion-textarea>
+      
+    </ion-item>
+  </ion-item>
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="full" *ngIf="informacoesoNota.dadosNota.situacaoCod == 0" color="success" (click)="gravar()">Emitir nota fiscal</ion-button>
+  
+
+  
+  <ion-toolbar *ngIf="informacoesoNota.dadosNota.situacaoCod != 0">
+
+      <!-- NOTA AUTORIZADA -->
+      <ion-text *ngIf="informacoesoNota.dadosNota.situacaoCod == 1">
+        <ion-spinner name="circles" ></ion-spinner> 
+        <ion-label style="font-size: small;text-align: center">
+        {{ informacoesoNota.dadosNota.situacaoNome | titlecase  }}
+        </ion-label>
+      </ion-text>
+
+      <ion-text *ngIf="informacoesoNota.dadosNota.situacaoCod == 3">
+        <ion-label >
+          <p style="font-size: large;text-align: center !important;color: green;"> <strong>NOTA AUTORIZADA</strong> </p>
+        </ion-label>
+       <ion-grid>
+         <ion-row>
+           <ion-col>
+              <ion-button color="light" expand="full" (click)="Download(informacoesoNota.dadosNota.linkXML)">Download XML</ion-button>
+           </ion-col>
+           <ion-col>
+            <ion-button color="success" expand="full" (click)="Download(informacoesoNota.dadosNota.linkPDF)">Download PDF</ion-button>
+          </ion-col>
+         </ion-row>
+       </ion-grid> 
+       
+      </ion-text>
+      <!-- NOTA NEGADA -->
+      <ion-text *ngIf="informacoesoNota.dadosNota.situacaoCod == 4">
+        <ion-spinner name="circles"></ion-spinner> 
+        <ion-label style="font-size: small;text-align: center">
+        {{ informacoesoNota.dadosNota.situacaoNome | titlecase  }}
+        </ion-label>
+      </ion-text>
+
+    
+
+      <!-- Enviando para sefaz -->
+      <ion-text *ngIf="informacoesoNota.dadosNota.situacaoCod == 2">
+        <ion-spinner name="circles" ></ion-spinner> 
+        <ion-label style="font-size: small;text-align: center">
+        Aguardando retorno da SEFAZ
+        </ion-label>
+      </ion-text>
+
+      
+    
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="informacoesoNota.dadosNota.nfeMotivoStatus != '' ">
+      <ion-text  color="danger">
+        <p style="text-align: center;padding: 5px;font-size: small;">
+          {{ informacoesoNota.dadosNota.nfeMotivoStatus }}
+        </p>
+        
+      </ion-text>
+  </ion-toolbar>
+</ion-footer>

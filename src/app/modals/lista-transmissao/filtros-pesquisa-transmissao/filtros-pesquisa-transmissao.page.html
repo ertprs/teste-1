@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="primary">Gerar Lista</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item class="ionitem">
+          <ion-label color="primary" stacked >Nome</ion-label>
+          <ion-input type="text" [(ngModel)]="allParams.nome"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="ionitem">
+          <ion-label>Canal</ion-label>
+          <ion-select [(ngModel)]="allParams.canal">
+            <ion-select-option value="0" disabled>SELECIONAR OPÇÃO ABAIXO</ion-select-option>
+            <ion-select-option value="todos" >Todos</ion-select-option>
+            <ion-select-option value="whatsapp">Whatsapp</ion-select-option>
+            <ion-select-option value="telegram">Telegram</ion-select-option>
+     
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="ionitem">
+          <ion-label>Estado</ion-label>
+          <ion-select [(ngModel)]="allParams.estado" (ngModelChange)="estadoChange($event)">
+            <ion-select-option value="0" disabled>SELECIONAR OPÇÃO ABAIXO</ion-select-option>
+            <ion-select-option value="todos">Todos</ion-select-option>
+            <ion-select-option *ngFor="let estado of filtros.estados" value="{{estado.uf}}" >{{estado.nome}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="ionitem">
+          <ion-label>Cidade</ion-label>
+          <ion-select [(ngModel)]="allParams.cidade">
+            <ion-select-option value="0" disabled>SELECIONAR OPÇÃO ABAIXO</ion-select-option>
+            <ion-select-option value="todos">Todos</ion-select-option>
+            <ion-select-option *ngFor="let cidade of filtros.cidades" value="{{cidade.nome}}" >{{cidade.nome}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="ionitem">
+          <ion-label>Grupo</ion-label>
+          <ion-select [(ngModel)]="allParams.grupo">
+            <ion-select-option value="0" disabled>SELECIONAR OPÇÃO ABAIXO</ion-select-option>
+            <ion-select-option value="todos">Todos</ion-select-option>
+            <ion-select-option *ngFor="let grupo of filtros.grupos" >{{grupo.nome}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="ionitem">
+          <ion-label>Sub-Grupo</ion-label>
+          <ion-select [(ngModel)]="allParams.subgrupo">
+            <ion-select-option value="0" disabled>SELECIONAR OPÇÃO ABAIXO</ion-select-option>
+            <ion-select-option value="todos">Todos</ion-select-option>
+            <ion-select-option *ngFor="let grupo of filtros.grupos" >{{grupo.nome}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="block" color="success" (click)="preLista()">Filtrar</ion-button>
+</ion-footer>

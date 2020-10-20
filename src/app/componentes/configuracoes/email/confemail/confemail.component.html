@@ -1,0 +1,148 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Configurações E-mail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('compConfiguracoesHome',{})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="success" (click)="gravar()">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+<ion-content>
+  <ion-list class="ionitem">
+    <ion-item>
+      <ion-label class="toggle">IMAP - Configuração de conta IMAP</ion-label>
+     
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          
+          <ion-item lines='none'>
+            <ion-item lines="none" class="ionitem" style="width: 200vw;">
+              <ion-label color="primary" stacked>Host</ion-label>
+              <ion-input type="text"  [(ngModel)]="dadosEmail.imapHost"  ></ion-input>
+            </ion-item>
+  
+           
+          </ion-item>
+          <ion-item lines='none'>
+            <ion-item lines="none" class="ionitem" style="width: 40vw;">
+              <ion-label color="primary" stacked>Usuário</ion-label>
+              <ion-input type="text"  [(ngModel)]="dadosEmail.imapUsuario"  ></ion-input>
+            </ion-item>
+  
+            <ion-item lines="none" class="ionitem" style="width: 40vw;">
+              <ion-label color="primary" stacked>Senha</ion-label>
+              <ion-input type="password"  [(ngModel)]="dadosEmail.imapSenha" ></ion-input>
+            </ion-item>
+          </ion-item>
+          
+          <ion-item lines='none'>
+            <ion-item lines="none" class="ionitem" style="width: 20vw;">
+              <ion-label color="primary" stacked>Porta</ion-label>
+              <ion-input type="number"  [(ngModel)]="dadosEmail.imapPorta" ></ion-input>
+            </ion-item>
+
+            <ion-item lines="none" class="ionitem" style="width: 30vw;">
+              <ion-label color="primary" stacked>TLS</ion-label>
+              <ion-select placeholder="Selecione" [(ngModel)]="dadosEmail.imapTLS">
+                <ion-select-option value="true">Sim</ion-select-option>
+                <ion-select-option value="false">Não</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item lines="none" class="ionitem" style="width: 30vw;">
+              <ion-label color="primary" stacked>TLS</ion-label>
+              <ion-select placeholder="Selecione" [(ngModel)]="dadosEmail.imapTLS">
+                <ion-select-option value="true">Sim</ion-select-option>
+                <ion-select-option value="false">Não</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-item>
+
+
+
+
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button color="secondary" expand="full" *ngIf="dadosEmail.imapTest" (click)="testConta('imap')">Testar IMAP</ion-button>
+        </ion-col>
+      </ion-row>
+     
+     
+    </ion-grid>
+  </ion-list>
+
+
+
+  <ion-list class="ionitem">
+    <ion-item>
+      <ion-label class="toggle">SMTP - Configuração de conta SMTP</ion-label>
+     
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item lines='none'>
+            <ion-item lines="none" class="ionitem" style="width: 200vw;">
+              <ion-label color="primary" stacked>Host</ion-label>
+              <ion-input type="text"  [(ngModel)]="dadosEmail.smtpHost"  ></ion-input>
+            </ion-item>
+  
+           
+          </ion-item>
+          <ion-item lines='none'>
+            <ion-item lines="none" class="ionitem" style="width: 40vw;">
+              <ion-label color="primary" stacked>Usuário</ion-label>
+              <ion-input type="text"   [(ngModel)]="dadosEmail.smtpUsuario" ></ion-input>
+            </ion-item>
+  
+            <ion-item lines="none" class="ionitem" style="width: 40vw;">
+              <ion-label color="primary" stacked>Senha</ion-label>
+              <ion-input type="password"  [(ngModel)]="dadosEmail.smtpSenha" ></ion-input>
+            </ion-item>
+          </ion-item>
+          
+          <ion-item lines='none'>
+            <ion-item lines="none" class="ionitem" style="width: 20vw;">
+              <ion-label color="primary" stacked>Porta</ion-label>
+              <ion-input type="number"  [(ngModel)]="dadosEmail.smtpPorta" ></ion-input>
+            </ion-item>
+
+            <ion-item lines="none" class="ionitem" style="width: 30vw;">
+              <ion-label color="primary" stacked>Seguro</ion-label>
+              <ion-select placeholder="Selecione" [(ngModel)]="dadosEmail.smtpSecure" >
+                <ion-select-option value=true>Sim</ion-select-option>
+                <ion-select-option value=false>Não</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-item>
+
+
+
+
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button color="secondary" expand="full" *ngIf="dadosEmail.smtpTest" (click)="testConta('smtp')">Testar SMTP</ion-button>
+        </ion-col>
+      </ion-row>
+     
+    </ion-grid>
+  </ion-list>
+
+
+</ion-content>

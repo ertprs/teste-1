@@ -1,0 +1,140 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title class="titulo">Gerenciamento de caso</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="functionExecute('btnBack',{componente:'home'})" color="secondary" >
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+<ion-content style="max-height: 90vh;">
+
+<!-- BARRA DE BOTOES -->
+<ion-item *ngIf="!data.casoUid" lines='none' style="margin-top: 20px;">
+  <ion-button color="success"(click)="criarCaso()" expand="block"  slot="end" [disabled]=" dadosCaso.departamentoUid == '' || dadosCaso.tipoUid == '' || dadosCaso.assunto == '' || dadosCaso.detalhamento == ''   " >Criar caso</ion-button>
+</ion-item>
+
+<ion-item *ngIf="data.casoUid" lines='none' style="margin-top: 20px;">
+  <ion-button expand="block"  color="danger" slot="start" (click)="definirSpam()"  *ngIf="dadosCasoDetalhe.length ==  0 &&   dadosCaso.contatoEmail != '' " >Reportar SPAM</ion-button>
+  <ion-button expand="block"  color="secondary" slot="end" *ngIf="dadosCaso.contatoUid != '' ">Iniciar conversa</ion-button>
+  <ion-button expand="block"  color="success" slot="end" (click)="encerrarChamado()" >Encerrar caso</ion-button>
+</ion-item>
+
+<!-- DAODS DE ABERTURA DO TICKET -->
+<ion-item lines='none' style="margin-top: 20px;">
+  <ion-item class="ionitem" style="width: 7vw;">
+    <ion-label color="primary" stacked >Número</ion-label>
+    <ion-input type="text" value="{{ dadosCaso.numero }}" readonly ></ion-input>
+    
+  </ion-item>
+  <ion-item class="ionitem" style="width: 15vw;">
+    <ion-label color="primary" stacked >Data abertura</ion-label>
+    <ion-input type="text" value="{{ dadosCaso.dataAbertura | date:'dd/MM/yy HH:mm'}}" readonly ></ion-input>
+    
+  </ion-item>
+  <ion-item class="ionitem" style="width: 25vw;">
+    <ion-label color="primary" stacked >Iniciado por</ion-label>
+    <ion-input type="text" [(ngModel)]="dadosCaso.usuarioNome" readonly ></ion-input>
+    
+  </ion-item>
+  <ion-item style="width: 15vw;" class="ionitem">
+    <ion-label >Departamento</ion-label>
+    <ion-input  *ngIf="data.casoUid"  type="text" [(ngModel)]="dadosCaso.departamentoNome" readonly ></ion-input>
+    <ion-select  *ngIf="!data.casoUid"  value="brown" okText="Selecionar" cancelText="Cancelar" mode='ios'  style="font-size: small;" (ionChange)="SetDepto()" [(ngModel)]="dadosCaso.departamento">
+      <ion-select-option  *ngFor="let item of itemsDepto " value="{{ item.id }} | {{ item.nome | titlecase }}"  >{{ item.nome | titlecase }}</ion-select-option> 
+     
+    </ion-select>
+  </ion-item>
+  <ion-item style="width: 15vw;" class="ionitem">
+    <ion-label >Tipo</ion-label>
+    <ion-input  *ngIf="data.casoUid"  type="text" [(ngModel)]="dadosCaso.tipoNome" readonly ></ion-input>
+    <ion-select   *ngIf="!data.casoUid"  value="brown" okText="Selecionar" cancelText="Cancelar" mode='ios'  style="font-size: small;" [(ngModel)]="dadosCaso.tipo" (ionChange)="SetCasoTipo()" [disabled]="dadosCaso.departamentoUid === '' ">
+      <ion-select-option  *ngFor="let item of itemsCasosTipo " value="{{ item.id }} | {{ item.nome }}"  >{{ item.nome | titlecase }}</ion-select-option> 
+   
+     
+    </ion-select>
+  </ion-item>
+</ion-item>
+
+
+<ion-item lines='none' style="margin-top: 20px;" >
+  <ion-item class="ionitem" style="width: 25vw;">
+    <ion-label color="primary" stacked >Contato</ion-label>
+    <ion-input type="text"  [(ngModel)]="dadosCaso.contatoNome" [readonly]="dadosCaso.contatoUid != '' " ></ion-input>
+    <ion-button color="secondary" (click)="abrirConsultaContato()" slot="end" *ngIf="dadosCaso.contatoUid == ''">
+      <ion-icon name="search-circle-outline" ></ion-icon>
+    </ion-button>
+    
+  </ion-item>
+  <ion-item class="ionitem" style="width: 90vw;">
+    <ion-label color="primary" stacked >Parceiro de negócios</ion-label>
+    <ion-input type="text"  readonly [(ngModel)]="dadosCaso.parceiroNome" ></ion-input>
+    
+  </ion-item>
+</ion-item>
+
+<ion-item lines='none' style="margin-top: 20px;" *ngIf="dadosCaso.contatoEmail" >
+  <ion-item class="ionitem" style="width: 100vw;">
+    <ion-label color="primary" stacked >E-mail do remetente</ion-label>
+    <ion-input type="text"  [(ngModel)]="dadosCaso.contatoEmail"  readonly ></ion-input>
+   
+    
+  </ion-item>
+  
+</ion-item>
+
+
+<ion-item lines='none' style="margin-top: 20px;">
+  <ion-item  class="ionitem" style="width: 100%;">
+    <ion-label >Assunto</ion-label>
+    <ion-input type="text"  [(ngModel)]="dadosCaso.assunto" [readonly]="data.casoUid"></ion-input>
+  </ion-item>
+</ion-item>
+
+
+<ion-item lines='none' style="margin-top: 20px;">
+  <ion-item  class="ionitem" style="width: 100%;">
+    <ion-label >Detalhamento</ion-label>
+    <ion-textarea rows="6" textarea id="article_text" class="article_text" type="text"  [innerHTML]="dadosCaso.detalhamento" *ngIf="data.casoUid "></ion-textarea>
+    <ion-textarea rows="6"  class="article_text" type="text"  [(ngModel)]="dadosCaso.detalhamento" *ngIf="!data.casoUid "></ion-textarea>
+  </ion-item>
+</ion-item>
+
+
+<ion-item lines='none' style="margin-top: 5px;text-align: center;" *ngIf="data.casoUid">
+  <ion-button expand="block"  color="secondary" slot="end" (click)="modalEventoAdd()" >Registrar evento</ion-button>
+</ion-item>
+
+<ion-item lines='none' style="margin-top: 5x;" *ngIf="data.casoUid">
+
+  <ion-grid>
+      <ion-row  *ngFor="let item of dadosCasoDetalhe" style="margin-top: 10px;overflow-y: auto;">
+        <ion-col class="timeline1">
+          <ion-chip class="color_es_{{ item.es}}">
+            
+            <ion-label>{{ item.es | uppercase }}</ion-label>
+          </ion-chip>
+        </ion-col>
+        <ion-col class="timeline2">
+          <p style="font-size: small;" > <strong>{{ item.tipo | titlecase }}</strong>&nbsp;{{ item.createAt | date:'dd/MM/yy HH:mm'}}&nbsp;{{ item.usuarioNome | titlecase }}</p>
+         
+          <ion-textarea textarea id="article_text" class="article_text" type="text"  [innerHTML]="item.descricao" ></ion-textarea>
+          <p style="text-align: left;font-size: x-small;" *ngIf="item.msg" >
+            {{ item.msg }} | {{ item.emailDestinatario }}
+          </p>
+          <p *ngIf='item.anexo != "" '><a href="{{ item.anexo }}" target="_blank">Ver anexo</a> </p>
+          <p style="font-size:xx-small;" *ngIf='item.privacidade == "private" '>Está mensagem é privada, visualização apenas internamente</p>
+          <p style="font-size:xx-small;" *ngIf='item.privacidade == "public" '>Está mensagem é pública, visualização a todos</p>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-item>
+
+
+
+
+
+</ion-content>

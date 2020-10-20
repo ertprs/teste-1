@@ -1,0 +1,21 @@
+export interface Ittodo {
+    createAt?:number;
+    color?:string;
+    titulo?:string;
+    descriaco?:string;
+    lembretehora?:string;
+    lembreteData?:string;
+    lembreteTIme?:number;
+    acaoCod?:number;
+    acaoNome?:string;
+    acaoDados?:string;
+    concluido?:boolean;
+    concluidoData?:number;
+    gerarLembrete?:boolean;
+    usuarioUid?:string;
+    usuarioNome?:string;
+    empresaNome?:string;
+    cronUid?:string
+    comandos?:string
+    id?:string;
+}

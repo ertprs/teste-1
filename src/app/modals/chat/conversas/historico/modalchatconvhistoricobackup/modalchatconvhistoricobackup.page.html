@@ -1,0 +1,33 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Histórico Backup</ion-title>
+  </ion-toolbar>
+  
+ 
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  <ion-grid>
+    <ion-row *ngFor="let item of itensHistoricos">
+      <ion-col >
+        <div class="box_{{ item.es }}">
+          <p *ngIf="item.pidUser == 99999"><strong>Enviada</strong></p>
+          <p *ngIf="item.pidUser != 99999"><strong>Recebida</strong></p>
+          <p>{{ item.mensagem }}</p>
+          <p *ngIf="item.link != '' "><a href="{{ item.link }}" target="_blank">{{ item.link }}</a> </p>
+          <p>{{ item.dataStamp | date:"dd/MM/yyyy HH:mm"}}</p>
+         
+
+        </div>
+        
+        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

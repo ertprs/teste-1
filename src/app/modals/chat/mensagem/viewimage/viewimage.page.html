@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+      
+    </ion-buttons>
+    <ion-title>Visualizar imagem</ion-title>
+    <ion-buttons slot="primary">
+      
+      <ion-button fill="solid" color="secondary" (click)="getPermission()">
+        Salvar
+        <ion-icon name="cloud-download-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img src="{{urlData}}">
+</ion-content>

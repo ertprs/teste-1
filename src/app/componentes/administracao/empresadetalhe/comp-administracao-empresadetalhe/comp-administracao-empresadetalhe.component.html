@@ -1,0 +1,259 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title class="titulo">Detalhe {{data.nome}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('CompAdministracaoHomeComponent',{})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+
+  <ion-grid style="margin-left: 3%; margin-right: 3%; display: grid">
+    <ion-row>
+      <ion-item class="ionitem" style="width: 100%;">
+        <ion-label color="primary" stacked >Empresa UID</ion-label>
+        <ion-input type="text" [(ngModel)]="data.empresaUid" disabled></ion-input>
+        <ion-button fill="clear" color="dark" [disabled]="data.empresaUid == undefined" (click)="copyForClipboard($event, {data: data.empresaUid })" (ionBlur)="copyUndo()"><ion-icon name="copy-outline"></ion-icon></ion-button>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-col class="box-detail">
+        <ion-card-header  class="box-titulo">
+          <ion-card-subtitle >Configurações da empresa</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content style="max-height: 200px;overflow-y: auto;">
+
+          <ion-row>
+
+            <ion-col size='6'>
+              <ion-item class="ionitem">
+                <ion-label color="primary" stacked >Saldo</ion-label>
+                <ion-input type="text" [(ngModel)]="dadosConf.qtdSaldo"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size='6'>
+              <ion-item class="ionitem">
+                <ion-label color="primary" stacked >Limite de Usuários</ion-label>
+                <ion-input type="text" [(ngModel)]="dadosConf.qtdUsuariosLimit"></ion-input>
+              </ion-item>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-button (click)="confirmAtualizar('CONF');" color="success" expand="block">Atualizar</ion-button>
+            </ion-col>
+          </ion-row>
+
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid style="margin-left: 3%; margin-right: 3%; display: grid">
+
+    <ion-row>
+      <ion-col class="box-detail">
+        <ion-card-header  class="box-titulo">
+          <ion-card-subtitle >Informações administrativas</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content style="max-height: 200px;overflow-y: auto;">
+
+          <ion-row>
+
+            <ion-col size='4'>
+              <ion-item class="ionitem">
+                <ion-label color="primary"  >Liberar acesso</ion-label>
+                <ion-toggle mode="ios" color="success" [(ngModel)]="dadosAdministrativos.ativa" ></ion-toggle>
+                
+              </ion-item>
+            </ion-col>
+            <ion-col size='4'>
+              <ion-item class="ionitem">
+                <ion-label color="primary"  >Liberar usuário API</ion-label>
+                <ion-toggle mode="ios" color="success" [(ngModel)]="dadosAdministrativos.userAPI" ></ion-toggle>
+                
+              </ion-item>
+            </ion-col>
+            <ion-col size="4">
+              <ion-item class="ionitem" *ngIf="!dadosAdministrativos.empresaAtiva">
+                <ion-button color="success" (click)="startEmpresa()">Liberar empresa</ion-button>
+              </ion-item>
+
+              <ion-item class="ionitem" *ngIf="dadosAdministrativos.empresaAtiva">
+                <ion-label color="primary"  >Liberado em</ion-label>
+                <p>{{ dadosAdministrativos.empresaStartDate | date:'dd/MM/y H:mm' }} por {{ dadosAdministrativos.userLiberouNome | titlecase  }}</p>
+              </ion-item>
+
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-button (click)="atualizarDadosAdm();" color="success" expand="block">Atualizar</ion-button>
+            </ion-col>
+          </ion-row>
+
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid style="margin-left: 3%; margin-right: 3%; display: grid">
+
+    <ion-row>
+      <ion-col class="box-detail">
+        <ion-card-header  class="box-titulo">
+          <ion-card-subtitle >Açoes de correção</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content style="max-height: 200px;overflow-y: auto;">
+
+          <ion-row>
+            <ion-button color="primary" (click)="admAjustarContatos()">Ajustar tabela de contatos</ion-button>
+           
+
+          </ion-row>
+
+        
+
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid style="margin-left: 3%; margin-right: 3%; display: grid" *ngIf="dadosAdministrativos.empresaAtiva">
+
+    <ion-row>
+      <ion-col class="box-detail">
+        <ion-card-header  class="box-titulo">
+          <ion-card-subtitle >Configurações de Whatsapp</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content style="max-height: 200px;overflow-y: auto;">
+
+          <ion-row>
+
+            <ion-col size='4'>
+              <ion-item class="ionitem">
+                <ion-label color="primary" stacked >Token</ion-label>
+                <ion-input type="text" [(ngModel)]="dadosConfWppChatapi.token"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size='8'>
+              <ion-item class="ionitem">
+                <ion-label color="primary" stacked >URL</ion-label>
+                <ion-input type="text" [(ngModel)]="dadosConfWppChatapi.url"></ion-input>
+              </ion-item>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-button (click)="confirmAtualizar('WHATSAPP');" color="success" expand="block">Atualizar</ion-button>
+            </ion-col>
+          </ion-row>
+
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid style="margin-left: 3%; margin-right: 3%; display: grid" *ngIf="dadosAdministrativos.empresaAtiva">
+
+    <ion-row>
+      <ion-col class="box-detail">
+        <ion-card-header  class="box-titulo">
+          <ion-card-subtitle >Configurações de Facebook</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content style="max-height: 200px;overflow-y: auto;">
+
+          <ion-row>
+
+            <ion-col size='4'>
+              <ion-item class="ionitem"> 
+                <ion-label color="primary" stacked >ID</ion-label>
+                <ion-input type="text" [(ngModel)]="dadosAdministrativos.facebookToken"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size='8'>
+              <ion-item class="ionitem">
+                <ion-label color="primary" stacked >Token</ion-label>
+                <ion-input type="text" [(ngModel)]="dadosAdministrativos.facebookTokenEnvio" ></ion-input>
+              </ion-item>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-button (click)="confirmAtualizar('CONF');" color="success" expand="block">Atualizar</ion-button>
+            </ion-col>
+          </ion-row>
+
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+
+  <ion-grid style="margin-left: 3%; margin-right: 3%; display: grid" *ngIf="dadosAdministrativos.empresaAtiva">
+
+    <ion-row>
+      <ion-col class="box-detail">
+        <ion-card-header  class="box-titulo">
+          <ion-card-subtitle >Configurações de Whatsapp Direct</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content style="max-height: 200px;overflow-y: auto;">
+
+          <ion-row>
+
+            <ion-col size='4'>
+              <ion-item class="ionitem">
+                <ion-label color="primary" stacked >Token</ion-label>
+                <ion-input type="text" [(ngModel)]="dadosConfWppTwilio.token"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size='4'>
+              <ion-item class="ionitem">
+                <ion-label color="primary" stacked >AccountSid</ion-label>
+                <ion-input type="text" [(ngModel)]="dadosConfWppTwilio.accountsid"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size='4'>
+              <ion-item class="ionitem">
+                <ion-label color="primary" stacked >Número</ion-label>
+                <ion-input type="text" [(ngModel)]="dadosConfWppTwilio.numero"></ion-input>
+              </ion-item>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-button (click)="confirmAtualizar('TWILIO');" color="success" expand="block">Atualizar</ion-button>
+            </ion-col>
+          </ion-row>
+
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  
+</ion-content>

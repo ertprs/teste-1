@@ -1,0 +1,43 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Criar categoria</ion-title>
+  </ion-toolbar>
+ 
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="close()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<ion-content>
+  <ion-item lines="none" style="padding-top: 10px;" >
+    <ion-item class="ionitem" style="width: 1000vw;" >
+      <ion-label color="primary" stacked >Nome</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosCategoria.nome"></ion-input>
+      
+    </ion-item>
+    
+  </ion-item>
+  <ion-item lines="none" style="padding-top: 10px;" >
+    <ion-item class="ionitem" style="width: 1000vw;" >
+      <ion-label color="primary" stacked >Categoria</ion-label>
+      <ion-select [(ngModel)]="dadosCategoria.dre">
+        <ion-select-option value="1|Receita bruta">Receita bruta</ion-select-option>
+        <ion-select-option value="2|Deduções de receita bruta">Deduções de receita bruta</ion-select-option>
+        <ion-select-option value="4|Custos/Despesas operacionais">Custos/Despesas operacionais</ion-select-option>
+        <ion-select-option value="6|Depreciação e amortização">Depreciação e amortização</ion-select-option>
+        <ion-select-option value="7|Resultados financeiros">Resultados financeiros</ion-select-option>
+        <ion-select-option value="8|IR/CSLL">IR/CSLL</ion-select-option>
+        <ion-select-option value="10|Ativ de investimento">Ativ de investimento</ion-select-option>
+        <ion-select-option value="11|Ativ financeiras">Ativ financeiras</ion-select-option>
+
+       
+      </ion-select>
+      
+    </ion-item>
+    
+  </ion-item>
+</ion-content>
+<ion-footer>
+  <ion-button expand="block" color="success" [disabled]="dadosCategoria.nome.length == 0 || dadosCategoria.dre == ''  " (click)="gravar()">Inserir</ion-button>
+</ion-footer>

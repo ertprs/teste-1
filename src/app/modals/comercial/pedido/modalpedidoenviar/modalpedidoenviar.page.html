@@ -1,0 +1,60 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Enviar</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="closeModel()" color="secondary">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  
+  <ion-radio-group  [(ngModel)]="envioTipo">
+    <ion-grid class="box-item" style="margin-top: 10px;;">
+      <ion-row>
+        <ion-col>
+          <ion-item lines='none'>
+            <ion-radio slot="start" value="msg"></ion-radio>
+            <ion-label>
+              Mensagem de texto
+            </ion-label>
+            
+          </ion-item>
+          <ion-item lines='none' >
+            <textarea [disabled]="envioTipo != 'msg'" rows="10" [(ngModel)]="fraseEnvio" style="width: 100%;resize: none;border-color: #FF8C00;"></textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row style="text-align: right;">
+        <ion-button (click)="SendMensagem()" [disabled]="envioTipo != 'msg'" style="float: right;right: 10px;" color='secondary'>
+          <ion-icon name="send-outline" slot="start"></ion-icon>
+          Enviar
+        </ion-button>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="box-item">
+      <ion-row>
+        <ion-col>
+          <ion-item lines='none'>
+            <ion-radio slot="start" value="pdf"></ion-radio>
+            <ion-label>
+              PDF
+            </ion-label>
+            
+          </ion-item>
+        
+        </ion-col>
+      </ion-row>
+      <ion-row style="text-align: right;">
+        <ion-button [disabled]="envioTipo != 'pdf'" style="float: right;right: 10px;" color='secondary' (click)="createPdf()">
+          <ion-icon name="send-outline" slot="start"></ion-icon>
+          Enviar
+        </ion-button>
+      </ion-row>
+    </ion-grid>
+  </ion-radio-group>
+</ion-content>

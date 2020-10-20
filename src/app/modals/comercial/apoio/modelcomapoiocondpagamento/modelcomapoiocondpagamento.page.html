@@ -1,0 +1,47 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Condições de pagamento</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="closeModel()" color="secondary">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<ion-content>
+  <ion-content>
+    <ion-item lines="none" style="padding-top: 10px;" >
+      <ion-item class="ionitem" style="width: 60vw;" >
+        <ion-label color="primary" stacked >Nome</ion-label>
+        <ion-input type="text"  [(ngModel)]="{{ dadosCond.nome  }}"></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 30vw;" >
+        <ion-label color="primary" stacked >Parcelas</ion-label>
+        <ion-input type="text"  [(ngModel)]="{{ dadosItem.qtdParcelas }}"></ion-input>
+        
+      </ion-item>
+    </ion-item>
+
+    <ion-gird>
+      <ion-row>
+        <ion-col>
+          <ion-item class="ionitem" s >
+            <ion-label color="primary" stacked >P1</ion-label>
+            <ion-input type="text"  [(ngModel)]="{{ dadosCond.nome  }}"></ion-input>
+            
+          </ion-item>
+        </ion-col>
+        <ion-item class="ionitem" s >
+          <ion-label color="primary" stacked >P1</ion-label>
+          <ion-input type="text"  [(ngModel)]="{{ dadosCond.nome  }}"></ion-input>
+          
+        </ion-item>
+      </ion-col>
+      </ion-row>
+    </ion-gird>
+
+
+
+
+</ion-content>

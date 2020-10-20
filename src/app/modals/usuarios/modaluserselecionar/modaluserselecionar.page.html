@@ -1,0 +1,23 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Filtro por operador</ion-title>
+  </ion-toolbar>
+ 
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content style="margin-top: 30px;">
+    <ion-item *ngFor="let item of usuarios">
+      <ion-label (click)="selection(item.userUid,item.userNome)" style="cursor: pointer;">
+        <p>{{ item.userNome | titlecase }} </p>
+      </ion-label>
+    </ion-item>
+
+
+</ion-content>
+

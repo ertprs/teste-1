@@ -1,0 +1,135 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>     
+    </ion-buttons>
+    <ion-title>Contatos</ion-title>
+  </ion-toolbar>
+  <ion-toolbar mode="ios" class="header-busca" >
+    <ion-searchbar animated placeholder="Pesquisar" (keyup)="contatoSearch($event)"></ion-searchbar>
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="!items.length">
+    <ion-item>
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list [id]="teste" *ngFor="let item of filtered; let i = id" style="padding: 0 !important;">
+    <ion-item-sliding #i style="padding: 0 !important;">
+      
+      <ion-item  mode='ios' detail='false'  (click)="i.open();" button style="padding: 0 !important;" >
+
+        <ion-badge class="badgeorigem"><img src="../../../../assets/img/{{ item.canal}}.svg" /></ion-badge>
+        <ion-icon name="person-circle-outline" [ngStyle]="{'font-size':'50px','color': item.photo  }" class="ion-icon"></ion-icon>
+        <ion-badge class="badgefavorito" *ngIf="item.favorito == true "><img src="../../../../assets/img/star.svg" /></ion-badge>
+        <ion-label >
+          <h3><strong>{{ item.nome | titlecase }}</strong></h3>
+          <p>
+          <ion-label>
+              <p><ion-icon name="business-outline"></ion-icon>&nbsp;{{item.nomeClienteVinculado | titlecase}}&nbsp;</p>
+              <p *ngIf="item.canal == 'email' "><ion-icon name="mail-outline"></ion-icon>&nbsp;{{item.origem}}</p>
+              <p *ngIf="item.canal == 'whatsapp' "><ion-icon name="call-outline"></ion-icon>&nbsp;{{item.origem}}</p>
+              <p *ngIf="item.canal == 'telegram' "><ion-icon name="chatbubble-outline"></ion-icon>&nbsp;{{item.origem}}</p>
+              <p *ngIf="item.canal == 'facebook' "><ion-icon name="chatbubble-outline"></ion-icon>&nbsp;{{item.origem}}</p>
+              <p *ngIf="item.canal == 'telfixo' "><ion-icon name="call-outline"></ion-icon>&nbsp;{{item.origem}}</p>
+          </ion-label>  
+        
+          </p>
+        
+        </ion-label>
+      
+        
+      </ion-item>
+
+
+      
+
+      <ion-item-options side="end">
+
+        <!-- FUNCAO DE SELECIONAR -->
+        
+        <ion-item-option color='secondary'  *ngIf="pedidoUid" (click)="selecionar(1,item)">
+          <ion-label slot="icon-only" >
+          
+            <p>Selecionar</p>
+          </ion-label>
+          
+        </ion-item-option>
+
+        <!-- EDITAR CONTATO -->
+        <ion-item-option color='medium' (click)="editar(item.id)">Editar</ion-item-option>
+        
+        <!-- FIM PARA  SELECIONAR COMERCIAL -->
+        
+        <!-- ACOES PARA  EMAIL -->
+        <ion-item-option *ngIf="item.canal == 'email' && item.situacao == 1 " color='secondary' (click)="sendMail('leandro@asdas.com.br')" >Escrever</ion-item-option>
+        <!-- FIM ACOES EMAIL -->
+
+        <!-- ACOES PARA  WHATSAPP -->
+        <ion-item-option *ngIf="item.canal == 'whatsapp' && item.situacao == 1 "  color='success' (click)="startConversa(item)">Conversar</ion-item-option>
+        <ion-item-option *ngIf="item.canal == 'whatsapp' && item.situacao == 2 " color='secondary' >Agendar</ion-item-option>
+        <!-- FIM ACOES WHATSAPP -->
+
+        <!-- ACOES PARA  TELEGRAM -->
+        <ion-item-option *ngIf="item.canal == 'telegram' && item.situacao == 1 " color='success' (click)="startConversa(item)">Conversar</ion-item-option>
+        <ion-item-option *ngIf="item.canal == 'telegram' && item.situacao == 2 " color='secondary' >Agendar</ion-item-option>
+        <!-- FIM ACOES TELEGRAM -->
+
+        <!-- ACOES PARA  FACEBOOK -->
+        <ion-item-option *ngIf="item.canal == 'facebook' && item.situacao == 1 " color='success' (click)="startConversa(item)">Conversar</ion-item-option>
+        
+        <!-- FIM ACOES FACEBOOK -->
+
+        <!-- ACOES PARA  TELFIXO -->
+        <ion-item-option *ngIf="item.canal == 'telfixo' && item.situacao == 1 " color='secondary' >LIGAR</ion-item-option>
+        <!-- FIM ACOES TELFIXO -->
+
+
+    
+      </ion-item-options> 
+
+    </ion-item-sliding>
+  </ion-list>
+
+
+  <!-- MENU GERAL LARA -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-avatar>
+        <img src="./../../../assets/img/lara-fundo-azul.jpg">
+      </ion-avatar>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <!-- Lara -->
+      <ion-fab-button  >
+        <ion-avatar>
+          <img src="./../../../assets/img/lara-fundo-azul.jpg">
+        </ion-avatar>
+      </ion-fab-button>
+      
+      <!-- Contatos -->
+      <ion-fab-button  routerLink="/chat/contatos/add" routerDirection="forward" >
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+    
+  </ion-fab>
+  
+</ion-content>

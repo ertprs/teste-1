@@ -1,0 +1,33 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+     
+    </ion-buttons>
+    <ion-title>Notificações</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-list mode='ios' *ngFor="let item of notificacoes;">
+    
+    <ion-item lines='none'>
+      <ion-avatar slot="start">
+        <img src="https://api.assistentelara.com.br/build/img/wpp/default-user-icon.jpg">
+      </ion-avatar>
+      <ion-item lines='none' >
+        <ion-label slot="start">
+          <p><strong>{{item.titulo}}</strong> </p>
+          <p>{{item.mensagem}}</p>
+        </ion-label>
+        <ion-label slot="end">
+          <p>{{item.createAt | date:'dd/MM/y' }}&nbsp;{{item.createAt | date:'shortTime' }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-item>
+  
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,229 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Editar item</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="closeModel()" color="secondary">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+<ion-content>
+  <ion-item lines="none" style="padding-top: 10px;" >
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Código</ion-label>
+      <ion-input type="text" readonly value="{{ dadosItem.codigo  }}"></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 60vw;" >
+      <ion-label color="primary" stacked >Descrição</ion-label>
+      <ion-input type="text" readonly value="{{ dadosItem.descricao | titlecase }}"></ion-input>
+      
+    </ion-item>
+  </ion-item>
+
+  <ion-item lines="none" style="padding-top: 10px;" >
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Quantidade</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosItem.quantidade"  (keyup)="limparCampo($event,'number')"  style="text-align: right;"></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Unid Medida</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosItem.unidadeMedida"    style="text-align: right;"></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Vr. Unitário</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosItem.vrUnitario "  (keyup)="limparCampo($event,'number')"  style="text-align: right;"> </ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Vr. Total</ion-label>
+      <ion-input type="text" value="{{dadosItem.vrTotal  | currency:'R$ ':true:'1.2-2'  }}" style="text-align: right;"> </ion-input>
+      
+    </ion-item>
+  </ion-item>
+  <ion-item-divider style="padding-top: 10px;">
+    <ion-label>
+     Dados da operação
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines="none" style="padding-top:10px;" >
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >CFOP</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosItem.cfop" readonly ></ion-input>
+      <ion-button slot="end" color="secondary" (click)="abrirCFOP()">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item class="ionitem" style="width: 60vw;" >
+      <ion-label color="primary" stacked >Descrição</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosItem.cfopDescricao " readonly > </ion-input>
+      
+    </ion-item>
+   
+  </ion-item>
+
+  <!-- ICMS -->
+  <ion-item-divider style="padding-top: 10px;">
+    <ion-label>
+      Dados ICMS
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines="none" style="padding-top:10px;" >
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Origem</ion-label>
+      <ion-select  [(ngModel)]="dadosItem.impostos.icms.origem" >
+        <ion-select-option value="0">Nacional</ion-select-option>
+        <ion-select-option value="1">Imp. direta</ion-select-option>
+        <ion-select-option value="2">Adq. merc. interno</ion-select-option>
+       
+      </ion-select>
+      
+    </ion-item>
+    
+    <ion-item class="ionitem" style="width: 60vw;" >
+      <ion-label color="primary" stacked >Sit. tributária</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosItem.impostos.icms.situacaoTributariaNome"  readonly ></ion-input>
+      <ion-button slot="end" color="secondary" (click)="abrirSitTributariaICMS()">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Aliq ICMS</ion-label>
+      <ion-input type="number" [(ngModel)]="dadosItem.impostos.icms.aliquota"  (keyup)="limparCampo($event,'number')"  style="text-align: right;"></ion-input>
+      
+    </ion-item>
+   
+   
+  </ion-item>
+  <ion-item-divider style="padding-top: 10px;">
+    <ion-label>
+      Dados ICMS ST
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines="none" style="padding-top:50px;" >
+    <ion-item class="ionitem" style="width: 60vw;" >
+      <ion-label color="primary" stacked >CEST</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosItem.cest " (keyup)="limparCampo($event,'number')"  style="text-align: right;"> </ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 50vw;" >
+      <ion-label color="primary" stacked >Aliq ICMS ST</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosItem.impostos.icms.aliquotaST " (keyup)="limparCampo($event,'number')"  style="text-align: right;"> </ion-input>
+      
+    </ion-item>
+
+  </ion-item>
+  <ion-item lines="none" style="padding-top:10px;" >  
+    <ion-item class="ionitem" style="width: 60vw;" >
+      <ion-label color="primary" stacked >Base ICMS ST</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosItem.impostos.icms.baseCalculoST " (keyup)="limparCampo($event,'number')" readonly style="text-align: right;"> </ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 60vw;" >
+      <ion-label color="primary" stacked >Valor ST</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosItem.impostos.icms.valorST " (keyup)="limparCampo($event,'number')" readonly style="text-align: right;"> </ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 60vw;" >
+      <ion-label color="primary" stacked >MVA</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosItem.impostos.icms.percentualMargemValorAdicionadoST " (keyup)="limparCampo($event,'number');calcularBaseSt()"  style="text-align: right;"> </ion-input>
+      
+    </ion-item>
+    
+   
+  </ion-item>
+
+
+  <!-- IPI -->
+  <ion-item-divider style="padding-top: 10px;">
+    <ion-label>
+      Dados IPI
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines="none" style="padding-top:10px;" >
+    
+    
+    <ion-item class="ionitem" style="width: 60vw;" >
+      <ion-label color="primary" stacked >Sit. tributária</ion-label>
+     
+      <ion-input type="text" [(ngModel)]="dadosItem.impostos.ipi.situacaoTributariaNome"  readonly ></ion-input>
+      <ion-button slot="end" color="secondary" (click)="abrirSitTributariaIPI()">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Aliq IPI</ion-label>
+      <ion-input type="number" [(ngModel)]="dadosItem.impostos.ipi.porAliquota.aliquota"  (keyup)="limparCampo($event,'number')"  style="text-align: right;"></ion-input>
+      
+    </ion-item>
+   
+   
+  </ion-item>
+
+
+
+
+
+  <!-- PIS -->
+  <ion-item-divider style="padding-top: 10px;">
+    <ion-label>
+      Dados PIS
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines="none" style="padding-top:10px;" >
+    
+    
+    <ion-item class="ionitem" style="width: 60vw;" >
+      <ion-label color="primary" stacked >Sit. tributária</ion-label>
+      
+      <ion-input type="text" [(ngModel)]="dadosItem.impostos.pis.situacaoTributariaNome"  readonly ></ion-input>
+      <ion-button slot="end" color="secondary" (click)="abrirSitTributariaPisCofins('pis')">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Aliq PIS</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosItem.impostos.pis.porAliquota.aliquota"  (keyup)="limparCampo($event,'number')"  style="text-align: right;"></ion-input>
+      
+    </ion-item>
+   
+   
+  </ion-item>
+
+  <!-- COFINS -->
+  <ion-item-divider style="padding-top: 10px;">
+    <ion-label>
+      Dados COFINS
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines="none" style="padding-top:10px;" >
+    
+    
+    <ion-item class="ionitem" style="width: 60vw;" >
+      <ion-label color="primary" stacked >Sit. tributária</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosItem.impostos.cofins.situacaoTributariaNome"  readonly ></ion-input>
+      <ion-button slot="end" color="secondary" (click)="abrirSitTributariaPisCofins('cofins')">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      <ion-label color="primary" stacked >Aliq COFINS</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosItem.impostos.cofins.porAliquota.aliquota"  (keyup)="limparCampo($event,'number')"  style="text-align: right;"></ion-input>
+      
+    </ion-item>
+   
+   
+  </ion-item>
+
+</ion-content>
+<ion-footer>
+  <ion-button expand="full" color="success" (click)="salvar()" >Gravar</ion-button>
+</ion-footer>

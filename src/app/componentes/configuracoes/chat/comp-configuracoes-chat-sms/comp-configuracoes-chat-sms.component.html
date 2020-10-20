@@ -1,0 +1,41 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Config > Sms </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('compConfiguracoesChatHome',{})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab class="float-fab-right" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="success" *ngIf="dadosConf.id" (click)="update()">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button color="success" *ngIf="!dadosConf.id" (click)="add()">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content class="default-content">
+
+  <ion-text class="label-margin" color="primary" style="display: flex; justify-content: center;">
+    <h1>Vamos configurar seu Sms!</h1>
+  </ion-text>
+
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked>Usuário</ion-label>
+    <ion-input type="text" [(ngModel)]="dadosConf.user"></ion-input>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked>Senha</ion-label>
+    <ion-input type="password" [(ngModel)]="dadosConf.senha"></ion-input>
+  </ion-item>
+</ion-content>

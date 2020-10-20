@@ -1,0 +1,271 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title class="titulo">Detalhe financeiro</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="functionExecute('financeiroHome',{})" color="secondary" >
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<div *ngIf="!lancamentoUid">
+  <ion-fab class="float-fab-right" vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="success" (click)="gravarNovo()" >
+      <ion-icon name="save-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</div>
+<div *ngIf="lancamentoUid">
+
+  <ion-fab class="float-fab-right" horizontal="end" vertical="top" slot="fixed" #fab>
+    <ion-fab-button>
+      <ion-icon name="grid-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list>
+      
+      <ion-fab-button color="success" (click)="atualizarLancamento()" >
+        <ion-icon name="save-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="secondary"  >
+        <ion-icon name="send-outline"></ion-icon>
+      </ion-fab-button>
+  
+      <ion-fab-button color="danger" >
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-fab-button>
+  
+  
+    </ion-fab-list>
+  </ion-fab>
+
+
+  
+</div>
+
+
+
+<ion-content >
+  <ion-item lines='none' style="margin-top: 20px;cursor: default;" *ngIf="dadosLancamento.situacaoCod === 9 ">
+    <ion-item style="width: 100vw;--background:none;background-color: rgba(235,68,90, 0.1);" class="ionitem"  >
+ 
+      <ion-text>
+        <p style="text-align: center;font-size: small;">{{ dadosLancamento.msgErro}}</p>
+      </ion-text>
+      
+    </ion-item>
+    
+  </ion-item>
+ 
+  <ion-item-divider mode="md" style="margin-top: 20px;">
+    <ion-label>
+      Dados do recebimento
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines='none' style="margin-top: 20px;">
+    
+    
+   
+    <ion-item style="width: 25vw;" class="ionitem" >
+      <ion-label >Crédito/Débito</ion-label>
+      <ion-select [(ngModel)]="dadosLancamento.c_d">
+        <ion-select-option value="credito">Crédito</ion-select-option>
+        <ion-select-option value="debito">Débito</ion-select-option>
+      </ion-select>
+     
+    </ion-item>
+
+
+    <ion-item style="width: 40vw;" class="ionitem">
+      <ion-label >Pagador</ion-label>
+      <ion-input   type="text" [(ngModel)]="dadosLancamento.nome" readonly ></ion-input>
+      <ion-button (click)="AbrirConsultaParceiros()" color="secondary" *ngIf="!lancamentoUid" slot="end"><ion-icon name="search-outline"></ion-icon></ion-button>
+    </ion-item>
+
+    <ion-item style="width: 20vw;" class="ionitem">
+      <ion-label >Vencimento</ion-label>
+      <ion-input   type="date"  *ngIf="!lancamentoUid" [(ngModel)]="dadosLancamento.vencimento"></ion-input>
+      <ion-input   readonly type="text"  *ngIf="lancamentoUid" value="{{ dadosLancamento.vencimento | date:'dd/MM/yyyy' }}"></ion-input>
+     
+    </ion-item>
+
+    <ion-item style="width: 20vw;" class="ionitem">
+      <ion-label >Valor</ion-label>
+      <ion-input [readonly]="lancamentoUid"  type="text" style="text-align: right;" [(ngModel)]="dadosLancamento.valor_principal" (keyup)="limparCampo($event,'number')" ></ion-input>
+     
+    </ion-item>
+    
+  </ion-item>
+
+
+  <ion-item lines='none' style="margin-top: 20px;">
+    
+    
+    <ion-item style="width: 15vw;" class="ionitem">
+      <ion-label >Criado em</ion-label>
+      <ion-input   type="text"  value="{{ dadosLancamento.createAt | date:'dd/MM/yyyy HH:mm' }}"readonly ></ion-input>
+     
+    </ion-item>
+   
+    
+
+    <ion-item style="width: 15vw;" class="ionitem">
+      <ion-label >Identificação</ion-label>
+      <ion-input   type="text"  value="{{ dadosLancamento.identCliente }}" readonly ></ion-input>
+     
+    </ion-item>
+    <ion-item style="width: 15vw;" class="ionitem">
+      <ion-label >Tipo</ion-label>
+      <ion-input   type="text"  value="{{ dadosLancamento.tipoRegistroNome }}" readonly ></ion-input>
+     
+    </ion-item>
+    <ion-item style="width: 20vw;" class="ionitem">
+      <ion-label >Nota Fiscal</ion-label>
+      <ion-input   type="text"  [(ngModel)]="dadosLancamento.notaFiscal"  ></ion-input>
+     
+    </ion-item>
+    <ion-item style="width: 30vw;" class="ionitem">
+      <ion-label >Situação</ion-label>
+      <ion-input   type="text"  value="{{ dadosLancamento.situacaoNome }}" readonly ></ion-input>
+     
+    </ion-item>
+
+
+
+   
+    
+  </ion-item>
+
+
+
+  <ion-item-divider mode="md" style="margin-top: 20px;">
+    <ion-label>
+     Dados do boleto
+    </ion-label>
+  </ion-item-divider>
+
+  <ion-item lines='none' style="margin-top: 20px;" *ngIf="dadosLancamento.dadosBoleto">
+    <ion-item style="width: 65vw;" class="ionitem">
+      <ion-label >Linha digitavel</ion-label>
+      <ion-input   type="text"  value="{{ dadosLancamento.dadosBoleto.linhaDigitavel }}" readonly ></ion-input>
+      <ion-icon name="copy-outline" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item style="width: 15vw;" class="ionitem">
+      <ion-label >Ident. banco</ion-label>
+      <ion-input   type="text"  value="{{ dadosLancamento.dadosBoleto.nossoNumero }}" readonly ></ion-input>
+      <ion-icon name="copy-outline" slot="end"></ion-icon>
+    </ion-item>
+   
+  </ion-item>
+
+ 
+ 
+  <ion-item lines='none' style="margin-top: 20px;">
+    
+    
+    <ion-item style="width: 50vw;" class="ionitem">
+      <ion-label >Banco/Conta</ion-label>
+      <ion-input   type="text"  value="Lara Checkout"readonly ></ion-input>
+     
+    </ion-item>
+   
+    <ion-item style="width: 50vw;" class="ionitem">
+      <ion-label >DRE</ion-label>
+      <ion-input   type="text"  value="{{ dadosLancamento.categoriaDRENome}}" readonly ></ion-input>
+    </ion-item> 
+
+    <ion-item style="width: 50vw;" class="ionitem">
+      <ion-label >Categoria</ion-label>
+      <ion-input   type="text"  value="{{ dadosLancamento.categoriaNome}}" readonly ></ion-input>
+      <ion-button (click)="abrirConsultaCategoria()" color="secondary"  slot="end"><ion-icon name="search-outline"></ion-icon></ion-button>
+    </ion-item>
+
+   
+
+
+
+   
+    
+  </ion-item>
+
+
+
+  <ion-item-divider mode="md" style="margin-top: 20px;">
+    <ion-label>
+     Dados gerais
+    </ion-label>
+  </ion-item-divider>
+  
+  <ion-item lines='none' style="margin-top: 20px;">
+    <ion-item style="width: 100vw;" class="ionitem">
+      <ion-label >Observações</ion-label>
+      <ion-textarea  [(ngModel)]="dadosLancamento.observacao" rows="6"  ></ion-textarea>
+    </ion-item>
+  </ion-item>
+
+  <ion-item lines='none' style="margin-top: 20px;" *ngIf="dadosLancamento.c_d == 'credito' ">
+    <ion-item style="width: 40vw;" class="ionitem" >
+      <ion-checkbox slot="start" [(ngModel)]="dadosLancamento.libBoleto" [disabled]="dadosLancamento.isBoleto" ></ion-checkbox>
+      <ion-text>Boleto</ion-text>
+      
+    </ion-item>
+    <ion-item style="width: 40vw;" class="ionitem" >
+      <ion-checkbox slot="start" [(ngModel)]="dadosLancamento.libCartao"></ion-checkbox>
+      <ion-text>Cartão de crédito</ion-text>
+      
+    </ion-item>
+    <ion-item style="width: 40vw;" class="ionitem" >
+      <ion-checkbox disabled slot="start" [(ngModel)]="dadosLancamento.libCripto"></ion-checkbox>
+      <ion-text>Cripto moeda</ion-text>
+      
+    </ion-item>
+  </ion-item>
+  
+
+  <ion-item-divider mode="md" style="margin-top: 20px;" *ngIf="dadosLancamento.isIntegracoesData">
+    <ion-label>
+      Dados integração
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines='none' style="margin-top: 20px;" *ngIf="dadosLancamento.isIntegracoesData">
+    
+    
+    <ion-item style="width: 55vw;" class="ionitem">
+      <ion-label >URL Acionamento</ion-label>
+      <ion-input   type="text"  value="{{ dadosLancamento.isIntegracoesData.endPoint }}"readonly ></ion-input>
+      <ion-button slot="end" fill="outline" color="secondary">
+        <ion-icon name="globe-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item style="width: 15vw;" class="ionitem">
+      <ion-label >Identificação</ion-label>
+      <ion-input   type="text"  value="{{ dadosLancamento.isIntegracoesData.identificacao }}"readonly ></ion-input>
+     
+    </ion-item>
+   
+    
+
+    
+    
+  </ion-item>
+  <ion-grid *ngIf="lancamentoUid">
+    <ion-row>
+     
+      <ion-col>
+        <ion-button expand="full" color="secondary">Enviar</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="full" color="success">Confirmar pagamento</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="full" color="danger">Cancelar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+
+
+
+
+</ion-content>

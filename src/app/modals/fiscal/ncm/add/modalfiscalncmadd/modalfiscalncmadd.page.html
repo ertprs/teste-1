@@ -1,0 +1,146 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Classificação Fiscal</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="closeModel()" color="secondary">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  <ion-item  lines="none" style="padding-top: 20px;">
+    <ion-item class="ionitem" style="width: 25vw;" >
+     
+      <ion-label style="font-size: small;">NCM</ion-label>
+      <ion-input type="text"  [(ngModel)]="dadosNcm.ncm" (keyup)="limparCampo($event,'number')" [disabled]="ncmUid" > </ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 60vw;" >
+      
+      <ion-label style="font-size: small;">Nome</ion-label>
+      <ion-input type="text"  [(ngModel)]="dadosNcm.nome"></ion-input>
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 30vw;" >
+      
+      <ion-label style="font-size: small;">CEST</ion-label>
+      <ion-input type="text"  [(ngModel)]="dadosNcm.cest"></ion-input>
+      
+    </ion-item>
+  </ion-item>
+
+  <ion-item  lines="none" style="padding-top: 10px;">
+    <ion-item class="ionitem" style="width: 25vw;" >
+     
+      <ion-label style="font-size: small;">IPI</ion-label>
+      <ion-input type="text"  [(ngModel)]="dadosNcm.ipi.aliquota"></ion-input>
+     
+      
+    </ion-item>
+    <ion-item class="ionitem" style="width: 60vw;" >
+      
+      <ion-label style="font-size: small;">Sit. Tributária</ion-label>
+     
+      <select [(ngModel)]="dadosNcm.ipi.situacaoTributariaSelect" style="width: 100%;">
+        <option *ngFor="let item of listaLucroReal" value="{{item.codigo}}|{{item.nome}}">{{ item.codigo }} - {{ item.nome | titlecase }}</option>
+      </select>
+    </ion-item>
+  </ion-item>
+
+
+  
+  
+  <!-- BOTAO ADIOCIONAR -->
+  <ion-button expand="full" color="success" *ngIf="!ncmUid" (click)="gravar()">Adicionar</ion-button>
+
+  <div *ngIf="ncmUid">
+    <ion-item-divider style="padding-top: 10px;">
+      <ion-label>
+       Referências regionais
+      </ion-label>
+    </ion-item-divider>
+    <ion-item  lines="none" style="padding-top: 10px;">
+      <ion-item class="ionitem" style="width: 25vw;" >
+       
+        <ion-label style="font-size: small;">Estado</ion-label>
+        <ion-select [(ngModel)]="dadosReferencia.uf">
+          <ion-select-option *ngFor="let item of UFs" value="{{ item.sigla }}">{{ item.nome | titlecase }}</ion-select-option>
+    
+  
+        </ion-select>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 60vw;" >
+      
+        <ion-label style="font-size: small;">Sit. Tributária Referência do ICMS</ion-label>
+       
+        <select  [(ngModel)]="dadosReferencia.situacaoTributariaSelect" style="width: 100%;">
+          <option *ngFor="let item of CSTICMS" value="{{item.codigo}}|{{item.nome}}">{{ item.codigo }} - {{ item.nome | titlecase }}</option>
+        </select>
+      </ion-item>
+      </ion-item>
+      <ion-item  lines="none" style="padding-top: 10px;">
+      <ion-item class="ionitem" style="width: 25vw;" >
+        
+        <ion-label style="font-size: small;">ICMS Int</ion-label>
+        <ion-input type="text"  [(ngModel)]="dadosReferencia.icmsInt"></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 25vw;" >
+        
+        <ion-label style="font-size: small;">ICMS Transf.</ion-label>
+        <ion-input type="text"  [(ngModel)]="dadosReferencia.icmsTransf"></ion-input>
+        
+      </ion-item>
+      <ion-item class="ionitem" style="width: 25vw;" >
+        
+        <ion-label style="font-size: small;">MVA</ion-label>
+        <ion-input type="text"  [(ngModel)]="dadosReferencia.MVA"></ion-input>
+        
+      </ion-item>
+      
+    </ion-item>
+     <!-- BOTAO ADIOCIONAR -->
+     <ion-button expand="full" color="success" (click)="adicionarReferencia()" >Adicionar referência</ion-button>
+
+     
+     <ion-list *ngFor="let item of referenciaListar ;  let i = id" >
+      <ion-item-sliding #i style="padding: 0 !important;" >
+        <ion-item style="cursor: pointer;"  (click)="i.open();">
+          <ion-grid>
+            <ion-row>
+              <ion-col style="font-size: small;">UF {{ item.uf | uppercase }} Sit. ICMS {{ item.situacaoTributaria  }} - {{ item.situacaoTributariaNome }}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col style="font-size: small;">ICMS Int</ion-col>
+              <ion-col style="font-size: small;">ICMS Transf</ion-col>
+              <ion-col style="font-size: small;">MVA</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col style="font-size: small;">{{ item.icmsInt}}</ion-col>
+              <ion-col style="font-size: small;">{{ item.icmsTransf}}</ion-col>
+              <ion-col style="font-size: small;">{{ item.MVA }}</ion-col>
+            </ion-row>
+          
+          </ion-grid>
+          
+        </ion-item>
+        <ion-item-options side="end">
+          
+        
+          <ion-item-option  color='danger' (click)="deletarReferencia(item.id)" ><ion-icon name="trash-outline" slot="icon-only"></ion-icon></ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+  
+  
+  
+  
+      
+    </ion-list>
+  </div>
+ 
+
+
+</ion-content>
