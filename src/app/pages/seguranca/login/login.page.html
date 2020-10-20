@@ -1,0 +1,40 @@
+<ion-content class="login-content">
+  <ion-grid class="login-background">
+    <ion-row class="login-row">
+      <ion-list style="margin-left: auto; margin-right: auto;">
+        <ion-label>
+          <ion-avatar style="height: 150px; width: 150px;">
+            <img src="../../../../assets/img/lara-fundo-azul.jpg" alt="Lara">
+          </ion-avatar>
+        </ion-label>
+      </ion-list>
+      <ion-list class="login-box">
+        <ion-item lines="none">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-input type="email" placeholder="E-mail" [(ngModel)]="userDados.email" (keypress)="enterLogin($event)"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon name="key-outline" slot="start"></ion-icon>
+          <ion-input class="" type="password" placeholder="Senha" [(ngModel)]="userDados.senha" (keypress)="enterLogin($event)"></ion-input> 
+        </ion-item>
+        <ion-label routerLink="/recuperar" routerdirection="forward" class='btnrecuperarsenha pointer'color="primary" slot="end" >
+          <p>Recuperar senha</p>
+        </ion-label>
+
+        <ion-list class="btnEntrarHeader" style="margin-bottom: 2vh;">
+          <ion-button class="btEntrar" (click)="login()">Entrar</ion-button>
+        </ion-list>
+
+        <ion-list class="btnEntrarHeader" style="margin-bottom: 2vh;">
+          <ion-button (click)="criarConta()" class="btncadastro" >Criar conta</ion-button>
+        </ion-list>
+        
+
+        <ion-list style="display: flex; justify-content: center;">
+          <img src="../../../../assets/img/pedepralara.png" alt="Lara" style="height: 10vh;">
+        </ion-list>
+
+      </ion-list>
+    </ion-row>
+  </ion-grid>
+</ion-content>

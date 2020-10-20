@@ -1,0 +1,61 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Evento</ion-title>
+  </ion-toolbar>
+ 
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  
+  <ion-item lines='none'>
+    <ion-item style="width: 15vw;" class="ionitem">
+      <ion-label >Tipo</ion-label>
+    
+      <ion-select  okText="Selecionar" cancelText="Cancelar" mode='ios'  style="font-size: small;"  (ionChange)="limparitens()" [(ngModel)]="dadosEvento.tipo">
+        <ion-select-option  value="nota"  >Nota</ion-select-option> 
+        <ion-select-option  value="email"  >E-Mail</ion-select-option> 
+       
+      </ion-select>
+
+
+    </ion-item>
+  </ion-item>
+  
+  
+  <!-- DADOS PARA ENVIO DE E_MAIL -->
+  <ion-item *ngIf="dadosEvento.tipo == 'email' " style="margin-top: 10px;" lines='none'>
+    <ion-item class="ionitem" style="width: 100vw;">
+      <ion-label color="primary" stacked >E-mail destinatário</ion-label>
+      <ion-input type="text"  [(ngModel)]="dadosEvento.emailDestinatario" ></ion-input>
+    </ion-item>
+    
+  </ion-item>
+
+  <ion-item *ngIf="dadosEvento.tipo == 'email' " style="margin-top: 10px;" lines='none'>
+    
+    <ion-item class="ionitem" style="width: 100vw;">
+      <ion-label color="primary" stacked >Assunto</ion-label>
+      <ion-input type="text" [(ngModel)]="dadosEvento.emailAssunto" ></ion-input>
+    </ion-item>
+
+  </ion-item>
+
+  <!-- FIM DE DADOS PARA ENVIO DE E_MAIL -->
+
+  <ion-item lines='none' style="margin-top: 20px;">
+    <ion-item  class="ionitem" style="width: 100%;">
+      <ion-label >Mensagem</ion-label>
+      <ion-textarea rows="6" [(ngModel)]="dadosEvento.descricao" ></ion-textarea>
+    </ion-item>
+  </ion-item>
+</ion-content>
+<ion-footer>
+  <ion-button *ngIf="dadosEvento.tipo == 'nota'"  expand="full" color='success' (click)="addRegistro()" [disabled]="dadosEvento.descricao == '' ||  dadosEvento.tipo == '' " >Adicionar</ion-button>
+  <ion-button *ngIf="dadosEvento.tipo == 'email'"  expand="full" color='success' (click)="addRegistro()" [disabled]="dadosEvento.descricao == '' ||  dadosEvento.tipo == '' " >Enviar</ion-button>
+</ion-footer>

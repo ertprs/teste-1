@@ -1,0 +1,28 @@
+export interface Mensagens {
+    uid?:string;
+    autorNome?:string;
+    conversaUid?:string;
+    autorUid?:string;
+    contatoNome?:string;
+    contatoUid?:string;
+    contatoOrigem?:string;
+    createAt?:number;
+    entregueData?:number;
+    entregueTag?:number;
+    enviadoData?:number;
+    enviadoTag?:number;
+    lidoData?:number;
+    lidoTag?:number;
+    es?:string;
+    mensagem?:string;
+    tipo?:string;
+    usuarioNome?:string;
+    usuarioUid?:string;
+    canal?:string;
+    anexo?:string;
+    citacao?:string;
+    legenda?:string;
+    id?:string;
+    errorMsg?:string;
+    naoRespondeuUid?:string
+}

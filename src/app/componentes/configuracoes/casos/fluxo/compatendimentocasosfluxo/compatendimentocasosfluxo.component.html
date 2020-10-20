@@ -1,0 +1,47 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+     <ion-title class="titulo">Fluxo de caso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('compatendimentocasoshome',{})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  <ion-item class="ionitem">
+    <ion-label style="text-transform: capitalize;">Departamento</ion-label>
+      <ion-select [(ngModel)]="dados.departamento" okText="Selecionar" cancelText="Cancelar" #dadosDepartamento (ionChange)="setDepartamento()"> 
+        <ion-select-option *ngFor="let departamento of itemsDepartamento" >{{departamento.nome | titlecase}}</ion-select-option>
+      </ion-select>
+  </ion-item>
+  
+  <ion-item class="ionitem">
+    <ion-label style="text-transform: capitalize;">Tipo</ion-label>
+    <ion-select [(ngModel)]="dados.tipo" okText="Selecionar" [disabled]="dados.departamento.length === 0 "cancelText="Cancelar" #dadosTipo> 
+      <ion-select-option *ngFor="let tipo of itemsTipo" >{{tipo.nome | titlecase}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item class="ionitem" [disabled]="dados.tipo.length === 0 ">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-label style="text-transform: capitalize;">Ordem</ion-label>
+          <ion-input type="text" [(ngModel)]="dados.ordem"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label style="text-transform: capitalize;">SLA</ion-label>
+          <ion-input type="text" [(ngModel)]="dados.sla"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label style="text-transform: capitalize;">Cor</ion-label>
+          <ion-input type="text" [(ngModel)]="dados.cor"></ion-input>
+        </ion-col>
+      </ion-row>
+      
+    </ion-grid>
+  </ion-item>
+
+</ion-content>

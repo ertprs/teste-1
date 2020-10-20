@@ -1,0 +1,154 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title class="titulo">Administração > Mensagens</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <!-- SLILDES MENU -->
+    <ion-slides style="height:auto; width:100%;" spaceBetween="-15">
+    
+      <!-- CLIENTES -->
+      <ion-slide class="slidesitens" (click)="functionExecute('CompAdministracaoHomeComponent',{})">
+        <div >
+          <div class="slide-button" >
+            <ion-icon name="person-outline"></ion-icon>
+          </div>
+          <p text-center style="font-size:13px;">Clientes</p>
+        </div>
+      </ion-slide>
+
+      <!-- MENSAGENS  -->
+      <ion-slide class="slidesitens">
+        <div (click)="functionExecute('CompAdministracaoMensagens',{})">
+          <div class="slide-button" >
+            <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+          </div>
+          <p text-center style="font-size:13px;">Mensagens</p>
+        </div>
+      </ion-slide>
+
+      <!-- LOGS  -->
+      <ion-slide class="slidesitens">
+        <div (click)="functionExecute('CompAdministracaoLogs',{})">
+          <div class="slide-button" >
+            <ion-icon name="receipt-outline"></ion-icon>
+          </div>
+          <p text-center style="font-size:13px;">Logs</p>
+        </div>
+      </ion-slide>
+    </ion-slides> 
+  </ion-toolbar>
+
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button (click)="functionExecute('btnBack',{componente:'home'})" color="secondary">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<!-- <ion-fab vertical="top" style="margin-top: -10;" horizontal="end" slot="fixed"  (click)="listaRealtime()">
+  <ion-fab-button color="success">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab> -->
+
+<ion-content class="adm-mensagens-content">
+  <ion-grid style="padding: 0px !important;">
+    <!-- CABEÇALHO  -->
+    <ion-row class="panel-row">
+      <ion-col class="panel-card" color='success'>
+        <ion-card color='secondary' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Quantidade diária</ion-card-subtitle>
+            <ion-card-title>
+              <p>{{ messages.daily }}</p>
+              <ion-spinner name="dots" *ngIf="messages.daily == null "></ion-spinner>
+            </ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+
+      <ion-col class="panel-card">
+        <ion-card color='success' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Sucesso</ion-card-subtitle>
+            <ion-card-title>
+                <p >{{ messages.success }}</p>
+                <ion-spinner name="dots" *ngIf="messages.success == null"></ion-spinner>
+            </ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+
+      <ion-col class="panel-card">
+        <ion-card color='danger' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Erro</ion-card-subtitle>
+            <ion-card-title>
+              <p >{{ messages.failed }}</p>
+              <ion-spinner name="dots" *ngIf="messages.failed == null"></ion-spinner>
+            </ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+
+      <ion-col class="panel-card">
+        <ion-card color='secondary' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Quantidade mensal</ion-card-subtitle>
+            <ion-card-title>
+              <p >{{ messages.monthly }}</p>
+              <ion-spinner name="dots" *ngIf="messages.monthly == null"></ion-spinner>
+            </ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-item class="table-ion-item" style="width: 100% !important;">
+
+        <!-- <ion-grid *ngIf="mensagens == 0">
+          <ion-row style="font-size: small; font-weight: bold; border-bottom: 1px solid rgba(0, 0, 0, 0.13);">
+            <ion-col>Empresa</ion-col>
+            <ion-col>Canal</ion-col>
+            <ion-col>Situação</ion-col>
+          </ion-row>
+
+          <ion-row *ngFor="let mensagem of mensagens" style="font-size: small;">
+            <ion-col class="badge-col">
+              <ion-badge ngClass="status_{{mensagem.status}}">&nbsp;&nbsp;&nbsp;</ion-badge>&nbsp;
+              {{ mensagem.empresaNome || mensagem.empresaUid | titlecase }}
+            </ion-col>
+            <ion-col>{{ mensagem.canal | titlecase }}</ion-col>
+            <ion-col>
+              <span>{{ mensagem.status | titlecase }}</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid> -->
+
+        <ion-grid>
+          <ion-row style="font-size: small; font-weight: bold; border-bottom: 1px solid rgba(0, 0, 0, 0.13);">
+            <ion-col>Empresa</ion-col>
+            <ion-col>Canal</ion-col>
+            <ion-col>Situação</ion-col>
+          </ion-row>
+
+          <ion-row *ngFor="let mensagem of mensagens" style="font-size: small;">
+            <ion-col class="badge-col">
+              <ion-badge ngClass="status_{{mensagem.status}}">&nbsp;&nbsp;&nbsp;</ion-badge>&nbsp;
+              {{ mensagem.empresaNome || mensagem.empresaUid | titlecase }}
+            </ion-col>
+            <ion-col>{{ mensagem.canal | titlecase }}</ion-col>
+            <ion-col>
+              <span>{{ mensagem.status | titlecase }}</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-item>
+    </ion-row>
+  </ion-grid>
+</ion-content>

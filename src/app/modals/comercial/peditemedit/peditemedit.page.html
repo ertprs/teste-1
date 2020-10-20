@@ -1,0 +1,38 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Editar item</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="closeModel()" color="secondary">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<ion-fab vertical="top" horizontal="end" slot="fixed" >
+  <ion-fab-button  color="success">
+    <ion-icon name="save-outline" (click)="salvar()"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  <ion-item>
+    <ion-icon name="gift-outline" slot="start"></ion-icon>
+    <ion-input type="text" placeholder='Produto' [(ngModel)]="dadosItem.produtoDescricao" disabled style="font-size: small;"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="calculator-outline" slot="start"></ion-icon>
+    <ion-input autofocus="true" type="number"   style="text-align: right;" [(ngModel)]="dadosItem.qtd" (change)="calculando()" (keyup)="calculando()" ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="cash-outline" slot="start"></ion-icon>
+    <ion-input type="number" style="text-align: right;" [(ngModel)]="dadosItem.vrUnitario" (change)="calculando()" (keyup)="calculando()"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="cash-outline" slot="start"></ion-icon>
+    <ion-input type="number"  disabled style="text-align: right;" [(ngModel)]="dadosItem.vrTotal" readonly ></ion-input>
+  </ion-item>
+
+</ion-content>

@@ -1,0 +1,32 @@
+
+.boxionitem{
+  border:0.02em solid #92949c;
+  margin: 5px;
+  border-radius: 10px;
+  margin-left: 6%;
+  margin-right: 6%;
+
+  ion-label{
+      color: #92949c;      
+      margin-top: 2px;
+      left: 2px;
+      margin-bottom: 8px;
+      width: 100% !important;
+      border-bottom: 0;
+  }
+}
+.floattext {
+  position: absolute;
+  font-size: small;
+  top:0;
+}
+.floatvalue {
+  text-align: right;
+}
+.validerror{
+  position: absolute;
+  bottom: -8px;
+}
+.nolines{
+  border: 0;
+}

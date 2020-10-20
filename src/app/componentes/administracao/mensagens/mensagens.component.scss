@@ -1,0 +1,95 @@
+ion-avatar {
+    color:#FF8C00;
+    border-color: #FF8C00;
+    width: 50px;
+    height: 50px;
+}
+
+.slidesitens
+{
+    cursor: pointer;
+    padding:15px; 
+    padding-bottom:0px; 
+    max-width:70px;
+    min-width:70px;
+}
+
+.box-detail{
+    margin: 2px;
+    border: 1px solid #FF8C00;
+    padding: 0px;
+    border-radius: 10px;
+   
+
+    .box-titulo{
+        padding: 5px;
+        height: 30px;
+        border-radius: 10px 10px 0 0px;
+        background: rgba(#FF8C00, 0.5);
+        ion-card-subtitle {
+            padding-left: 10px;
+        }
+        ion-card-content{
+            padding: 5px;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        //titulos de pagina
+        min-width: 100%;
+        max-width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+.panel-card {
+    text-align: center;
+    padding: 0px !important;
+
+    ion-card {
+        margin-top: 0px !important;
+    }
+}
+
+.panel-row {
+    @media only screen and (max-width: 600px) {
+        display: grid !important;
+    }
+}
+
+.table-ion-item {
+    --padding-start: 0px !important;
+    --padding-end: 0px !important;
+}
+
+
+
+.badge-col {
+    display: flex;
+    align-items: center;
+}
+
+.status_conversaOK {
+    background: lawngreen;
+    border-radius: 50%;
+}
+
+.status_contatoOK {
+    background: deepskyblue;
+    border-radius: 50%;
+}
+
+.status_falhou {
+    background: red;
+    border-radius: 50%;
+}
+
+.status_completo {
+    background: green;
+    border-radius: 50%;
+}
+
+.status_pendente {
+    background: slategray;
+    border-radius: 50%;
+}

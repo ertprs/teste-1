@@ -1,0 +1,48 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <!-- <ion-icon name="arrow-back-outline" slot="start" class='btnVoltar' (click)="functionExecute('compConfiguracoesHome',{componente:'home'})" style="cursor: pointer;"></ion-icon> -->
+    <ion-title>Configurações Financeiro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('compConfiguracoesHome',{})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content class="default-content">
+
+  <ion-list>
+  
+    <ion-item routerLink="/financeiro/condpagamento" routerdirection="forward" >
+      <ion-label>
+        <p><strong>Cond. Pagamento</strong></p>
+        <p color='medium'>Gerencie as condições de pagamento</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item routerLink="/financeiro/tipoimpostos" routerdirection="forward" >
+      <ion-label>
+        <p><strong>Tipos de Imposto</strong></p>
+        <p color='medium'>Gerencie os tipos de imposto</p>
+      </ion-label>
+    </ion-item>
+    
+    <ion-item routerLink="/financeiro/bancos" routerdirection="forward" >
+      <ion-label>
+        <p><strong>Bancos</strong></p>
+        <p color='medium'>Gerencie os bancos</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item routerLink="/financeiro/categorias" routerdirection="forward" >
+      <ion-label>
+        <p><strong>Categorias</strong></p>
+        <p color='medium'>Gerencie os tipos de categoria</p>
+      </ion-label>
+    </ion-item> 
+
+  </ion-list>
+
+</ion-content>

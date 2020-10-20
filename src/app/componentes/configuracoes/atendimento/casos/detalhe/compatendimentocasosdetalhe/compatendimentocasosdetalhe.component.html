@@ -1,0 +1,68 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <!-- <ion-icon name="arrow-back-outline" slot="start" class='btnVoltar' (click)="functionExecute('btnBack',{componente:'home'})" style="cursor: pointer;"></ion-icon> -->
+    <ion-title class="titulo">Casos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('compatendimentocasoshome',{})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  
+  <ion-item class="ionitem">
+    <ion-label style="text-transform: capitalize;">Departamento</ion-label>
+    <ion-select [(ngModel)]="dados.departamento" okText="Selecionar" cancelText="Cancelar" #dadosDepartamento> 
+      <ion-select-option *ngFor="let departamento of itemsDepartamento" value="{{ departamento.id }}|{{ departamento.nome }}" >{{departamento.nome | titlecase}}</ion-select-option>
+    </ion-select>
+    
+  </ion-item>
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked style="text-transform: capitalize;" >Nome</ion-label>
+    <ion-input type="text" [(ngModel)]="dados.nome" [disabled]="!dados.departamento" (keyup.enter)="addNew()" #dadosNome></ion-input>
+    <ion-button  color='success' [disabled]="dados.nome.length === 0 || dados.departamento.length === 0" (click)="addNew()" >
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+  
+  
+  <ion-item *ngIf="items.length == 0" >
+    <ion-text style="text-align: center !important;font-size: small;" lines='none'>
+      Não existem tipos cadastrados
+    </ion-text>
+  </ion-item>
+  <ion-list>
+    <ion-item lines='none'>
+      <ion-label slot="start" style="font-size: small;">
+        <strong>Nome</strong>
+      </ion-label>
+      <ion-label slot="end" style="font-size: small;">
+        <strong>Departamento</strong>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngFor="let  item of items let i = id" style="padding: 0 !important;">
+    <ion-item-sliding #i style="padding: 0 !important;">
+    <ion-item style=" cursor: pointer;"   (click)="i.open();" lines='none'>   
+      <ion-row>
+        <ion-col size="8">
+          <ion-label style="font-size: small;">
+            {{ item.nome | titlecase }}
+          </ion-label>
+        </ion-col>
+        <ion-col size="4">
+          <ion-label style="font-size: small;">
+            {{ item.departamentoNome | titlecase }}
+          </ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option color='danger' (click)="delete(item.id)"><ion-icon name="trash-outline" slot="icon-only"></ion-icon></ion-item-option>
+    </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

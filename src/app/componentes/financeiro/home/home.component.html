@@ -1,0 +1,168 @@
+<ion-header mode="ios">
+  <ion-toolbar mode='ios' style="padding:0px;">
+    <!-- <ion-icon name="arrow-back-outline" slot="start" class='btnVoltar' (click)="functionExecute('btnBack',{componente:'home'})" ></ion-icon> -->
+    <ion-title>Financeiro</ion-title>
+  </ion-toolbar>
+  <ion-toolbar mode="ios" class="header-busca" >
+    <ion-searchbar animated placeholder="Pesquisar" (keyup)="pesquisar($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('btnBack',{componente:'home'})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+
+  <ion-card mode='ios'>
+    <ion-card-content>
+      <ion-list>
+        <div class="totreceber">
+          <p><strong>Receber</strong></p>
+          <p>&nbsp;{{ totReceber | currency:'BRL':true:'1.2-2' }}</p>
+        </div>
+        <div class="totpagar">
+          <p><strong>Pagar</strong></p>
+          <p>&nbsp;{{ totPagar | currency:'BRL':true:'1.2-2' }}</p>
+        </div>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- CARREGANDO DADOS -->
+  <ion-list *ngIf="!items.length && carregado == false">
+
+    <ion-item *ngFor="let item of [0]" lines='none'>
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Nao existem registros -->
+  <ion-list *ngIf="items.length === 0  && carregado == true" class="boxNotificacao">
+    <ion-item lines='none' class="boxNotificacaoInterno" >
+      <ion-icon name="alert-circle-outline" color="secundary"slot="start"></ion-icon>
+      <ion-label color='ligth' >
+        <p>Não existem orçamentos</p>
+        <p>Clique no botão para começar um novo orçamento</p>
+        <ion-avatar>
+          <img src="../../../../assets/img/lara-fundo-azul.jpg">
+        </ion-avatar>
+      </ion-label>
+      <ion-icon name="arrow-down-outline" style="margin-left: 40px;"></ion-icon>
+      
+    </ion-item>
+  </ion-list>
+  <!-- Listando dados -->
+  <!-- <ion-list  *ngFor="let lancamento of filtered" style="padding: 0 !important;">
+
+    <ion-item-sliding mode="ios" >
+      <ion-item lines='none' mode='ios'>
+
+        <ion-icon slot="start" name="cash-outline" [ngStyle]="{'border-radius':'100%','font-size':'50px','color': '#92949c'  }" class="ion-icon"></ion-icon>
+        <ion-label>
+          <p><strong>{{ lancamento.parceiroNome | titlecase }}</strong></p>
+          <p>
+            <ion-label color='success' *ngIf="lancamento.situacaoCod == 1">Ativo</ion-label>
+            <ion-label color='success' *ngIf="lancamento.situacaoCod == 2">Pago</ion-label>
+            <ion-label color='danger' *ngIf="lancamento.situacaoCod == 3">Cancelado</ion-label>
+            <ion-label color='warning' *ngIf="lancamento.situacaoCod == 4">Vencido</ion-label>
+            <ion-label color='info' *ngIf="lancamento.situacaoCod == 5">Ag. Autorização</ion-label>
+            <ion-label color='danger' *ngIf="lancamento.situacaoCod == 6">Recusado</ion-label>
+            <ion-label color='primary' *ngIf="lancamento.situacaoCod == 7">Processando</ion-label>
+          </p>
+        </ion-label>
+        <ion-label slot="end" style="text-align: right;">
+          <p>{{ lancamento.vencimento | date:'dd/MM/yy' }}</p>
+          <p><strong>{{ lancamento.valor_principal | currency:'BRL':true:'1.2-2'  }}</strong></p>
+        </ion-label>
+      </ion-item>
+  
+      <ion-item-options side="end">
+        <ion-item-option *ngIf="lancamento.situacaoCod == 1 && lancamento.isBoleto == true" color="white">
+          <ion-icon name="share-social-outline" slot="icon-only" color="dark"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list> -->
+
+  <section id="cd-timeline" class="cd-container">
+    <div *ngFor="let lancamento of filtered">
+      <div class="cd-timeline-block">
+        <div class="cd-timeline-picture dark" *ngIf="lancamento.situacaoCod == 1 || lancamento.situacaoCod == 2 || lancamento.situacaoCod == 5 || lancamento.situacaoCod == 7">
+          <ion-icon slot="start" name="cash-outline" size="large" class="ion-icon"></ion-icon>
+        </div>
+        <div class="cd-timeline-picture warning" *ngIf="lancamento.situacaoCod == 4">
+          <ion-icon slot="start" name="cash-outline" size="large" class="ion-icon"></ion-icon>
+        </div>
+        <div class="cd-timeline-picture danger" *ngIf="lancamento.situacaoCod == 3 || lancamento.situacaoCod == 6">
+          <ion-icon slot="start" name="cash-outline" size="large" class="ion-icon"></ion-icon>
+        </div>
+        <!-- cd-timeline-img -->
+        <div class="cd-timeline-content dark">
+          <h5 class="marginBottom0 marginTop0">{{ lancamento.parceiroNome | titlecase }}</h5>
+          <p class="marginTop0 cd-author">Valor:&nbsp;{{ lancamento.valor_principal | currency:'BRL':true:'1.2-2' }}</p>
+          <p class="marginTop0 cd-author">Vencimento:&nbsp;{{ lancamento.vencimento | date:'dd/MM/yy' }}</p>
+          <p class="timelineText">
+            <ion-label color='success' *ngIf="lancamento.situacaoCod == 1">Ativo</ion-label>
+            <ion-label color='success' *ngIf="lancamento.situacaoCod == 2">Pago</ion-label>
+            <ion-label color='danger' *ngIf="lancamento.situacaoCod == 3">Cancelado</ion-label>
+            <ion-label color='warning' *ngIf="lancamento.situacaoCod == 4">Vencido</ion-label>
+            <ion-label color='info' *ngIf="lancamento.situacaoCod == 5">Ag. Autorização</ion-label>
+            <ion-label color='danger' *ngIf="lancamento.situacaoCod == 6">Recusado</ion-label>
+            <ion-label color='primary' *ngIf="lancamento.situacaoCod == 7">Processando</ion-label>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU GERAL LARA -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-avatar>
+        <img src="./../../../assets/img/lara-fundo-azul.jpg">
+      </ion-avatar>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <!-- Lara -->
+      <ion-fab-button  >
+        <ion-avatar>
+          <img src="./../../../assets/img/lara-fundo-azul.jpg">
+        </ion-avatar>
+      </ion-fab-button>
+      
+      <!-- Nava venda  -->
+      
+
+      <ion-fab-button (click)="functionExecute('financeiroDreOpen',{})" routerDirection="forward">
+        DRE
+      </ion-fab-button>
+
+
+    </ion-fab-list>
+    
+  </ion-fab>
+
+</ion-content>

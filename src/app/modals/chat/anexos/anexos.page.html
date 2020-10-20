@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Enviar anexos</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button color="secondary" (click)="closeModal()">
+        <ion-icon name="close-outline"></ion-icon>
+    </ion-fab-button>
+</ion-fab>
+
+<ion-content style="margin-top: 50px;">
+  
+    <ion-item class="ionitem"  >
+        <ion-label>
+            Nome
+        </ion-label>
+        <ion-input [(ngModel)]="dadosdoArquivo.nome" placeholder='Informe o nome do arquivo para enviar'></ion-input>
+    </ion-item>
+    <ion-item class="ionitem" *ngIf="dadosdoArquivo.nome.length > 0 " >
+        <ion-label>
+                Selecionar arquivo
+            </ion-label>
+            <input type="file" (change)="uploadFile($event)" />
+    </ion-item>
+       
+    
+</ion-content>
+
+<ion-footer>
+    <ion-grid *ngIf="uploadPercent">
+        <ion-row>
+            
+            <ion-col><ion-progress-bar color="secondary" type="indeterminate" value="{{ uploadPercent | async }}" max="100"></ion-progress-bar></ion-col>
+            
+            <ion-col size='2'>{{ uploadPercent | async | number:'1.0-0' }}%</ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

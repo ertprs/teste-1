@@ -1,0 +1,19 @@
+<ion-header mode='ios' >
+  <ion-toolbar>
+    <!-- <ion-icon name="arrow-back-outline" slot="start" class='btnVoltar' style="cursor: pointer;"></ion-icon> -->
+    <ion-title class="titulo">Fiscal</ion-title>
+    <!-- <ion-icon name="add-circle-outline" slot="end" class='btnVoltar' style="cursor: pointer;" ></ion-icon> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('btnBack',{componente:'home'})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="functionExecute('compA',{})">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

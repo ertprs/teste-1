@@ -1,0 +1,143 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+     
+    </ion-buttons>
+    <ion-title>Produtos</ion-title>
+  </ion-toolbar>
+
+  
+</ion-header>
+
+<ion-content>
+  
+  
+
+  
+  <ion-item lines='none'>
+    <ion-label color="primary" stacked>Código</ion-label>
+    <ion-input type="text" placeholder='' [(ngModel)]="dadosProduto.codigo"></ion-input>
+  </ion-item>
+  <ion-item lines='none'>
+    <ion-label color="primary" stacked>SKU</ion-label>
+    <ion-input type="text" placeholder='' [(ngModel)]="dadosProduto.sku"></ion-input>
+  </ion-item>
+  <ion-item lines='none'>
+    <ion-label color="primary" stacked>EAN</ion-label>
+    <ion-input type="text" placeholder='' [(ngModel)]="dadosProduto.ean"></ion-input>
+  </ion-item>
+  <ion-item lines='none'>
+    <ion-label color="primary" stacked>NCM</ion-label>
+    <ion-input type="text" placeholder='' [(ngModel)]="dadosProduto.ncm"></ion-input>
+  </ion-item>
+  
+  <ion-item lines='none'>
+    <ion-label color="primary" stacked>Tipo fabricacao</ion-label>
+    <ion-select value="whatsapp" value='telegram' okText="Confirmar" cancelText="Cancelar" [(ngModel)]="dadosProduto.tipoFabricacao" >
+      <ion-select-option value="propria">Própria</ion-select-option>
+      <ion-select-option value="cpnacional">Compra mercado nacional</ion-select-option>
+      <ion-select-option value="cpinternacional">Compra mercado internacional</ion-select-option>
+     
+    </ion-select>
+  </ion-item>
+
+
+  <ion-item mode="ios" lines='none'>
+    <ion-grid style="margin-left: -10px;">
+      <ion-row class="rowtitulo">
+        <ion-col size='12'>
+          <ion-label color="primary" class="labellong" >Descrição Curta </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row lass="rowsubtitulo">
+        <ion-col size='12'>
+          <p color='light' style="font-size: small;">Esta descrição sera exibida nas nos itens do orçamento</p>
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col size='12'>
+          <ion-textarea type="text" placeholder='' [(ngModel)]="dadosProduto.descricaoCurta" rows='5' ></ion-textarea>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <ion-item mode="ios" lines='none'>
+    <ion-grid style="margin-left: -10px;">
+      <ion-row class="rowtitulo">
+        <ion-col size='12'>
+          <ion-label color="primary" class="labellong" >Descrição Longa </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row lass="rowsubtitulo">
+        <ion-col size='12'>
+          <p color='light' style="font-size: small;">Informe aqui mais detalhes sobre o produto</p>
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col size='12'>
+          <ion-textarea type="text" placeholder='' [(ngModel)]="dadosProduto.descricaoLonga" rows='5' ></ion-textarea>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  
+  
+  <ion-item mode="ios" lines='none'>
+    <ion-grid style="margin-left: -10px;">
+      <ion-row class="rowtitulo">
+        <ion-col size='12'>
+          <ion-label color="primary" class="labellong" >Descrição Fiscal </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row lass="rowsubtitulo">
+        <ion-col size='12'>
+          <p color='light' style="font-size: small;">Informe a descrição que será impressa na nota fiscal</p>
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col size='12'>
+          <ion-textarea type="text" placeholder='' [(ngModel)]="dadosProduto.descricaoFiscal" rows='5' ></ion-textarea>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+
+  <ion-item mode="ios" lines='none'>
+    <ion-grid style="margin-left: -10px;">
+      <ion-row class="rowtitulo">
+        <ion-col size='12'>
+          <ion-label color="primary" class="labellong" >Observações </ion-label>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row >
+        <ion-col size='12'>
+          <ion-textarea type="text" placeholder='' [(ngModel)]="dadosProduto.ObservacoesGeral" rows='5' ></ion-textarea>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  
+  
+  <ion-item >
+    <ion-label color="primary" stacked>Vr. Compra</ion-label>
+    <ion-input type="number" placeholder='' [(ngModel)]="dadosProduto.vrCompra"></ion-input>
+  </ion-item>
+  <ion-item >
+    <ion-label color="primary" stacked>Vr. Venda</ion-label>
+    <ion-input type="number" placeholder='' [(ngModel)]="dadosProduto.vrVenda"></ion-input>
+  
+  </ion-item>
+  
+  
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" color='success' *ngIf="produtoId == null " (click)="add()" >Salvar</ion-button>
+    <ion-button expand="block" color='secondary' *ngIf="produtoId != null " (click)="atualizar()" >Atualizar</ion-button>
+    <ion-button expand="block" color='danger' *ngIf="produtoId != null " (click)=" deletar()" >Excluir</ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,32 @@
+<ion-header mode='ios'>
+  
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Usuários detalhes</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-icon name="mail-outline" slot="start"></ion-icon>
+    <ion-input type="email" placeholder='email@dominio.com.br' [(ngModel)]="userDados.email" ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="person-outline" slot="start"></ion-icon>
+    <ion-input type="text" placeholder='Informe o Nome' [(ngModel)]="userDados.nome" ></ion-input>
+  </ion-item>
+  
+</ion-content>
+  
+<ion-footer>
+  <ion-toolbar>
+
+    <ion-button expand="block" color='success' (click)='adicionarUsuarioNew()'>Incluir</ion-button>
+    
+  </ion-toolbar>
+</ion-footer>

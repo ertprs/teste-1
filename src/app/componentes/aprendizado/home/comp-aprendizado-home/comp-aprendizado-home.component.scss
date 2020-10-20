@@ -1,0 +1,31 @@
+.box-detail{
+    margin: 2px;
+    border: 1px solid #FF8C00;
+    padding: 0px;
+    border-radius: 10px;
+   
+
+    .box-titulo{
+        padding: 5px;
+        height: 30px;
+        border-radius: 10px 10px 0 0px;
+        background: rgba(#FF8C00, 0.5);
+        ion-card-subtitle {
+            padding-left: 10px;;
+        }
+        ion-card-content{
+            padding: 5px;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        //titulos de pagina
+        min-width: 100%;
+        max-width: 100%;
+    }
+}
+
+.cards-margin {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

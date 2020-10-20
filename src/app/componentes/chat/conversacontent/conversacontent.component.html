@@ -1,0 +1,271 @@
+<!-- DROPZONE -->
+<div [ngClass]="(contentHover)?'dropzone-on':'dropzone-off'" dropzone (dropped)="onDrop($event)" [class.hovering]="isHovering" *ngIf="devicePlatform != 'hybrid'">
+  <!-- <div [ngClass]="(contentHover)?'dropzone':'dropzonga'" dropzone (hovered)="toggleHover($event)" (dropped)="onDrop($event)" [class.hovering]="isHovering"></div> -->
+<ion-fab class="drop-close" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeDropzone()">
+    <ion-icon name="close"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+  <ion-list style="display: flex; width: 80%; margin-left: auto; margin-right: auto; align-items: center; justify-content: center;">
+    <ion-grid>
+
+      <ion-row>
+        <ion-col><h3 class="drop-title">Arraste arquivos ou clique abaixo para adicionar.</h3></ion-col>
+      </ion-row>
+
+      <ion-row style="margin: 5% 0%;">
+        <ion-col class="file-col" size="3" *ngFor="let file of files; let i = index">
+          <div style="width: 100%; display: flex; justify-content: flex-end;">
+            <ion-badge color="primary" (click)="removeFile(i)">
+              <ion-icon name="close"></ion-icon>
+            </ion-badge>
+          </div>
+          
+          <ion-card>
+            <ion-card-content>
+              <ion-avatar>
+                <ion-icon name="folder"></ion-icon>
+              </ion-avatar>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-text>
+            {{file.name}}
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="drop-buttons">
+          <ion-fab-button color="medium" *ngIf="files.length > 0 && files.length < 8" (click)="file.click()">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+
+          <ion-fab-button (click)="uploadDropzone()">
+            <ion-icon name="send-outline"></ion-icon>
+          </ion-fab-button>
+
+          <input #file multiple type="file" style="display: none;" (change)="onDrop($event, 'input')">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+</div>
+
+<!-- CHAT -->
+<ion-header mode="ios">
+    <ion-toolbar mode='ios' style="padding:0px;">
+      <ion-chip slot="start" outline="true" color="light" style="height: 50px;width: 80px; cursor: pointer;"
+        (click)="functionExecute('btnBack',{componente:'home'})">
+        <ion-icon name="arrow-back-outline" color='primary'></ion-icon>
+        <ion-icon name="person-circle-outline"
+          [ngStyle]="{'position':'absolute','padding-left':'10px',  'font-size':'50px','color': dadosConversa.photo  }">
+        </ion-icon>
+        <ion-badge class="badgeorigem"><img src="../../../../assets/img/{{ dadosConversa.canal}}.svg" /></ion-badge>
+        <ion-badge class="badgefavorito" *ngIf="dadosConversa.favorito == 1 "><img src="../../../assets/img/star.svg" />
+        </ion-badge>
+    
+      </ion-chip>
+      <ion-label style='font-size: small;'>
+        <p style="cursor: pointer;" (click)="functionExecute('chatContatoEdit',{contatoUid:dadosConversa.contatoUid})">
+          <strong>{{ dadosConversa.contatoNome | titlecase }}</strong></p>
+        <p>
+          <ion-icon name="person-outline"></ion-icon>&nbsp;{{ dadosConversa.usuarioNome | titlecase }}
+        </p>
+        <p>
+          <ion-icon name="business-outline"></ion-icon>&nbsp;{{ dadosConversa.nomeClienteVinculado | titlecase }}
+        </p>
+      </ion-label>
+      <ion-item slot="end" style="text-align: right;" lines='none'>
+    
+        <!-- INFORMAR QUE EXISTE ALERTA AGENDADO -->
+        <ion-icon name="alarm-outline" color='success' style='cursor: pointer;' *ngIf="lembreteToDoUid"
+          (click)="AbrirTodo(lembreteToDoUid)"></ion-icon>
+    
+    
+        <ion-button fill="clear" class="send-button" (click)="MenuPopoverCreate($event)">
+          <ion-icon name="ellipsis-vertical-outline" color='primary'></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-toolbar>
+    
+    <ion-toolbar *ngIf="qtdProdutosVisitados > 0">
+      <ion-item lines='none'>
+        <ion-label (click)="visualizarProdutosVisitados()">
+          <ion-chip color='warning'>
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <ion-label>Este contato visitou {{qtdProdutosVisitados}} produto(s) </ion-label>
+          </ion-chip>
+        </ion-label>
+      </ion-item>
+    </ion-toolbar>
+    
+    <!-- DADOS DO CASO -->
+    <ion-toolbar *ngIf="casoUid  != '' ">
+      <ion-item lines='none'>
+        <ion-label (click)="abrirTicket()">
+          <ion-chip color='warning'>
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <ion-label>Existe ticket em andamento para este contato </ion-label>
+          </ion-chip>
+        </ion-label>
+      </ion-item>
+    </ion-toolbar>
+</ion-header>
+  
+  <ion-content [scrollEvents]="true" (dragenter)="setHover('content')" (dragleave)="setHover('leavecontent')" (ionScrollStart)="logScrollStart()" (ionScroll)="logScrolling($event)" (ionScrollEnd)="logScrollEnd()" slot="fixed">
+    <ion-grid> 
+      <ion-row *ngFor="let listMensagem of mensagens "  id="listMensagem">
+        <ion-col size="1" *ngIf="checkboxencaminhar && listMensagem.tipo  != 'info' && listMensagem.tipo != undefined" class="align-col-content">
+          <ion-row> 
+            <ion-checkbox [checked]="allCheckboxes" mode="ios" (ionChange)="forwardMessageSelect($event, listMensagem )"></ion-checkbox>
+          </ion-row>
+        </ion-col>
+        
+        <ion-col class="msg_{{listMensagem.es}}">
+          <ion-row class="options-row">
+            <ion-icon  *ngIf="listMensagem.tipo  != 'info'" name="chevron-down-outline" class="msg-options" style="cursor: pointer;font-size: 16px; margin-left: auto;" (click)="MenuPopoverMensagem($event,listMensagem)"></ion-icon>
+          </ion-row>
+          
+          <ion-row>
+  
+            <!-- INFO  -->
+            <ion-label class="msg-info" *ngIf="listMensagem.tipo == 'info' " style="white-space: pre-line;">
+              {{listMensagem.mensagem}}
+            </ion-label>  
+            <!-- CITAÇÃO -->
+              <ion-label class="msg-body answer-box" *ngIf="listMensagem.citacao != null && listMensagem.citacao != '' ">
+                  <ion-list style="display: grid; background: transparent;">
+                    <p class="msg-reply-autor">{{listMensagem.autorNome}}</p>
+                    <p>{{listMensagem.citacao}}</p>
+                  </ion-list>
+              </ion-label>
+  
+            <!-- TEXTO -->
+            <ion-label class="msg-body" *ngIf="listMensagem.tipo == 'texto' " style="white-space: pre-line;">
+              {{listMensagem.mensagem}}
+            </ion-label>
+  
+            <!-- AUDIO -->
+            <ion-label class="msg-body" *ngIf="listMensagem.tipo == 'audio' ">
+              <audio class="msg-audio" src="{{listMensagem.anexo }}"  controls>
+              </audio>
+              {{listMensagem.mensagem}}
+            </ion-label>
+  
+  
+             <!-- VIDEO  -->
+             <ion-label class="msg-body" *ngIf="listMensagem.tipo == 'video' ">
+              <video class="msg-audio" src="{{listMensagem.anexo }}" width="50" height="150" controls>
+              </video>
+              {{listMensagem.mensagem}}
+              {{listMensagem.citacao}}
+            </ion-label>
+  
+  
+            <!-- IMAGEM -->
+            <ion-label class="msg-body"  *ngIf="listMensagem.tipo == 'imagem' " (click)="viewImage(listMensagem.anexo)">
+              <img class="msg-img" src="{{ listMensagem.anexo}}" (error)="changeSource($event, listMensagem.anexo)">     
+              {{listMensagem.citacao}} 
+            </ion-label>
+  
+            <!-- ENVIO DE DOCUMENTO  -->
+            <ion-label class="msg-body msg-file" *ngIf="listMensagem.tipo == 'documento'" title="{{listMensagem.anexo}}" (click)="Download(listMensagem.anexo)">
+              <ion-item lines="none" style="--background: transparent;">
+                <!-- <ion-icon name="document-attach-outline" *ngIf="getFileInfo(listMensagem.anexo).split('.').pop() == 'css'" style="font-size: 50px;"></ion-icon> -->
+                <img src="../../../../assets/icon/svg/{{getFileInfo(listMensagem.anexo).split('.').pop()}}.svg" alt="icon" title="Icons made by https://www.flaticon.com/">
+                <ion-label>
+                  <h2>{{ getFileInfo(listMensagem.anexo)}}</h2>
+                </ion-label>
+              </ion-item>
+            </ion-label>
+            <!-- LINK -->
+            <ion-label class="msg-body" *ngIf="listMensagem.tipo == 'link' ">
+              <ion-row>
+                <a href="www.google.com" target="_blank" rel="noopener">
+                  <ion-row class="link-received">
+                    <ion-col size="3">
+                      <ion-img src="../../../../assets/img/default-user-icon.jpg"></ion-img>
+                    </ion-col>
+                    <ion-col size="9" class="msg-bubble">
+                      <ion-label>
+                        <strong style="font-size:  14px;">Lorem Ipsum</strong>
+                        <p>dolor sit amet</p>
+                      </ion-label>
+                    </ion-col>
+                  </ion-row>
+                </a>
+              </ion-row>
+              <ion-row>
+                <ion-label class="msg-link-text">
+                  {{listMensagem.mensagem}}
+                </ion-label>
+              </ion-row>
+  
+            </ion-label>
+          
+          </ion-row>
+          <ion-row>
+              <ion-label class="autor">
+                {{listMensagem.autorNome}}
+              </ion-label>
+              <ion-label class="detalhe align-col-content">
+                {{listMensagem.createAt | date:'dd/MM/y' }}&nbsp;{{listMensagem.createAt | date:'shortTime' }} &nbsp;
+                
+                  <ion-icon name="time-outline" *ngIf="listMensagem.es == 's' &&  listMensagem.entregueTag == 0 "></ion-icon>
+                  <ion-icon name="checkmark-outline" *ngIf="listMensagem.es == 's' && listMensagem.entregueTag == 3"></ion-icon>
+                  <ion-icon name="checkmark-done-outline" *ngIf="listMensagem.es == 's' && listMensagem.entregueTag == 2"></ion-icon>
+                  <ion-icon name="checkmark-done-outline" class="colorcheckmark_{{ listMensagem.entregueTag }}" *ngIf="listMensagem.es == 's' && listMensagem.entregueTag == 1"></ion-icon>
+                  <ion-icon (click)="verErro(listMensagem.errorMsg)" name="warning-outline" class="colorcheckmark_{{ listMensagem.entregueTag }}" *ngIf="listMensagem.es == 's' && listMensagem.entregueTag == 4"></ion-icon>
+  
+              </ion-label>
+          </ion-row>
+        </ion-col>
+  
+      </ion-row>
+    </ion-grid>
+    <div  class="btrolagem"  *ngIf="scrollBtnVisible"  (click)="clickRolagem()">
+  
+      <ion-icon name="mail-unread" color='success'></ion-icon>
+      
+    </div>
+    
+  </ion-content>
+  <ion-footer mode='ios' class="chat-input ion-footer-mobile" >
+    <ion-toolbar> 
+  
+      <ion-item lines='none'  *ngIf="assumirAtendimento && !checkboxencaminhar">
+        <textarea #msgBox class="textarea-send" autosize  rows="1" maxRows="3" placeholder="Digite uma mensagem..." style="padding: 5px; resize: none; white-space: pre-wrap;border:0;" [(ngModel)]="chatMessageService.desktopMsg" (click)="checkMsg($event)" (keydown)="checkMsg($event)" (keyup)="armazenarMensagemDigitada()"></textarea>
+        <ion-button *ngIf="devicePlatform == 'desktop'" fill="clear" color="primary" class="send-button" (click)="emojiPopoverCreate($event)" >
+          <ion-icon name="happy-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" class="send-button" (click)="MenuPopoverCreate($event)" >
+          <ion-icon class="send-attach" name="attach-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" class="send-button" (click)="sendMsg()" >
+          <ion-icon class="send-icon-arrow" name="send-outline" slot="icon-only"></ion-icon>
+          <!-- <ion-icon class="send-icon-mic" name="mic-outline" slot="icon-only" *ngIf="buttonMessage"></ion-icon> -->
+        </ion-button>
+      </ion-item>
+  
+      <ion-item *ngIf="checkboxencaminhar" lines="none" class="forward-footer">
+        <ion-button slot="start" fill="clear" (click)="cancelForward()">
+          <ion-icon name="close-outline" style="font-size: 25px;"></ion-icon>
+        </ion-button>
+        <ion-label> {{forwardedMessages.length}} Selecionadas</ion-label>
+        <ion-button slot="end" fill="clear" [disabled]="forwardedMessages.length == 0 || !forwardedMessages" (click)="closeForwardFooter()">
+          <ion-icon name="arrow-redo-outline" style="font-size: 25px;"></ion-icon>
+        </ion-button>
+      </ion-item>
+  
+      <ion-item lines='none' *ngIf="!assumirAtendimento">
+        <ion-button expand="block" (click)="assumirConversa()"  size="large" style="margin-left:40px;"> 
+          <ion-icon name="lock-open-outline" slot="start" ></ion-icon>&nbsp;
+          <ion-label>Assumir conversa</ion-label>
+        </ion-button>
+      </ion-item>
+  
+  
+    </ion-toolbar>
+  </ion-footer>

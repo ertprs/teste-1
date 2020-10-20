@@ -1,0 +1,85 @@
+<ion-header mode='ios'>
+  
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Meus dados</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('btnBack',{componente:'home'})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab class="float-fab-right" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="success" [disabled]="currentUser.displayName == '' || currentUser.email == ''" (click)='userUpdate()'>
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  <ion-item lines='none'>
+    <label for="upload" style="margin-left: auto; margin-right: auto; cursor: pointer;">
+      <ion-avatar title="Trocar imagem">
+        <img *ngIf="currentUser.photoURL" src="{{currentUser.photoURL}}">
+        <img *ngIf="!currentUser.photoURL" src="../../../../assets/img/lara-fundo-azul.jpg">
+      </ion-avatar>
+      <input id="upload" type="file" [(ngModel)]="newPhoto" style="display: none;" (change)="uploadFile($event)">
+    </label>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Nome</ion-label>
+    <ion-input type="text" [(ngModel)]="currentUser.displayName"></ion-input>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Email</ion-label>
+    <ion-input type="text" [(ngModel)]="currentUser.email" disabled></ion-input>
+  </ion-item>
+
+  <!-- <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Data de Nascimento</ion-label>
+    <ion-input type="date" [(ngModel)]="currentUser.dataNascimento"></ion-input>
+  </ion-item> -->
+
+  <ion-item class="ionitem" *ngIf="!changeSenha">
+    <ion-label color="primary" stacked >Senha Atual</ion-label>
+    <ion-input type="password" [(ngModel)]="currentUser.senha" [readonly]="changeSenha"></ion-input>
+  </ion-item>
+
+  <ion-item lines="none" *ngIf="changeSenha" style="margin-bottom: 15px; margin-left: 6%; margin-right: 6%;">
+    <ion-button color="secondary" style="margin-left: auto;"  (click)="enableSenha()">Alterar Senha</ion-button>
+  </ion-item>
+  
+  <ion-item class="ionitem" *ngIf="!changeSenha">
+    <ion-label color="primary" stacked >Nova Senha</ion-label>
+    <ion-input type="password" [(ngModel)]="currentUser.senha2"></ion-input>
+  </ion-item>
+
+  <ion-item class="ionitem" *ngIf="!changeSenha">
+    <ion-label color="primary" stacked >Repetir Senha</ion-label>
+    <ion-input type="password" [(ngModel)]="currentUser.senha3"></ion-input>
+  </ion-item>
+
+  <ion-item lines="none" *ngIf="!changeSenha" style="margin-left: 6%; margin-right: 6%;">
+    <ion-button [disabled]="currentUser.senha2 != currentUser.senha3 || currentUser.senha == '' || currentUser.senha2 == '' || currentUser.senha3 == ''" expand="block" style="margin-left: auto"  color="success" (click)="updateSenha()">Confirmar Senha</ion-button>
+  </ion-item>
+
+
+
+  <!-- <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Telefone</ion-label>
+      <ion-input type="text" [(ngModel)]="currentUser.phoneNumber"></ion-input>
+  </ion-item> -->
+</ion-content>
+  
+<ion-footer>
+  <ion-toolbar>
+    <!-- <ion-button expand="block" color='success' >Salvar</ion-button> -->
+  </ion-toolbar>
+</ion-footer>

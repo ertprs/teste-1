@@ -1,0 +1,64 @@
+
+ion-avatar {
+    color:#FF8C00;
+    border-color: #FF8C00;
+    width: 50px;
+    height: 50px;
+}
+
+.slidesitens
+{
+    padding:15px; 
+    padding-bottom:0px; 
+    max-width:70px;
+    min-width:70px;
+}
+.notificacaomatriz
+{
+    border: 1px solid;
+    margin-top: 5px;
+    display: inline-block !important;
+    background-color: red;
+
+    background: rgba(0, 0, 0, 0.5);
+    –background:url(../../../assets/img/default-user-icon.jpg);
+    –width:250px;
+    –min-height: 250px; 
+}
+.notification-img{
+    border: 1px solid black;
+    width: 20px;
+    height: 20;
+    background-color: red;
+    border-radius: 100px;
+}
+
+.badgeorigem{
+    
+    position:absolute;
+    left: 25px;
+    top: 10px;
+    z-index: 5;
+    background: transparent;
+    width: 35px;
+
+}
+.badgefavorito{
+    
+    position:absolute;
+    left: 8px;
+    bottom: 6px;
+    z-index: 5;
+    background: transparent;
+    width: 35px;
+
+}
+.ion-icon {
+    margin-right: 15px;
+}
+
+
+
+app-conversaativalista{
+    width: 100%;
+}

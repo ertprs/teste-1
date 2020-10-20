@@ -1,0 +1,40 @@
+<ion-content class="login-content">
+  <ion-grid class="login-background">
+    <ion-row class="login-row">
+      <ion-list style="margin-left: auto; margin-right: auto;">
+        <ion-label>
+          <ion-avatar style="height: 150px; width: 150px;">
+            <img src="../../../../assets/img/lara-fundo-azul.jpg" alt="Lara">
+          </ion-avatar>
+        </ion-label>
+      </ion-list>
+
+      <ion-list class="login-box">
+        <ion-list-header>
+          <ion-label color="primary" style="display: flex; justify-content: center; font-size: 20px;"><strong>Recuperar senha</strong></ion-label>
+        </ion-list-header>
+
+        <ion-item lines="none" class="ionitem">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-input type="email" placeholder="Informe seu e-mail" [(ngModel)]="userDados.email"></ion-input>
+        </ion-item>
+        
+        <ion-button expand="block" (click)="recuperar()"><span color="light">Recuperar</span></ion-button>
+  
+        <ion-label>
+          <a href="/login" color="secondary" slot="start" style="float: left;">Fazer login</a>
+          <a href="/cadastro" color="secondary" slot="end" style="float: right;">Criar uma conta</a>
+        </ion-label>
+      </ion-list>
+
+      <ion-list style="display: flex; justify-content: center; margin-left: auto; margin-right: auto;">
+        <img src="../../../../assets/img/pedepralara.png" alt="Lara" style="height: 10vh;">
+      </ion-list>
+    </ion-row>
+  </ion-grid>
+
+
+  
+
+ 
+</ion-content>

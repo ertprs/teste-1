@@ -1,0 +1,35 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Filtro avançado</ion-title>
+  </ion-toolbar>
+ 
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content style="--padding-top: 30px !important;">
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Grupo</ion-label>
+    <ion-select [(ngModel)]="dadosFiltro.grupo" >
+    
+      <ion-select-option value="todos">Todos</ion-select-option>
+      <ion-select-option value="vazio">Vazio</ion-select-option>
+      <ion-select-option *ngFor="let item of listaGrupos" value="{{item.grupo  }}" >{{item.grupo | titlecase}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Data de cadastro</ion-label>
+    <ion-input type="date" [(ngModel)]="dadosFiltro.dataIni" ></ion-input>
+    <ion-input type="date" [(ngModel)]="dadosFiltro.dataFim" ></ion-input>
+    
+  </ion-item>
+
+
+</ion-content>
+<ion-footer>
+  <ion-button expand="block"  color='secondary' (click)="gerarFiltro()">Filtrar</ion-button>
+</ion-footer>

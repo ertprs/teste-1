@@ -1,0 +1,51 @@
+.icon-origem
+{
+    min-height: 25px;
+    min-width: 25px;
+    max-height: 25px;
+    max-width: 25px;
+    border-radius: 100%;
+}
+.boxend
+{
+    display: inline-block;
+    // float: right;
+    text-align: right;
+}
+
+
+.badgeorigem{
+    
+    position:absolute;
+    left: 25px;
+    top: 10px;
+    z-index: 5;
+    background: transparent;
+    width: 35px;
+
+}
+.badgefavorito{
+    
+    position:absolute;
+    left: 8px;
+    bottom: 7px;
+    z-index: 5;
+    background: transparent;
+    width: 35px;
+
+}
+.ion-icon {
+    margin-right: 15px;
+}
+
+.lista-icon {
+    background: white;
+    border-radius: 50%;
+    /* -webkit-filter: invert(1); */
+    filter: invert(1);
+    padding: 2px;
+}
+ion-radio{
+   height: 15px;
+   border:1px solid #92949c;
+}

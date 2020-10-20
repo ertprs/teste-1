@@ -1,0 +1,289 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title class="titulo">Comercial</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="fullscreenMode('btnBack')" color="secondary" >
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<ion-fab vertical="top" style="margin-top: -10;" horizontal="end" slot="fixed" *ngIf="device == 'desktop'">
+  <ion-fab-button color="secondary" (click)="fullscreenMode()">
+    <ion-icon name="expand-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content class="default-content">
+  
+  <ion-grid>
+    <ion-row class="card-grid">
+
+      <ion-col [size]="comercialGrid.cards">
+        <ion-card color='secondary'>
+          <ion-card-header>
+            <ion-card-subtitle>Leads</ion-card-subtitle>
+            <ion-card-title>{{ dadosDash.leads || 0 }}</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-toolbar *ngIf="dadosDash.leads > 0" mode='ios' color="secondary" (click)="abrirDetLead()">
+                <ion-icon name="create-outline" slot="end" style="cursor: pointer;"></ion-icon>
+            </ion-toolbar>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col [size]="comercialGrid.cards">
+        <ion-card color='warning'>
+          <ion-card-header>
+            <ion-card-subtitle>Negociando</ion-card-subtitle>
+            <ion-card-title>{{ dadosDash.negociando || 0 | currency:'R$ ':true:'1.2-2' }}</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-toolbar mode='ios' color="warning" *ngIf="dadosDash.negociando > 0" (click)="abrirDetnegociando()">
+              <ion-icon name="create-outline" slot="end" style="cursor: pointer;"></ion-icon>
+            </ion-toolbar>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col [size]="comercialGrid.cards">
+        <ion-card color='success'>
+          <ion-card-header>
+            <ion-card-subtitle>Ganhamos</ion-card-subtitle>
+            <ion-card-title>{{ dadosDash.ganhamos || 0  | currency:'R$ ':true:'1.2-2' }}</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-toolbar mode='ios' color="success" *ngIf="dadosDash.ganhamos > 0">
+              <ion-icon name="create-outline" slot="end" style="cursor: pointer;"></ion-icon>
+            </ion-toolbar>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+
+      <ion-col [size]="comercialGrid.cards">
+        <ion-card color='danger'>
+          <ion-card-header>
+            <ion-card-subtitle>Perdemos</ion-card-subtitle>
+            <ion-card-title>{{ dadosDash.perdemos || 0 | currency:'R$ ':true:'1.2-2' }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-toolbar mode='ios' color="danger" *ngIf="dadosDash.perdemos > 0">
+              <ion-icon name="create-outline" slot="end" style="cursor: pointer;"></ion-icon>
+            </ion-toolbar>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- PARCEIROS DE NEGOCIOS -->
+    <ion-row>
+      <ion-col>
+        <ion-card style="box-shadow: none;border:1px solid #FF8C00">
+          <ion-card-header color='primary'>
+            <ion-card-title>
+              <ion-label><p><ion-icon name="document-text-outline" ></ion-icon>&nbsp;Parceiros de Negócio</p></ion-label>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-toolbar mode='ios' style="margin-top: 10px;">
+            <ion-searchbar #pedido animated placeholder="Pesquisar" ></ion-searchbar>
+          </ion-toolbar>
+          <ion-card-content>
+            <ion-text style="text-align: center;"><p>Não existem parceiros</p></ion-text>
+          </ion-card-content>
+          
+          
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-card style="box-shadow: none;border:1px solid #FF8C00">
+          <ion-card-header color='primary'>
+            <ion-card-title>
+              <ion-label><p><ion-icon name="document-text-outline" ></ion-icon>&nbsp;Pedidos</p></ion-label>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-toolbar mode='ios'   style="margin-top: 10px;">
+            <ion-searchbar #pedido animated placeholder="Pesquisar" (keyup.enter)="searchPedidos(pedido.value)"></ion-searchbar>
+          </ion-toolbar>
+          <ion-card-content>
+            <ion-text style="text-align: center;" *ngIf="pedidosList.length == 0 || !pedidosList"><p>Não existem pedidos</p></ion-text>
+            <ion-list *ngFor="let item of pedidosList;let i = id" style="padding: 0 !important;">
+              <ion-item-sliding #i style="padding: 0 !important;">
+                <ion-item (click)="i.open();" style="padding: 0 !important;cursor: pointer;">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col>
+                        <ion-label>
+                          <p><strong>{{item.clienteNome | titlecase }}</strong></p>
+                          <p>{{item.usuarioNome | titlecase }}</p>
+                        </ion-label>
+                      </ion-col>
+                      <ion-col>
+                        <p>{{ item.total  | currency:'R$ ':true:'1.2-2' }}</p>
+                        <p>Cond. Pagamento</p>
+                      
+                      </ion-col>
+                      <ion-col style="text-align: right;">
+                        <p>{{ item.createAt | date: 'dd/MM/y H:mm'}}</p>
+                        <p>{{ item.situacao | titlecase}}</p>
+                      
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-item>
+
+                <ion-item-options side="end">
+                  <ion-item-option color='secondary'   > <ion-icon slot="icon-only" name="eye-outline"></ion-icon></ion-item-option>
+                  <ion-item-option color='danger'   (click)="pedidoDelete(item.id)"> <ion-icon slot="icon-only"  name="trash-outline"></ion-icon></ion-item-option>
+                </ion-item-options>
+              </ion-item-sliding>
+            </ion-list>
+          </ion-card-content>
+          
+          
+        </ion-card>
+
+        <!-- <ion-list>
+          <ion-list-header>Pedidos</ion-list-header>
+
+          <ion-item-sliding #i *ngFor="let item of pedidosList;let i = id" style="padding: 0 !important;">
+            <ion-item (click)="i.open();" style="padding: 0 !important;cursor: pointer;">
+              <ion-row style="width: 100%;">
+                <ion-col size="8" style="display: flex; align-items: center;">
+                  <ion-label>
+                    <h2><strong>{{item.clienteNome | titlecase }}</strong></h2>
+                    <p>{{item.usuarioNome | titlecase }}</p>
+                  </ion-label>
+                </ion-col>
+                <ion-col size="4" style="display: flex; align-items: center; text-align: right;">
+                  <p><small>{{ item.createAt | date: 'dd/MM/y H:mm'}}</small></p>
+                  <p>{{ item.total  | currency:'R$ ':true:'1.2-2' }}</p>
+                  <p>{{ item.situacao | titlecase}}</p>
+                
+                </ion-col>
+              </ion-row>
+            </ion-item>
+
+            <ion-item-options side="end">
+              <ion-item-option color='secondary'> <ion-icon slot="icon-only" name="eye-outline"></ion-icon></ion-item-option>
+              <ion-item-option color='danger' (click)="pedidoDelete(item.id)"> <ion-icon slot="icon-only"  name="trash-outline"></ion-icon></ion-item-option>
+            </ion-item-options>
+
+          </ion-item-sliding>
+        </ion-list> -->
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-card style="box-shadow: none;border:1px solid #FF8C00">
+          <ion-card-header color='primary'>
+            <ion-card-title>
+              <ion-label><p><ion-icon name="document-text-outline" ></ion-icon>&nbsp;Representantes/Vendedor</p></ion-label>
+            </ion-card-title>    
+          </ion-card-header>
+          <ion-toolbar mode='ios'   style="margin-top: 10px;">
+            <ion-searchbar #vendedor animated placeholder="Pesquisar" (keyup.enter)="searchRepresentantes(vendedor.value)"></ion-searchbar>
+          </ion-toolbar>
+          <ion-card-content>
+            <ion-text style="text-align: center;" *ngIf="representanteList.length == 0 || !representanteList"><p>Não existem dados</p></ion-text>
+            <ion-list *ngFor="let item of representanteList;let i = id" style="padding: 0 !important;">
+              <ion-item-sliding #i style="padding: 0 !important;">
+                <ion-item (click)="i.open();" style="padding: 0 !important;cursor: pointer;">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col>
+                        <ion-label>
+                          <p><strong>{{item.usuarioNome | titlecase }}</strong></p>
+                          <p>Leads: {{ item.leads }}</p>
+                          <p>Atualizado em: {{ item.createAt | date: 'dd/MM/yy H:mm'}}</p>
+                        </ion-label>
+                      </ion-col>
+                      <ion-col style="text-align: right;">
+                        <p>Negociando: {{ item.negociando | currency:'R$ ':true:'1.2-2' }}</p>
+                        <p>Ganho: {{ item.ganhamos | currency:'R$ ':true:'1.2-2' }}</p>
+                        <p>Perda: {{ item.perdemos | currency:'R$ ':true:'1.2-2' }}</p>                 
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-item>
+                <ion-item-options side="end">
+                  <!-- FUNCAO DE SELECIONAR -->
+                  <ion-item-option color='secondary'><ion-label slot="icon-only" ><p>Selecionar</p></ion-label></ion-item-option>
+                  <ion-item-option color='secondary'><ion-label slot="icon-only" ><p>Carteira</p></ion-label></ion-item-option>
+                </ion-item-options>
+              </ion-item-sliding>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-card style="box-shadow: none;border:1px solid #FF8C00">
+          <ion-card-header color='primary'>
+            <ion-card-title>
+              <ion-label><p><ion-icon name="document-text-outline" ></ion-icon>&nbsp;Produtos</p></ion-label>
+            </ion-card-title>
+
+          </ion-card-header>
+          <ion-toolbar mode='ios'   style="margin-top: 10px;">
+            <ion-searchbar #produto animated placeholder="Pesquisar"></ion-searchbar>
+          </ion-toolbar>
+          <ion-card-content>
+            <ion-text style="text-align: center;" *ngIf="produtosList.length == 0 || !produtosList"><p>Não existem dados</p></ion-text>
+            <ion-list *ngFor="let item of produtosList;let i = id">
+              <ion-item-sliding #i style="padding: 0 !important;">
+                <ion-item (click)="i.open();" style="padding: 0 !important;">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col>
+                        <ion-label>
+                          <p><strong>Produto</strong></p>
+                          <p><strong>SKU: </strong>312938129381293819283912839128</p>
+                        </ion-label>
+                      </ion-col>
+                      <ion-col >
+                        <p>1 unid</p>       
+                      </ion-col>
+                      <ion-col >
+                        <p>100%</p>
+                      
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-item>
+
+                <ion-item-options side="end">
+                  <!-- FUNCAO DE SELECIONAR -->
+                  
+                  <ion-item-option color='secondary'   >
+                    <ion-label slot="icon-only" >
+                    
+                      <p>Selecionar</p>
+                    </ion-label>
+                    
+                  </ion-item-option>
+                </ion-item-options>
+              </ion-item-sliding>
+
+            </ion-list>
+
+          </ion-card-content>
+          
+          
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

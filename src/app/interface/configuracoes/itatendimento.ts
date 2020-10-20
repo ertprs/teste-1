@@ -1,0 +1,28 @@
+export interface Itconfatendimento {
+  createAt?:number;
+  atdDom?:boolean;
+  atdDomHrFim?:string;
+  atdDomHrIni?:string;
+  atdQua?:boolean;
+  atdQuaHrFim?:string;
+  atdQuaHrIni?:string;
+  atdQui?:boolean;
+  atdQuiHrFim?:string;
+  atdQuiHrIni?:string;
+  atdSab?:boolean;
+  atdSabHrFim?:string;
+  atdSabHrIni?:string;
+  atdSeg?:boolean;
+  atdSegHrFim?:string;
+  atdSegHrIni?:string;
+  atdSex?:boolean;
+  atdSexHrFim?:string;
+  atdSexHrIni?:string;
+  atdTer?:boolean;
+  atdTerHrFim?:string;
+  atdTerHrIni?:string;
+  atdMinAlerta?:number;
+  atdMinRoleta?:number;
+  mensagemTransferencia?:string;
+  mensagemHorario?:string;
+}

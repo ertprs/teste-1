@@ -1,0 +1,65 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title class="titulo">Administração Matriz</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar mode='ios' #q animated placeholder="Pesquisar" (keyup.enter)="search(q.value)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('btnBack',{componente:'home'})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content class="search-content">
+  <ion-toolbar>
+    
+      <ion-button (click)="functionExecute('CompAdministracaoHomeComponent',{});">Clientes</ion-button>
+      <ion-button >Processo de mensagens</ion-button>
+  </ion-toolbar>
+  <div *ngIf="dadosEmpControle.length == 0">
+    <ion-list>
+      <ion-item lines="none">
+        <ion-label *ngIf="dadosEmpControle.length == 0 && queryResult == 'noresults'" style="display: grid; align-items: center; justify-content: center;"><strong>Não existem resultados.</strong></ion-label>
+        <!-- <ion-label *ngIf="dadosEmpControle.length == 0 && queryResult == 'loading'" style="display: grid;">
+          <ion-spinner name="bubbles" style="margin-left: auto; margin-right: auto; margin-bottom: 10px;"></ion-spinner>
+          <strong style="margin-left: auto; margin-right: auto;">Carregando...</strong>
+        </ion-label> -->
+
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="dadosEmpControle.length > 0">
+    <ion-list *ngFor="let item of dadosEmpControle; let i = id;" style="padding: 0px;">
+      <ion-item-sliding #i style="padding: 0px;">
+      
+        <ion-item  mode='ios' detail='false'  (click)="i.open();" style="padding: 0px;cursor: pointer;" >
+          <ion-icon name="star-outline" slot="start" color="success" *ngIf="item.novoCliente == true"></ion-icon>
+          <ion-label>
+            <p><strong>{{item.nome | titlecase}}</strong></p>
+            <p><strong>Criado em: </strong>{{ item.createAt | date:'dd/MM/y H:mm' }} </p>
+            <p *ngIf="item.empresaAtiva"><strong>Liberado em: </strong> {{ item.empresaStartDate | date:'dd/MM/y H:mm'  }} por {{ item.userLiberouNome | titlecase }} </p>
+          </ion-label>
+          <ion-label style="text-align: right;">
+            <p><strong>ID: </strong>{{item.empresaUid}}</p>
+            <p *ngIf="item.ativa" style="color:green"><strong>Ativo</strong></p>
+            <p *ngIf="!item.ativa" style="color:red"><strong>Bloqueado</strong></p>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color='secondary' (click)="functionExecute('CompAdministracaoEmpresadetalheComponent',item);"><ion-icon name="search-outline" size="large"></ion-icon></ion-item-option>
+          <ion-item-option color='danger' (click)="excluirEmpresa(item);"><ion-icon name="trash-outline" size="large"></ion-icon></ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+  <ion-infinite-scroll threshold="20%" *ngIf="scrollAuto">
+    <ion-infinite-scroll-content style="font-size: x-small;"
+      loadingSpinner="bubbles"
+      loadingText="Carregando...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

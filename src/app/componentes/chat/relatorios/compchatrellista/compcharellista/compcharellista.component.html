@@ -1,0 +1,157 @@
+<ion-header mode='ios' >
+  <ion-toolbar>
+    
+
+     <ion-title class="titulo">Contatos - Relatóros - Transmissões</ion-title>
+   
+  </ion-toolbar>
+ 
+  
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="functionExecute('CompchatrelatoriosComponent',{})" color="secondary">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="card-grid">
+  
+      <ion-col>
+        <ion-card color='secondary'>
+          <ion-card-header style="min-height: 10vh;max-height: 10vh;">
+            <ion-card-subtitle>Transmissões</ion-card-subtitle>
+            <ion-card-title>
+              
+              <ion-label >{{ listTotal }}</ion-label>
+              </ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-toolbar mode='ios' color="secondary" >
+              
+               
+            
+            </ion-toolbar>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col>
+        <ion-card color='secondary'>
+          <ion-card-header style="min-height: 10vh;max-height: 10vh;">
+            <ion-card-subtitle>Total</ion-card-subtitle>
+            <ion-card-title>
+            
+              <ion-label >{{ listEnviados }}</ion-label>
+            </ion-card-title>
+            
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-toolbar mode='ios' color="secondary" >
+              
+                <ion-icon name="create-outline" slot="end" style="cursor: pointer;" (click)="modalDetalhe('aniversariantes',contatoAniversariantesItens)"></ion-icon>
+            
+            </ion-toolbar>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col>
+        <ion-card color='success'>
+          <ion-card-header style="min-height: 10vh;max-height: 10vh;">
+            <ion-card-subtitle>Entregues</ion-card-subtitle>
+            <ion-card-title>
+         
+              <ion-label >{{ listEntregues }}</ion-label>
+            </ion-card-title>
+            
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-toolbar mode='ios' color="success" >
+              
+                <ion-icon name="create-outline" slot="end" style="cursor: pointer;" (click)="modalDetalhe('últimos contatos',contatosUltimosItems)"></ion-icon>
+            
+            </ion-toolbar>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+
+      <ion-col>
+        <ion-card color='danger'>
+          <ion-card-header style="min-height: 10vh;max-height: 10vh;">
+            <ion-card-subtitle>Erro</ion-card-subtitle>
+            <ion-card-title>
+              
+              <ion-label >{{ listErro }}</ion-label>
+            </ion-card-title>
+            
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-toolbar mode='ios' color="danger" >
+              
+                <ion-icon name="create-outline" slot="end" style="cursor: pointer;" (click)="modalDetalhe('Contatos bloqueados',contatoBloqueadoItens)"></ion-icon>
+            
+            </ion-toolbar>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card style="box-shadow: none;border:1px solid #FF8C00">
+          <ion-card-header color='primary'>
+          
+            <ion-card-title>
+              
+              <ion-label><p><ion-icon name="document-text-outline"  ></ion-icon>&nbsp;Detalhes</p></ion-label>
+            
+            </ion-card-title>
+            
+          
+          </ion-card-header>
+        
+          <ion-card-content style="padding: 0px;">
+            
+            
+            
+            <ion-list *ngFor="let item of items;let i = id" style="padding: 0px;margin: 0px;">
+            
+                <ion-item (click)="i.open();" style="padding: 0 !important;cursor: pointer;" >
+                  <ion-label>
+                    <p><strong>{{ item.nome | titlecase}}</strong></p>
+                    <p>
+                      <strong>Total:</strong> {{ item.wppTotal }}&nbsp;&nbsp;
+                      <strong>Enviados:</strong> {{ item.wppEnviado }}&nbsp;&nbsp;
+                      <strong>Erro:</strong> {{ item.wppErro }}&nbsp;&nbsp;
+                    </p>
+                    <p>
+                      <span style="font-size: x-small;"><strong>Criado por: </strong> {{ item.usuarioNome }} <strong>em </strong> {{ item.createAt | date:'dd/MM/yyyy H:mm' }}</span>
+                    </p>
+                  </ion-label>
+                  
+                </ion-item>
+
+              
+
+
+              
+            </ion-list>
+          
+
+          </ion-card-content>
+          
+          
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

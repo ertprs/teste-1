@@ -1,0 +1,29 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Categoria</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="fGroup">
+    <ion-item>
+      <ion-icon name="reader-outline"></ion-icon>
+      <ion-input type="text" placeholder="Categoria" formControlName="nome"></ion-input>
+      <div *ngIf="fGroup.controls.nome.errors" style="position: absolute;bottom: 2px;width: 100%;
+      display: block;">
+        <p class="validerror" style="font-size: 8px; color: red;" *ngIf="fGroup.controls.nome.errors.required" >&nbsp;Obrigatório</p>
+        <p class="validerror" style="font-size: 8px; color: red;" *ngIf="fGroup.controls.nome.errors.minlength" >&nbsp;Min. 3 caractéres</p>
+      </div>
+    </ion-item>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" color='success' *ngIf="toUpdate" (click)='update()' [disabled]="!fGroup.valid">Atualizar</ion-button>
+    <ion-button expand="block" color='success' *ngIf="!toUpdate" (click)='add()' [disabled]="!fGroup.valid">Criar</ion-button>
+  </ion-toolbar>
+</ion-footer>

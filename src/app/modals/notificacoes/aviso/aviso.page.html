@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Notificação</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    Oi {{currentUser.nome}},
+  </ion-item>
+  <ion-item>
+    {{dadosNotificacao.mensagem}}
+  </ion-item>
+  <ion-button (click)="okayConfirm()" color="success" expand="block">
+    Okay
+  </ion-button>
+</ion-content>

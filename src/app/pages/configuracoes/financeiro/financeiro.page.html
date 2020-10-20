@@ -1,0 +1,45 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Conf > Financeiro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    
+    <ion-item routerLink="/financeiro/condpagamento" routerdirection="forward" >
+      <ion-label>
+        <p><strong>Cond. Pagamento</strong></p>
+        <p color='medium'>Gerencie as condições de pagamento</p>
+
+      </ion-label>
+    </ion-item>
+
+    <ion-item routerLink="/financeiro/tipoimpostos" routerdirection="forward" >
+      <ion-label>
+        <p><strong>Tipos de Imposto</strong></p>
+        <p color='medium'>Gerencie os tipos de imposto</p>
+      </ion-label>
+    </ion-item>
+    
+
+    <ion-item routerLink="/financeiro/bancos" routerdirection="forward" >
+      <ion-label>
+        <p><strong>Bancos</strong></p>
+        <p color='medium'>Gerencie os bancos</p>
+      </ion-label>
+    </ion-item>
+ 
+
+    <ion-item routerLink="/financeiro/categorias" routerdirection="forward" >
+      <ion-label>
+        <p><strong>Categorias</strong></p>
+        <p color='medium'>Gerencie os tipos de categoria</p>
+      </ion-label>
+    </ion-item> 
+
+  </ion-list>
+</ion-content>

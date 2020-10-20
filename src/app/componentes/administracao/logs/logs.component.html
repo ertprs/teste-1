@@ -1,0 +1,169 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title class="titulo">Administração > Logs</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <!-- SLILDES MENU -->
+    <ion-slides style="height:auto; width:100%;" spaceBetween="-15">
+    
+      <!-- CLIENTES -->
+      <ion-slide class="slidesitens" (click)="functionExecute('CompAdministracaoHomeComponent',{})">
+        <div>
+          <div class="slide-button" class="slide-button" >
+            <ion-icon name="person-outline"></ion-icon>
+          </div>
+          <p text-center style="font-size:13px;">Clientes</p>
+        </div>
+      </ion-slide>
+
+      <!-- MENSAGENS  -->
+      <ion-slide class="slidesitens">
+        <div (click)="functionExecute('CompAdministracaoMensagens',{})">
+          <div class="slide-button" >
+            <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+          </div>
+          <p text-center style="font-size:13px;">Mensagens</p>
+        </div>
+      </ion-slide>
+
+      <!-- LOGS  -->
+      <ion-slide class="slidesitens">
+        <div (click)="functionExecute('CompAdministracaoLogs',{})">
+          <div class="slide-button" >
+            <ion-icon name="receipt-outline"></ion-icon>
+          </div>
+          <p text-center style="font-size:13px;">Logs</p>
+        </div>
+      </ion-slide>
+    </ion-slides> 
+  </ion-toolbar>
+
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="functionExecute('btnBack',{componente:'home'})" color="secondary">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab vertical="top" style="margin-top: -10;" horizontal="end" slot="fixed"  >
+  <ion-fab-button color="success">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content class="default-content">
+  <ion-grid>
+    <ion-row> 
+      <ion-col class="box-detail">
+        <ion-card-header  class="box-titulo">
+          <ion-card-subtitle>Logs registrados</ion-card-subtitle>
+          
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label >
+              <p style="font-size:50px;text-align: center;">
+                <!-- <span >{{ dadosDash.logs.length }}</span> -->
+              </p>
+            </ion-label>
+          </ion-card-content>
+      </ion-col>
+      <ion-col  class="box-detail">
+        <ion-card-header  class="box-titulo">
+          <ion-card-subtitle>Origem de Logs</ion-card-subtitle>
+          
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label>
+              <p style="font-size:50px;text-align: center;">
+                <!-- <span >{{dadosDash.origemLogs}}</span> -->
+              </p>
+            
+            </ion-label>
+          </ion-card-content>
+      </ion-col>
+      <ion-col   class="box-detail">
+        <ion-card-header  class="box-titulo">
+          <ion-card-subtitle>Log frequente</ion-card-subtitle>
+          
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label>
+              <p style="font-size:50px;text-align: center;">
+                <!-- <span >{{dadosDash.logFrequente}}</span> -->
+              </p>
+            </ion-label>
+          </ion-card-content>
+      </ion-col>
+      <ion-col   class="box-detail">
+        <ion-card-header  class="box-titulo">
+          <ion-card-subtitle >Em Atendimento</ion-card-subtitle>
+          
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label >
+              <p style="font-size:50px;text-align: center;">
+                <!-- <span >{{dadosDash.atendQtdEmAndamento}}</span> -->
+              </p>
+            </ion-label>
+          </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- LISTA DE LOGS -->
+  <ion-grid>
+    <ion-row>
+      <ion-col class="box-detail" >
+        <ion-card-header  class="box-titulo">
+          <ion-card-subtitle >Detalhes dos logs</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-toolbar mode='ios'>
+              <!-- <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <ion-searchbar mode='ios' #q animated placeholder="Pesquisar" (keyup.enter)="search(q.value)"></ion-searchbar>
+                  </ion-col>
+                  <ion-col size="1">
+                    <ion-icon name="filter-outline" style="cursor: pointer;font-size: 20px;" ></ion-icon>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-icon name="radio-button-on-outline" style="font-size: 20px;color: red;" ></ion-icon>&nbsp;Sem atendimento
+                </ion-row>
+              </ion-grid> -->
+              <ion-col>
+                <ion-searchbar mode='ios' #q animated placeholder="Pesquisar" (keyup.enter)="search(q.value)"></ion-searchbar>
+              </ion-col>
+            </ion-toolbar>
+            <div style=" max-height: 30vh;min-height: 30vh;overflow-y: auto;">
+              <ion-list style="padding: 0px !important;">
+                <ion-item-sliding #i >
+                  <ion-item class="ion-item">
+                    <ion-grid class="table" (click)="i.open();">
+                      <ion-row>
+                        <ion-col>
+                          <ion-label>
+                            <p><strong>Empresas</strong></p>
+                            <p color='medium'>Acompanhe e desative as empresas cadastradas.</p>
+                          </ion-label>
+                        </ion-col>
+                        <ion-col style="display: grid;">
+                          <span>00/00/0000</span>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </ion-item>
+                  <ion-item-options>
+                    <ion-item-option (click)="functionExecute('modalVisualizarLogs',{})" color='secondary'  ><ion-icon name="eye-outline" slot="icon-only"></ion-icon></ion-item-option>
+                  </ion-item-options>
+                </ion-item-sliding>
+            
+              </ion-list>
+            </div>
+          </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,67 @@
+<ion-header mode='ios' >
+  <ion-toolbar style="display: flex; align-items: center;">
+    <ion-item lines="none">
+      <ion-icon name="arrow-back-outline" slot="start" class='btnVoltar' style="cursor: pointer; margin: 0px !important;" (click)="functionExecute('btnBack',{componente:'home'})"></ion-icon>
+      <ion-avatar slot="start" style="height: 50px; width: 50px;">
+        <img src="../../../../../assets/img/lara-fundo-azul.jpg" style="height: 100%; width: 100%;">
+      </ion-avatar>
+      <ion-label>
+        <h3>Lara</h3>
+        <p><ion-icon name="person-outline" ></ion-icon> &nbsp;{{userCurrent.nome}}</p>
+        <p><ion-icon name="business-outline"></ion-icon> &nbsp;{{userCurrent.empresa}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<!-- <ion-fab [ngStyle]="{ 'display': laraBtn }" vertical="bottom" horizontal="center" slot="fixed">
+  <ion-fab-button #button class="btnlara" [disabled]="isRecording" (click)="startListening()">
+  </ion-fab-button>
+</ion-fab> -->
+
+<!-- <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+  <ion-fab-button #button color="secondary" [disabled]="isRecording" (click)="startListening()">
+    <ion-icon name="mic-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab> -->
+
+<ion-content class="lara-content">
+  <ion-grid>
+    <ion-row *ngFor="let item of conversaAtual">
+
+      <ion-col class="msg_{{item.de}}" *ngIf="item.de != undefined" style="overflow-y: auto;">
+        <ion-row>
+          <ion-text class="msg-body" style="white-space: pre-line;">
+            {{item.mensagem}} 
+          </ion-text>
+        </ion-row>
+
+        <ion-row>
+            <ion-label class="autor">
+              {{dadosConversa.user_nome}}
+            </ion-label>
+          
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer mode="ios" class="chat-input ion-footer-mobile" >
+  
+  <ion-toolbar>
+
+    <ion-item lines="none">
+      
+      <textarea [disabled]="!IaProcessado" class="textarea-send" autosize  rows="1" maxRows="3" placeholder="Digite uma mensagem..."  style="padding: 5px; resize: none; white-space: pre-wrap;border:0;" [(ngModel)]="newMsg" (keydown)="checkMsg($event)"></textarea>
+      <ion-button #button fill="clear" [disabled]="newMsg.length > 0"  class="send-button" [ngStyle]="{ 'display': laraBtn }"  (click)="startListening()">
+        <ion-icon class="send-icon-mic" name="mic-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" class="send-button" (click)="SendMsgLara()">
+        <ion-icon class="send-icon-arrow" name="send-outline" slot="icon-only" ></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,206 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <!-- <ion-icon name="arrow-back-outline" slot="start" class='btnVoltar' (click)="functionExecute('btnBack',{componente:'home'})" style="cursor: pointer;"></ion-icon> -->
+    <ion-title class="titulo">Conf. horário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('compatendimentodetalhe',{});">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab class="float-fab-right" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="success" (click)='atualizar()'>
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content class="default-content">
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Mensagem de Transferência</ion-label>
+    <ion-textarea rows="4" [(ngModel)]="atendimentoDados.mensagemTransferencia"></ion-textarea>
+ 
+  </ion-item>
+
+
+  
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Mensagem fora de Horário de Atendimento</ion-label>
+    <ion-textarea rows="4" [(ngModel)]="atendimentoDados.mensagemHorario"></ion-textarea>
+  
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Minutos pra Alerta</ion-label>
+    <ion-input type="number" [(ngModel)]="atendimentoDados.atdMinAlerta"></ion-input>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Minutos pra Roleta</ion-label>
+    <ion-input type="number" [(ngModel)]="atendimentoDados.atdMinRoleta"></ion-input>
+  </ion-item>
+
+  <ion-list class="ionitem">
+    <ion-item>
+      <ion-label class="toggle">Segunda (Habilitar atendimento de Segunda)</ion-label>
+      <ion-toggle mode="ios" color="success" [(ngModel)]="atendimentoDados.atdSeg" (click)="checkDiaSemana($event,'atdSeg')"></ion-toggle>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked>Hora Início</ion-label>
+            <ion-input type="time" [disabled]="!atendimentoDados.atdSeg" [(ngModel)]="atendimentoDados.atdSegHrIni"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked >Hora Fim</ion-label>
+            <ion-input type="time" [disabled]="!atendimentoDados.atdSeg" [(ngModel)]="atendimentoDados.atdSegHrFim"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-list class="ionitem">
+    <ion-item>
+      <ion-label class="toggle">Terça (Habilitar atendimento de Terça)</ion-label>
+      <ion-toggle mode="ios" color="success" [(ngModel)]="atendimentoDados.atdTer" (click)="checkDiaSemana($event,'atdTer')"></ion-toggle>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked >Hora Início</ion-label>
+            <ion-input type="time" [disabled]="!atendimentoDados.atdTer" [(ngModel)]="atendimentoDados.atdTerHrIni"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked >Hora Fim</ion-label>
+            <ion-input type="time" [disabled]="!atendimentoDados.atdTer" [(ngModel)]="atendimentoDados.atdTerHrFim"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-list class="ionitem">
+    <ion-item>
+      <ion-label class="toggle">Quarta (Habilitar atendimento de Quarta)</ion-label>
+      <ion-toggle mode="ios" color="success" [(ngModel)]="atendimentoDados.atdQua" (click)="checkDiaSemana($event,'atdQua')"></ion-toggle>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked >Hora Início</ion-label>
+            <ion-input type="time" [disabled]="!atendimentoDados.atdQua" [(ngModel)]="atendimentoDados.atdQuaHrIni"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked >Hora Fim</ion-label>
+            <ion-input type="time" [disabled]="!atendimentoDados.atdQua" [(ngModel)]="atendimentoDados.atdQuaHrFim"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-list class="ionitem">
+    <ion-item>
+      <ion-label class="toggle">Quinta (Habilitar atendimento de Quinta)</ion-label>
+      <ion-toggle mode="ios" color="success" [(ngModel)]="atendimentoDados.atdQui" (click)="checkDiaSemana($event,'atdQui')"></ion-toggle>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked >Hora Início</ion-label>
+            <ion-input type="time" [disabled]="!atendimentoDados.atdQui" [(ngModel)]="atendimentoDados.atdQuiHrIni"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked >Hora Fim</ion-label>
+            <ion-input type="time" [disabled]="!atendimentoDados.atdQui" [(ngModel)]="atendimentoDados.atdQuiHrFim"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-list class="ionitem">
+    <ion-item>
+      <ion-label class="toggle">Sexta (Habilitar atendimento de Sexta)</ion-label>
+      <ion-toggle mode="ios" color="success" [(ngModel)]="atendimentoDados.atdSex" (click)="checkDiaSemana($event,'atdSex')"></ion-toggle>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked >Hora Início</ion-label>
+            <ion-input type="time" [disabled]="!atendimentoDados.atdSex" [(ngModel)]="atendimentoDados.atdSexHrIni"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked >Hora Fim</ion-label>
+            <ion-input type="time" [disabled]="!atendimentoDados.atdSex" [(ngModel)]="atendimentoDados.atdSexHrFim"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-list class="ionitem">
+    <ion-item>
+      <ion-label class="toggle">Sábado (Habilitar atendimento de Sábado)</ion-label>
+      <ion-toggle mode="ios" color="success" [(ngModel)]="atendimentoDados.atdSab" (click)="checkDiaSemana($event,'atdSab')"></ion-toggle>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked >Hora Início</ion-label>
+            <ion-input type="time" [disabled]="!atendimentoDados.atdSab" [(ngModel)]="atendimentoDados.atdSabHrIni"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked >Hora Fim</ion-label>
+            <ion-input type="time" [disabled]="!atendimentoDados.atdSab" [(ngModel)]="atendimentoDados.atdSabHrFim"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-list class="ionitem" style="margin-bottom: 40px;">
+    <ion-item>
+      <ion-label class="toggle">Domingo (Habilitar atendimento de Domingo)</ion-label>
+      <ion-toggle mode="ios" color="success" [(ngModel)]="atendimentoDados.atdDom" (click)="checkDiaSemana($event,'atdDom')"></ion-toggle>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked >Hora Início</ion-label>
+            <ion-input type="time" [disabled]="!atendimentoDados.atdDom" [(ngModel)]="atendimentoDados.atdDomHrIni"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label color="primary" stacked >Hora Fim</ion-label>
+            <ion-input type="time" [disabled]="!atendimentoDados.atdDom" [(ngModel)]="atendimentoDados.atdDomHrFim"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+</ion-content>

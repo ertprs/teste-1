@@ -1,0 +1,57 @@
+ion-content {
+    --background: none;
+    background-image: url('../../../../assets/img/Lara_APP_04.png');
+    background-size: cover;
+    background-position: center center;
+
+
+    align-items: center;
+  
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 10, 10, 10, 10 rgba(44, 103, 255, 0.4);
+  }
+
+  70% {
+    box-shadow: 10, 10, 10, 10 rgba(44, 103, 255, 0);
+  }
+
+  100% {
+    box-shadow: 10, 10, 10, 10 rgba(44, 103, 255, 0);
+  }
+}
+
+.btnlara{
+  --background: none;
+  background-image: url('../../../../assets/img/lara-fundo-azul.jpg');
+  background-size: cover;
+  background-position: center center;
+  --border-radius:100%;
+  --border-color: #FF8C00;
+  border: 0.02 solid #FF8C00;
+  border-radius: 100%;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  margin-top: 25vh;
+  margin-left: 24vw;
+  
+
+}
+
+.btnTreinamento{
+  --background: none;
+  --border-radius:100%;
+  border: 0.02em solid #FF8C00;
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
+  
+  float: left;
+  margin-top: 50px;
+  margin-left: 80px;
+}

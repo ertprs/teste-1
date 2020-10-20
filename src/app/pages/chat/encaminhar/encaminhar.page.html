@@ -1,0 +1,75 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+    <ion-title color="primary">Encaminhar para Contato</ion-title>
+    <ion-buttons slot="primary" (click)="closeModal()">
+      <ion-button>
+        <ion-icon slot="end"  name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <!--
+  <ion-toolbar mode="ios" class="header-busca" >
+    <ion-searchbar animated placeholder="Pesquisar" (keyup)="contatoForwardSearch($event)"></ion-searchbar>
+  </ion-toolbar>
+  -->
+</ion-header>
+
+<ion-content>
+
+  <ion-list *ngIf="!filtered">
+    <ion-item>
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngFor="let item of filtered; let i = id" style="padding: 0 !important;">
+      <ion-item  mode='ios' detail='false' button style="padding: 0 !important;">
+
+        <ion-badge class="badgeorigem"><img src="../../../../assets/img/{{ item.canal}}.svg" /></ion-badge>
+        <ion-icon name="person-circle-outline" [ngStyle]="{'font-size':'50px','color': item.photo  }" class="ion-icon"></ion-icon>
+        <ion-badge class="badgefavorito" *ngIf="item.favorito == true "><img src="../../../../assets/img/star.svg" /></ion-badge>
+
+        <ion-label>
+          <ion-row>
+            <ion-col>
+              <h3><strong>{{ item.contatoNome | titlecase }}</strong></h3>
+              <p><ion-label>
+                  <p><ion-icon name="business-outline"></ion-icon>&nbsp;{{item.nomeClienteVinculado | titlecase}}&nbsp;</p>
+                  <p *ngIf="item.canal == 'email' "><ion-icon name="mail-outline"></ion-icon>&nbsp;{{item.contatoOrigem}}</p>
+                  <p *ngIf="item.canal == 'whatsapp' "><ion-icon name="call-outline"></ion-icon>&nbsp;{{item.contatoOrigem}}</p>
+                  <p *ngIf="item.canal == 'telegram' "><ion-icon name="chatbubble-outline"></ion-icon>&nbsp;{{item.contatoOrigem}}</p>
+                  <p *ngIf="item.canal == 'facebook' "><ion-icon name="chatbubble-outline"></ion-icon>&nbsp;{{item.contatoOrigem}}</p>
+                  <p *ngIf="item.canal == 'telfixo' "><ion-icon name="call-outline"></ion-icon>&nbsp;{{item.contatoOrigem}}</p>
+              </ion-label></p>
+            </ion-col>
+            <ion-col size="2" class="align-col-content">
+              <ion-checkbox (ionChange)="contactsToForward($event,item )"></ion-checkbox>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+
+      </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" color='secondary'[disabled]="contatosSelecionados.length == 0 || !contatosSelecionados" (click)="sendForwardedMessages()">Enviar</ion-button>
+  </ion-toolbar>
+</ion-footer>

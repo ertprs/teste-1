@@ -1,0 +1,13 @@
+<ion-content>
+
+  <ion-button #button class="btnlara" (click)="startListening()" [disabled]="isRecording"></ion-button>
+  <!--
+  <ion-button  (click)="ProcessarTexto()">Teste</ion-button>
+  -->
+  <ion-button class="btnTreinamento" routerLink="/home" routerDirection="forward">
+    <ion-icon name="home-outline"></ion-icon>
+  </ion-button>
+  <ion-button class="btnTreinamento" routerLink="/lara/aprendizado" routerDirection="forward">
+    <ion-icon name="school-outline"></ion-icon>
+  </ion-button>
+</ion-content>

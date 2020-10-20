@@ -1,0 +1,124 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Visualização de conversa</ion-title>
+  </ion-toolbar>
+  <ion-toolbar mode='ios' style="padding:0px;margin-top: 10px;">
+
+    <ion-chip slot="start" outline="true" color="light" style="height: 50px;width: 80px; cursor: pointer;" >
+      
+      <ion-icon name="person-circle-outline" [ngStyle]="{'position':'absolute','padding-left':'10px',  'font-size':'50px','color': dadosConversa.photo  }" ></ion-icon>
+      <ion-badge class="badgeorigem"><img src="../../../../assets/img/{{ dadosConversa.canal}}.svg" /></ion-badge>
+      <ion-badge class="badgefavorito" *ngIf="dadosConversa.favorito == 1 "><img src="../../../assets/img/star.svg" /></ion-badge>
+      
+    </ion-chip>
+    <ion-label style='font-size: small;'>
+      <p style="cursor: pointer;" (click)="functionExecute('chatContatoEdit',{contatoUid:dadosConversa.contatoUid})"><strong>{{ dadosConversa.contatoNome | titlecase }}</strong></p>
+      <p><ion-icon name="person-outline" ></ion-icon>&nbsp;{{ dadosConversa.usuarioNome | titlecase }}</p>
+      <p><ion-icon name="business-outline"></ion-icon>&nbsp;{{ dadosConversa.nomeClienteVinculado | titlecase }}</p>
+    </ion-label>
+</ion-toolbar>
+</ion-header>
+
+
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="closeModal()" color="secondary">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content style="padding-top: 10px;">
+  <ion-grid>
+    <ion-row *ngFor="let listMensagem of mensagem"  id="listMensagem" >
+      <ion-col class="msg_{{listMensagem.es}}">
+        <ion-row>
+          <ion-icon  *ngIf="listMensagem.tipo  != 'info'" name="chevron-down-outline" class="msg-options" style="cursor: pointer;font-size: 16px; margin-left: auto;" ></ion-icon>
+        </ion-row>
+        
+        <ion-row>
+
+          <!-- INFO  -->
+          <ion-label class="msg-info" *ngIf="listMensagem.tipo == 'info' " style="white-space: pre-line;">
+            {{listMensagem.mensagem}}
+          </ion-label>  
+          <!-- CITAÇÃO -->
+            <ion-label class="msg-body answer-box" *ngIf="listMensagem.citacao != null && listMensagem.citacao != '' ">
+                <ion-list style="display: grid; background: transparent;">
+                  <p class="msg-reply-autor">{{listMensagem.autorNome}}</p>
+                  <p>{{listMensagem.citacao}}</p>
+                </ion-list>
+            </ion-label>
+
+          <!-- TEXTO -->
+          <ion-label class="msg-body" *ngIf="listMensagem.tipo == 'texto' " style="white-space: pre-line;">
+            {{listMensagem.mensagem}}
+          </ion-label>
+
+          <!-- AUDIO -->
+          <ion-label class="msg-body" *ngIf="listMensagem.tipo == 'audio' ">
+            <audio class="msg-audio" src="{{listMensagem.anexo }}" controls>
+            </audio>
+            {{listMensagem.mensagem}}
+          </ion-label>
+
+          <!-- IMAGEM -->
+          <ion-label class="msg-body"  *ngIf="listMensagem.tipo == 'imagem' " >
+            <img class="msg-img" src="{{ listMensagem.anexo}}" >      
+          </ion-label>
+
+          <!-- ENVIO DE DOCUMENTO  -->
+          <ion-label class="msg-body"  *ngIf="listMensagem.tipo == 'documento' "  style="cursor: pointer;">
+            <ion-icon name="document-attach-outline"></ion-icon> Envio de documento  
+          </ion-label>
+          
+          <!-- LINK -->
+          <ion-label class="msg-body" *ngIf="listMensagem.tipo == 'link' ">
+            <ion-row>
+              <a href="www.google.com" target="_blank" rel="noopener">
+                <ion-row class="link-received">
+                  <ion-col size="3">
+                    <ion-img src="../../../../assets/img/default-user-icon.jpg"></ion-img>
+                  </ion-col>
+                  <ion-col size="9" class="msg-bubble">
+                    <ion-label>
+                      <strong style="font-size:  14px;">Lorem Ipsum</strong>
+                      <p>dolor sit amet</p>
+                    </ion-label>
+                  </ion-col>
+                </ion-row>
+              </a>
+            </ion-row>
+            <ion-row>
+              <ion-label class="msg-link-text">
+                {{listMensagem.mensagem}}
+              </ion-label>
+            </ion-row>
+
+          </ion-label>
+        
+        </ion-row>
+        <ion-row>
+            <ion-label class="autor">
+              {{listMensagem.autorNome}}
+            </ion-label>
+            <ion-label class="detalhe align-col-content">
+              {{listMensagem.createAt | date:'dd/MM/y' }}&nbsp;{{listMensagem.createAt | date:'shortTime' }} &nbsp;
+              
+                <ion-icon name="time-outline" *ngIf="listMensagem.es == 's' &&  listMensagem.entregueTag == 0 "></ion-icon>
+                <ion-icon name="checkmark-outline" *ngIf="listMensagem.es == 's' && listMensagem.entregueTag == 3"></ion-icon>
+                <ion-icon name="checkmark-done-outline" *ngIf="listMensagem.es == 's' && listMensagem.entregueTag == 2"></ion-icon>
+                <ion-icon name="checkmark-done-outline" class="colorcheckmark_{{ listMensagem.entregueTag }}" *ngIf="listMensagem.es == 's' && listMensagem.entregueTag == 1"></ion-icon>
+                <ion-icon (click)="verErro(listMensagem.errorMsg)" name="warning-outline" class="colorcheckmark_{{ listMensagem.entregueTag }}" *ngIf="listMensagem.es == 's' && listMensagem.entregueTag == 4"></ion-icon>
+
+            </ion-label>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar style="margin-right: 6%; margin-left: 6%;">
+    <ion-button color="success" (click)="startTransferencia()">Transferir</ion-button>
+  </ion-toolbar>
+</ion-footer>
+

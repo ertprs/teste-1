@@ -1,0 +1,32 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <!-- <ion-icon name="arrow-back-outline" slot="start" class='btnVoltar' (click)="functionExecute('btnBack',{componente:'home'})" style="cursor: pointer;"></ion-icon> -->
+    <ion-title class="titulo">Mensagens automáticas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('compatendimentodetalhe',{});">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<ion-fab class="float-fab-right" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="success" (click)='atualizar(dadosMensagens)'>
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content class="default-content">
+
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Mensagem para anivesariante</ion-label>
+    <ion-textarea rows="4" [(ngModel)]="dadosMensagens.msgAniversariante"></ion-textarea>
+    
+  </ion-item>
+  <ion-item class="ionitem">
+    <ion-label color="primary" stacked >Mensagem de boas vindas</ion-label>
+    <ion-textarea rows="4" [(ngModel)]="dadosMensagens.msgBoasVindas"></ion-textarea>
+    
+  </ion-item>
+
+</ion-content>

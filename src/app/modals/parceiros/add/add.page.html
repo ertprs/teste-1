@@ -1,0 +1,142 @@
+  
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Parceiro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon item-right name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab teste="atualizar" *ngIf="parceiroId != undefined && parceiroId != null" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="success" (click)="update()">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab *ngIf="parceiroId == undefined || parceiroId == null" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="success" (click)="add()">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  <form [formGroup]="fGroup">
+    <ion-item class="ionitem">
+      <ion-label color="primary" stacked >CPF/CNPJ</ion-label>
+      <ion-input type="text" placeholder="CPF/CNPJ" formControlName="documento"></ion-input>
+    </ion-item>
+    
+    <ion-item class="ionitem">
+      <ion-label color="primary" stacked >Apelido</ion-label>
+      <ion-input type="text" placeholder="Apelido" formControlName="apelido"></ion-input>
+    </ion-item>
+  
+    <ion-item class="ionitem">
+      <ion-label color="primary" stacked >Nome</ion-label>
+      <ion-input type="text" placeholder="Nome" formControlName="nome"></ion-input>
+    </ion-item>
+  
+    <ion-item class="ionitem">
+      <ion-label color="primary" stacked >Inscrição Estadual</ion-label>
+      <ion-input type="text" placeholder="Inscrição Estadual" formControlName="ie"></ion-input>
+    </ion-item>
+
+    <ion-item class="ionitem">
+      <ion-label color="primary" stacked >Inscrição Municipal</ion-label>
+      <ion-input type="text" placeholder="Inscrição Municipal" formControlName="im"></ion-input>
+    </ion-item>
+
+
+
+    <ion-grid class="endereco-form">
+      <!-- <ion-row>
+        <ion-item>
+          <ion-icon color="primary" name="business-outline" slot="start"></ion-icon>
+          <ion-label color="primary" class="label-divider" stacked >Endereço</ion-label>
+        </ion-item>
+
+      </ion-row> -->
+      <ion-row>
+        <ion-col>
+          <ion-item class="ionitem">
+            <ion-select  value="Rua" okText="Selecionar" cancelText="Cancelar" placeholder='Rua'>
+              <ion-select-option value="Rua">Rua</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="9">
+          <ion-item class="ionitem">
+            <ion-label color="primary" stacked >Logradouro</ion-label>
+            <ion-input type="text" placeholder="Logradouro" formControlName="logradouro"></ion-input>
+          </ion-item>
+        </ion-col>
+        
+      </ion-row>
+      <ion-row>
+        <ion-col size="3">
+          <ion-item class="ionitem">
+            <ion-label color="primary" stacked >Número</ion-label>
+            <ion-input type="text" placeholder="Número" formControlName="numero"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item class="ionitem">
+            <ion-label color="primary" stacked >Bairro</ion-label>
+            <ion-input type="text" placeholder="Bairro" formControlName="bairro"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item class="ionitem">
+            <ion-label color="primary" stacked >CEP</ion-label>
+            <ion-input type="text" placeholder="CEP" formControlName="cep"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-item class="ionitem">
+            <ion-label color="primary" stacked >Complemento</ion-label>
+            <ion-input type="text" placeholder="Complemento" formControlName="complemento"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="4">
+          <ion-item class="ionitem">
+            <ion-label color="primary" stacked >Estado</ion-label>
+            <ion-input type="text" placeholder="UF" formControlName="estado"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item class="ionitem">
+            <ion-label color="primary" stacked >Cidade</ion-label>
+            <ion-input type="text" placeholder="Cidade" formControlName="cidadeNome"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-item class="ionitem">
+      <ion-label class="label-divider" stacked >Notas</ion-label>
+      <ion-textarea placeholder="Notas sobre o cliente..." rows="6" [(ngModel)]="dadosParceiro.notas" [ngModelOptions]="{standalone: true}"></ion-textarea>
+    </ion-item>
+  </form>
+
+</ion-content>
+<ion-footer *ngIf="parceiroId != undefined && parceiroId != null">
+  <ion-toolbar>
+    <ion-button expand="block" color="danger" style="margin-left: 6%; margin-right: 6%;" (click)="delete()">Excluir</ion-button>
+  </ion-toolbar>
+</ion-footer>

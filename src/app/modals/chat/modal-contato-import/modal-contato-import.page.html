@@ -1,0 +1,39 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Validação de dados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+
+<ion-content style="margin-top: 50px;">
+  <ion-list *ngFor="let item of items  ">
+    <ion-item >
+      <ion-label>
+        <p>{{ item.nome }}</p>
+        <p>{{ item.telefone }}</p>
+        <p *ngFor="let dadosGrupo of item.grupo ">{{ dadosGrupo }}</p>
+      </ion-label>
+      <ion-label style="text-align: right;">
+        <p>{{item.cidade }}/{{ item.estado }} </p>
+        <p *ngIf="item.valido" style="color: green;">Válido</p>
+        <p *ngIf="!item.valido" style="color: red;">Invalido</p>
+        <p>{{ item.situacao }}</p>
+       
+      </ion-label>
+   
+    </ion-item>
+   
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar mode='ios'>
+    <ion-button expand="block" color='success' (click)="importar()">Confirmar importação</ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,127 @@
+<ion-header mode='ios' >
+  <ion-toolbar>
+    
+
+     <ion-title class="titulo">Aprendizado</ion-title>
+   
+  </ion-toolbar>
+ 
+  
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="functionExecute('btnBack',{componente:'home'})" color="secondary" >
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab vertical="top" style="margin-top: -10;" horizontal="end" slot="fixed" (click)="novo()">
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content class="default-content">
+  <ion-grid style="margin-bottom: 50px;">
+    <ion-row class="cards-margin">
+      <ion-col  class="box-detail">
+        <ion-card-header class="box-titulo">
+          <ion-card-subtitle>Confiabilidade</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-label>
+              <p style="font-size:xx-large;text-align: center;">
+                <span >{{confiabilidadeValue}}</span> <span style="font-size: small;position: relative;top: 0;">%</span>
+              </p>
+            </ion-label>
+            <ion-item lines='none'>
+              <ion-range min="70" max="95"  color="secondary" (ionChange)="changeConfiabilidade($event)" value="{{confIA.confiabilidade}}" [disabled]="!confiablidadeBloc" >
+                <ion-label slot="start">70</ion-label>
+                <ion-label slot="end">100</ion-label>
+              </ion-range>
+            
+            </ion-item>
+            <ion-item lines='none'>
+              <ion-icon name="save-outline" slot="end" style="cursor: pointer;" *ngIf='confiablidadeBloc' (click)="ConfiabilidadeSave()"></ion-icon>
+              <ion-icon name="lock-closed-outline" slot="end" style="cursor: pointer;" *ngIf='!confiablidadeBloc' (click)="unlock()"></ion-icon>
+            </ion-item>
+        </ion-card-content>
+      </ion-col>
+      
+      <ion-col  class="box-detail">
+        <ion-card-header  class="box-titulo">
+          <ion-card-subtitle >Produtividade</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label>
+                  <p style="font-size:x-large;text-align: center;">
+                    <span >{{ produtividadeDados.msgRecebida}}</span>
+                  </p>
+                  <p style="text-align: center;">
+                    Msg. recebidas
+                  </p>
+                </ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label >
+                  <p style="font-size:x-large;text-align: center;">
+                    <span >{{ produtividadeDados.msgRespondidades}}</span> 
+                  </p>
+                  <p style="text-align: center;">
+                    Msg. repondidas
+                  </p>
+                </ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-label >
+                  <p style="font-size:xx-large;text-align: center;">
+                    <span >{{ produtividadeDados.percetual}}</span> <span style="font-size: small;position: relative;top: 0;">%</span>
+                  </p>
+                  
+                 
+                </ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+
+          
+          
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="cards-margin">
+      <ion-col class="box-detail">
+        <ion-card-header  class="box-titulo">
+          <ion-card-subtitle >Aprendizados</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-toolbar mode="ios" style="margin-top:20px;">
+            <ion-searchbar animated placeholder="Pesquisar"></ion-searchbar>
+          </ion-toolbar>
+          <ion-list *ngFor="let item of aprendizados; let i = id" style="padding: 0 !important;">
+            <ion-item-sliding #i style="padding: 0 !important;">
+              <ion-item  mode='ios' detail='false'  (click)="i.open();" button style="padding: 0 !important;" >
+                <ion-icon name="git-branch-outline" slot="start"></ion-icon>
+                <ion-label>
+                  {{ item.titulo  | titlecase  }}
+                </ion-label>
+              </ion-item>
+              <ion-item-options side="end">
+                <!-- FUNCAO DE SELECIONAR -->
+                <ion-item-option color='secondary'  ><ion-icon name="pencil-outline" slot="icon-only" (click)="abrirInfo(item.id)"></ion-icon></ion-item-option>
+                <ion-item-option color='danger'   ><ion-icon name="trash-outline" slot="icon-only" (click)="delete(item.id)"></ion-icon></ion-item-option>
+              </ion-item-options> 
+            </ion-item-sliding>
+          </ion-list>
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

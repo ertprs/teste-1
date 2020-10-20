@@ -1,0 +1,89 @@
+<ion-content style="height: 100%;">
+  
+  <ion-list>
+   
+    <ion-item lines='none' detail="false" (click)="functionExecute('toDo',{})">
+      <ion-icon name="bookmark-outline" slot='start' ></ion-icon>
+      <ion-label>Tarefas</ion-label>
+    
+    </ion-item>
+    
+    
+    <!-- Departamentos -->
+    
+    <ion-item lines='none' detail="false"  (click)="functionExecute('compAtendimentoHome',{})">
+      <ion-icon name="chatbubbles-outline" slot='start' ></ion-icon>
+      <ion-label>Atendimento</ion-label>
+    </ion-item>
+
+    <ion-item lines='none' detail="false" (click)="functionExecute('compAprendizadoHome',{})" >
+      <ion-icon name="school-outline" slot='start' ></ion-icon>
+      <ion-label>Aprendizado</ion-label>
+    </ion-item>
+    
+    <ion-item lines='none' detail="false"  (click)="functionExecute('compComercialHome',{})">
+      <ion-icon name="rocket-outline" slot='start' ></ion-icon>
+      <ion-label>Comercial</ion-label>
+    </ion-item>
+
+    <ion-item lines='none' detail="false" (click)="functionExecute('chatContatoHome',{})">
+      <ion-icon name="people-outline" slot='start' ></ion-icon>
+      <ion-label>Contatos</ion-label>
+    </ion-item>
+    <!--
+    <ion-item lines='none' detail="false" (click)="functionExecute('financeiroOpen',{})">
+      <ion-icon name="cash-outline" slot='start' ></ion-icon>
+      <ion-label>Financeiro</ion-label>
+    </ion-item>
+    -->
+
+    <!--
+    <ion-item lines='none' detail="false" (click)="functionExecute('compFiscalHome',{})">
+      <ion-icon name="document-text-outline" slot='start' ></ion-icon>
+      <ion-label>Fiscal</ion-label>
+    </ion-item>
+    -->
+    <!-- Suporte -->
+    <ion-item-divider>
+      <ion-label>
+        Suporte
+      </ion-label>
+    </ion-item-divider>
+    <ion-item lines='none' detail="false" (click)="functionExecute('compConfiguracoesHome',{})">
+      <ion-icon name="settings-outline" slot="start"></ion-icon>
+      <ion-label>Configurações</ion-label>
+    </ion-item>
+    
+    <ion-item lines='none' (click)="functionExecute('compConsumosHome',{})">
+      <ion-icon name="speedometer-outline" slot='start'></ion-icon>
+      <ion-label>Consumo</ion-label>
+    </ion-item>
+  
+
+    
+    <ion-item-divider>
+      <ion-label>
+        Encerrar
+      </ion-label>
+    </ion-item-divider>
+    <ion-item lines='none' routerLink="/empresaselect" [queryParams]="{troca: true}"  routerDirection="forward" detail="false" (click)="popoverfechar()">
+      <ion-icon name="business-outline" slot="start"></ion-icon>
+      <ion-label>Trocar empresa</ion-label>
+    </ion-item>
+    <ion-item (click)="logout()" lines='none' >
+      <ion-icon name="exit-outline" slot="start"></ion-icon>
+      Sair
+    </ion-item>
+
+    <ion-item-divider *ngIf="idCliente === empresaMatriz">
+      <ion-label>
+        Administração
+      </ion-label>
+    </ion-item-divider>
+    <ion-item *ngIf="idCliente === empresaMatriz" lines='none' (click)="functionExecute('CompAdministracaoHomeComponent',{})">
+      <ion-icon name="code-slash-outline" slot="start"></ion-icon>
+      <ion-label>Administração</ion-label>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

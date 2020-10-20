@@ -1,0 +1,185 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title class="titulo">Atendimento</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab class="float-fab-left" vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="functionExecute('btnBack',{componente:'home'})">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab class="float-fab-right" horizontal="end" vertical="top" slot="fixed" #fab>
+  <ion-fab-button>
+    <ion-icon name="grid-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list>
+    <ion-fab-button color="warning" >
+      <ion-icon name="expand-outline"></ion-icon>
+    </ion-fab-button>
+    
+    <ion-fab-button color="secondary" (click)="functionExecute('compatendimentorelatoriooperaaco',{})" >
+      <ion-icon name="pie-chart-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
+
+<ion-content class="default-content">
+
+  <ion-grid style="margin-top: 20px;">
+    <ion-row style="display: none;">
+      <ion-col>
+        <ion-item lines='full'>
+          <ion-label slot="start">
+            <p><strong>Total de atendimentos:</strong> 2</p>
+            <p><strong>Operadores:</strong> 1</p>
+          </ion-label>
+          <ion-label slot="end">
+            <p><strong>TMA:</strong> 15 min.</p>
+            <p><strong>Sem respostas:</strong> 2</p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- CABEÇALHO  -->
+    <ion-row>
+      <ion-col style="text-align: center" color='success'>
+        <ion-card color='success' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Lara</ion-card-subtitle>
+            <ion-card-title>
+              <p>{{ dashAtLara }}</p>
+            </ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col style="text-align: center ">
+        <ion-card color='danger' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Sem operador</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-card-title>
+              <ion-text>{{dashAtSemOperador}}</ion-text>
+          </ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col style="text-align: center; ">
+        <ion-card color='warning' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Sem resposta</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-card-title>
+              <ion-text>{{dashAtResposta}}</ion-text>
+          </ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col style="text-align: center; ">
+        <ion-card color='secondary' style="min-height: 15vh;max-height: 15vh">
+          <ion-card-header>
+            <ion-card-subtitle>Em atendimento</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-card-title>
+              <ion-text>{{dashAtEmAtendimento}}</ion-text>
+          </ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- TOOLBAR -->
+    <ion-row>
+      <ion-col>
+        <ion-toolbar mode='ios' style="display:flex;align-items: center;">
+
+          <ion-button color="secondary" *ngIf="ckselecionar" (click)="popoverFiltrosOpacao($event)" size='small' style="margin-top: -10px;">
+            <ion-icon name="arrow-down-outline"></ion-icon>
+            
+
+          </ion-button>
+
+          <ion-button color="secondary" *ngIf="!ckselecionar" (click)="habilitarSelecionar($event)" size='small' style="margin-top: -10px;">
+            
+            <ion-icon name="checkbox-outline"></ion-icon>
+
+          </ion-button>
+          <ion-radio-group [(ngModel)]="filterString"  (ionChange)='executarFilterCk()' style="margin-top: 1px;align-items: center;">
+            
+            <ion-radio  mode='md' value='filterCkTodos'  class="ion-checkbox"></ion-radio>
+            <ion-label style="font-size: small;">Todos</ion-label>
+
+            <ion-radio  mode='md' value='filterCkLara' class="ion-checkbox"></ion-radio>
+            <ion-label style="font-size: small;">Lara</ion-label>
+    
+            <ion-radio  mode='md' value='filterCkSemOperador' class="ion-checkbox"></ion-radio>
+            <ion-label style="font-size: small;">Sem operador</ion-label>
+            <!--
+            <ion-radio mode='md' value='filterCkSemResposta'  class="ion-checkbox"></ion-radio>
+            <ion-label style="font-size: small;">Sem resposta</ion-label>
+            -->
+          </ion-radio-group>
+    
+          
+          <ion-icon name="person-outline" color='secondary' style="cursor:pointer;margin-right: 10px;" slot="end" *ngIf="!filterUser" (click)="abrirModalFiltroUser('homeatendimento')"></ion-icon>
+          <ion-icon name="person-outline" color='danger' style="cursor:pointer;margin-right: 10px;" slot="end" *ngIf="filterUser" (click)="liberarFiltroUsuario()"></ion-icon>
+          <ion-icon name="calendar-outline" color='secondary' style="cursor:pointer;" slot="end" (click)="abrirModalFiltroData()" *ngIf="!filterData"></ion-icon>
+          <ion-icon name="calendar-outline" color='danger' style="cursor:pointer;" slot="end" (click)="liberarFiltroData()" *ngIf="filterData"></ion-icon>
+
+        </ion-toolbar>
+      </ion-col>
+      
+    </ion-row>
+    <!-- DADOS  -->
+    <ion-row> 
+      <!-- COM A LARA -->
+      <ion-col>
+        <ion-list *ngFor="let item of items"  style="padding: 0px !important;">
+          <ion-item lines='full' style="padding: 0px !important;">
+            <ion-label style="font-size: small;" >
+              <p style="display: flex;align-items: center;">
+                <ion-icon name="alert-circle" color="success" style="font-size:large;" *ngIf="item.situacao == 1 "></ion-icon>
+                <ion-icon name="alert-circle" color="secondary" style="font-size:large;" *ngIf="item.situacao == 2 && item.tagSemResposta === 0 && item.usuarioUid != '' "></ion-icon>
+                <ion-icon name="alert-circle" color="warning" style="font-size:large;" *ngIf="item.tagSemResposta === 1"></ion-icon>
+                <ion-icon name="alert-circle" color="danger" style="font-size:large;" *ngIf="item.situacao == 2 && (item.usuarioUid === undefined || item.usuarioUid == '' )"></ion-icon>
+                &nbsp;<strong>{{ item.contatoNome | titlecase }} </strong>&nbsp;
+              </p>
+              <p tyle="font-size: x-small;"><ion-icon name="person-outline"></ion-icon>&nbsp;{{ item.usuarioNome | titlecase}}</p>
+              <p tyle="font-size: x-small;"><ion-icon name="calendar-outline"></ion-icon>&nbsp;{{ item.createAt | date:'dd/MM/yy HH:mm'}}</p>
+              <p *ngIf="item.tagSemResposta == 1" style="color:red"><ion-icon name="time-outline"></ion-icon>&nbsp;Sem resposta há &nbsp;{{ item.tagSemRespostaTime }} min.</p>
+              
+            </ion-label>
+            <ion-label style="text-align: right;vertical-align: text-top;">
+              <p style="vertical-align:  text-top;">{{ item.contatoOrigem }}&nbsp;
+                <ion-button fill="clear" color="secondary"  (click)="functionExecute('chatContatoEdit',{contatoUid:item.contatoUid})"><ion-icon name="eye-outline"></ion-icon></ion-button>
+                <ion-button fill="clear" color="secondary"  (click)="visualizarConversa(item)" ><ion-icon name="chatbox-ellipses-outline"></ion-icon></ion-button>
+              </p>
+              
+              <ion-chip *ngIf="item.intencao" outline="true"> 
+                <ion-label color="secondary" style="font-size: small;">{{item.intencao | titlecase }}</ion-label>
+                &nbsp;<ion-label color="secondary" style="font-size: small;" *ngIf="item.comercialUidOrcamento">{{item.valor | currency:'R$ ':true:'1.2-2'  }}</ion-label>
+              </ion-chip>
+            </ion-label>
+
+            <ion-checkbox slot='end' mode='md' *ngIf="ckselecionar" [(ngModel)]="item.selecionado" (click)="marcarItem(item)" ></ion-checkbox>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

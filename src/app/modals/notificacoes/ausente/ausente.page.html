@@ -1,0 +1,26 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col style="display: flex; justify-content: center;">
+        <img src="assets/img/lara-fundo-azul.jpg">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><ion-text style="text-align: center;"><h2>Ei {{currentUser.displayName}}, você está aí?</h2></ion-text></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style="display: flex; justify-content: center;">
+        <ion-label><h1>Desconectando-se em {{countdownTime}} segundo<ion-text *ngIf="countdownTime != 1">s</ion-text></h1></ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style="display: flex; justify-content: center; margin-top: 25px;">
+        <ion-button color="success" size="large" (click)="closeModal()">Sim, estou</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
+

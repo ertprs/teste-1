@@ -1,0 +1,21 @@
+export interface Itaddparceiro {
+    createAt?:number;
+    logo?:string;
+    userUid?:string;
+    documento?:string;
+    apelido?:string;
+    nome?:string;
+    ie?:string;
+    im?:string;
+    cep?:string;
+    bairro?:string;
+    logradouro?:string;
+    endereco?:string;
+    numero?:string;
+    complemento?:string;
+    estado?:string;
+    cidadeIBGE?:string;
+    cidadeNome?:string;
+    notas?:string
+    photo?:string
+}

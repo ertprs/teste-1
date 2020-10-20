@@ -1,0 +1,44 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Pré visualização de Backup</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content style="margin-top: 50px;">
+  <ion-list>
+    <ion-item lines='none'>
+      <ion-text>
+        <strong>Tipo de arquivo:</strong>{{tipoarquivo}}
+      </ion-text>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngFor="let item of items  ">
+    <ion-item >
+      
+      <ion-label>
+        <p><strong>{{ item.nome }}</strong></p>
+        <p>{{ item.telefone }}</p>
+       
+      </ion-label>
+      <ion-label>
+        <p>{{ item.grupo }} / {{item.subgrupo}} </p>
+        <p>{{ item.situacao }}</p>
+       
+      </ion-label>
+     
+   
+    </ion-item>
+   
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar mode='ios'>
+    <ion-button expand="block" color='success' (click)="importar()" >Processar Backup</ion-button>
+  </ion-toolbar>
+</ion-footer>

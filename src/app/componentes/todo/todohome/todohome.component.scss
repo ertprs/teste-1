@@ -1,0 +1,46 @@
+ion-toggle {
+    zoom: 0.5;
+}
+
+ion-content {
+    overflow: hidden;
+    height: 85%;
+}
+
+ion-slides {
+    height: 100%;
+    width: 100%;
+    --background:none;
+    box-shadow:none !important;
+}
+
+ion-card {
+  box-shadow:none !important
+}
+
+ion-card-subtitle {
+  margin-top: 10px;;
+}
+
+.blnotificacao {
+  border-radius: 100%;
+  color: white;
+  border: none;
+  position: fixed;
+  right: 10px;
+  z-index: 10;
+}
+
+.ticket_novo_1 {
+  color:#2dd36f;
+}
+
+.ticket_novo_0 {
+  color:#3dc2ff
+}
+
+@media only screen and (min-width: 601px) {
+  .grid-options {
+    flex-direction: row-reverse;
+  }
+}

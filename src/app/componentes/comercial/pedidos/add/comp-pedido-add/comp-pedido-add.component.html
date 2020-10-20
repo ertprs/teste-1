@@ -1,0 +1,132 @@
+<ion-header mode='ios' >
+  <ion-toolbar>
+    <ion-title class="titulo">{{ titulo | titlecase }}</ion-title>
+    <ion-label slot="end" style="text-align: right;">
+      <ion-button fill="clear" class="send-button"  >
+        <ion-icon name="ellipsis-vertical-outline" color='primary' ></ion-icon>
+      </ion-button>
+      
+    </ion-label>
+  </ion-toolbar>
+ 
+  
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="functionExecute(FunctionVoltar,paranVoltar)" color="secondary">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab vertical="top" horizontal="end" slot="fixed" >
+  <ion-fab-button  color="success">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+<ion-content style="height: 80vh;">
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col size='12'size-sm>
+        <ion-item lines='none' class="ion-item">
+          <ion-label color="primary" stacked >Criado por</ion-label>
+          <ion-text>{{ dadosPedido.usuarioNome }}</ion-text>
+        </ion-item>
+      </ion-col>
+      <ion-col size='6' size-sm>
+        <ion-item lines='none' class="ion-item">
+          <ion-label color="primary" stacked >Criado em</ion-label>
+          <ion-text style="font-size: small;">{{ dadosPedido.createAt | date: 'dd/MM/yy H:m' }}</ion-text>
+        </ion-item>
+      </ion-col>
+      <ion-col size='6' size-sm>
+        <ion-item lines='none' class="ion-item">
+          <ion-label color="primary" stacked >Modificado em</ion-label>
+          <ion-text style="font-size: small;">{{ dadosPedido.modifyAt | date: 'dd/MM/yy H:m' }}</ion-text>
+        </ion-item>
+      </ion-col>
+
+
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines='none' class="ion-item">
+          <ion-label color="primary" stacked >Parceiro</ion-label>
+          <ion-text>{{ dadosPedido.clienteNome | uppercase }}</ion-text>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines='none' class="ion-item">
+          <ion-label color="primary" stacked >Contato</ion-label>
+          <ion-input type="text" [(ngModel)]="dadosPedido.contatoNome" readonly ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col >
+        <ion-item class="ion-item">
+     
+          
+          <ion-label color="primary" stacked >Cond. Pagamento</ion-label>
+          <ion-select  okText="Selecionar" cancelText="Cancelar"  [(ngModel)]="dadosPedido.condPagamentoUid" >
+            <ion-select-option *ngFor="let itemPagamento of condpagamentoItemsList" value="{{itemPagamento.id}}" >{{ itemPagamento.nome | titlecase }}</ion-select-option>
+         
+          </ion-select>
+          
+        </ion-item>
+      </ion-col>
+    
+
+
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row >
+      <ion-col>
+        <ion-list *ngFor="let item of pedidoItens; let i = id" style="padding: 0 !important;" >
+          <ion-item-sliding #i style="padding: 0 !important;">
+            
+            <ion-item  mode='ios'  detail='false'  (click)="i.open();" button style="padding: 0 !important;" >
+              <ion-label>
+                <p><strong>{{ item.produtoDescricao | uppercase }}</strong></p>
+                <p>{{item.qtd}} <strong>X</strong> {{ item.vrUnitario | currency:'R$ ':true:'1.2-2' }} <strong>=</strong> {{ item.vrTotal | currency:'R$ ':true:'1.2-2' }} </p>
+                
+              </ion-label>
+              
+            </ion-item>
+            <ion-item-options side="end">
+              <ion-item-option color='danger' (click)="pedidosItensDelete(item.id)">Deletar</ion-item-option>
+              <ion-item-option color='success' (click)="pedidoItemEditar(item)" >Editar</ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="pedidoUid">
+    <ion-fab-button  color="success" (click)="estoqueAbrirConsulta()">
+      <ion-icon name="add-outline" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
+
+<ion-footer mode="ios">
+  <ion-toolbar mode='ios'>
+    <ion-label>
+      <strong>Total:</strong>&nbsp;{{ Vrtotal  | currency:'R$ ':true:'1.2-2' }}
+    </ion-label>
+    <ion-button slot="end" color="secondary" (click)="pedidoEnviar()" *ngIf="dadosPedido.total > 0">
+      Enviar
+    </ion-button>
+    <ion-button slot="end" color="success" *ngIf="dadosPedido.total > 0">
+      Autorizar
+    </ion-button>
+  </ion-toolbar>
+  
+</ion-footer>

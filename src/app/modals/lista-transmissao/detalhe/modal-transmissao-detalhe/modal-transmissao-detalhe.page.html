@@ -1,0 +1,36 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Detalhes de transmissão</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="closeModel()" color="secondary">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+<ion-content>
+<ion-text *ngIf="dadosDetalhe.length == 0 || !dadosDetalhe" style="text-align: center;">
+  <p>Não existem dados</p>
+</ion-text>
+<ion-list  *ngIf="dadosDetalhe.length > 0 || dadosDetalhe">
+  <ion-item *ngFor="let item of dadosDetalhe ">
+    <ion-label>
+      <p>{{ item.contatoData.nome}}</p>
+      <p>{{ item.contatoData.origem }}</p>
+      <p>{{ item.createAt | date: 'dd/MM/yy H:mm'}}</p>
+    </ion-label>
+    <ion-label>
+      <p>{{ item.contatoData.canal | titlecase}}</p>
+      <p *ngIf='item.wppEnviado' style="color:green"> Enviado</p>
+      <p *ngIf='item.wppErro' style="color:red"> ERRO </p>
+      <p *ngIf='item.wppAguardando' style="color:blue"> Aguardando</p>
+
+    </ion-label>
+    
+  </ion-item>
+</ion-list>
+
+
+</ion-content>

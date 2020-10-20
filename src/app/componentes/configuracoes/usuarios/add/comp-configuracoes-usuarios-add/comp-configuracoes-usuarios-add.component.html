@@ -1,0 +1,278 @@
+<ion-header mode='ios'>
+  
+  <ion-toolbar>
+    <ion-title>Usuários detalhes</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed" >
+  <ion-fab-button (click)="functionExecute('compConfiguracoesUsuariosHome',{componente:'home'})" color="secondary" >
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<ion-fab vertical="top" style="margin-top: -10;" horizontal="end" slot="fixed" >
+
+  <ion-fab-button color="success" (click)='atualizar()' *ngIf="data.usuarioUid?.length > 0">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button color="success" (click)='adicionarUsuarioNew()' *ngIf="!data.usuarioUid || data.usuarioUid.length === 0">
+    <ion-icon name="save-outline"></ion-icon>
+  </ion-fab-button>
+
+</ion-fab>
+
+
+<ion-content class="default-content">
+
+  <ion-item lines='none' style="margin-bottom: 5px;">
+    <label for="upload" style="margin-left: auto; margin-right: auto; cursor: pointer;">
+      <ion-avatar title="Trocar imagem">
+        <img *ngIf="userDados.photoURL" src="{{userDados.photoURL}}">
+        <img *ngIf="!userDados.photoURL" src="../../../../../../assets/img/default-user-icon.jpg">
+      </ion-avatar>
+      <input id="upload" type="file"  [(ngModel)]="newPhoto" style="display: none;" (change)="uploadFile($event)">
+    </label>
+  </ion-item>
+  
+  <ion-item class="ionitem">
+    <ion-icon name="mail-outline" slot="start"></ion-icon>
+    <ion-input type="email" placeholder='email@dominio.com.br'  [(ngModel)]="userDados.email" ></ion-input>
+  </ion-item>
+
+  <ion-item class="ionitem">
+    <ion-icon name="person-outline" slot="start"></ion-icon>
+    <ion-input type="text" placeholder='Informe o Nome'  [(ngModel)]="userDados.userNome" ></ion-input>
+  </ion-item>
+
+  <ion-item class="ionitem" *ngIf="this.data.usuarioUid">
+    <ion-icon name="barcode-outline" slot="start"></ion-icon>
+    <ion-label color="success" stacked >Departamento</ion-label>
+    <ion-select  okText="Selecionar" cancelText="Cancelar"  [(ngModel)]="userDados.departamento" >
+      <ion-select-option  *ngFor="let item of departamentosList"  value="{{ item.nome | lowercase }}"  >{{ item.nome | titlecase }}</ion-select-option>
+      
+    </ion-select>
+  </ion-item>
+  <ion-item class="ionitem" *ngIf="dadosConfEmpresa.userAPI">
+    <ion-icon name="key-outline" slot="start"></ion-icon>
+    <ion-label color="success" stacked >Token API</ion-label>
+    <ion-grid>
+      <ion-row>
+        <ion-col size='1'>
+          <ion-toggle mode="ios" color="success" [(ngModel)]="userDados.apiKey" ></ion-toggle>
+        </ion-col>
+        <ion-col>
+          <ion-input type="text"  *ngIf="userDados.apiKey" readonly [(ngModel)]="userDados.apiKeyToken" ></ion-input>
+         
+        </ion-col>
+        <ion-col size='1'>
+          <ion-button fill="clear" color="dark"  (click)="copyForClipboard($event, { button: 'apiKeyToken',  data: userDados.apiKeyToken })" ><ion-icon name="copy-outline"></ion-icon></ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-text style="font-size: x-small;text-align: left;color:red">
+          <strong>Atenção:</strong> Não forneça este token para desconhecidos e cuido ao armazena-lo. Ele será utilizado para liberar acesso sem senha as suas informações através de API.
+        </ion-text>
+      </ion-row>
+    </ion-grid>
+    
+  </ion-item>
+
+  <ion-list *ngIf="data.usuarioUid?.length > 0">
+
+
+    <ion-list class="ionitem">
+      <ion-item>
+        <ion-label class="toggle">Segunda (Habilitar atendimento de Segunda)</ion-label>
+        <ion-toggle mode="ios" color="success"  [(ngModel)]="userDados.atdSeg" (click)="checkDiaSemana($event,'atdSeg')"></ion-toggle>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label color="primary" stacked>Hora Início</ion-label>
+              <ion-input type="time" [disabled]="!userDados.atdSeg" [(ngModel)]="userDados.atdSegHrIni"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label color="primary" stacked >Hora Fim</ion-label>
+              <ion-input type="time" [disabled]="!userDados.atdSeg" [(ngModel)]="userDados.atdSegHrFim"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+    
+    <ion-list class="ionitem">
+      <ion-item>
+        <ion-label class="toggle">Terça (Habilitar atendimento de Terça)</ion-label>
+        <ion-toggle mode="ios" color="success"  [(ngModel)]="userDados.atdTer" (click)="checkDiaSemana($event,'atdTer')"></ion-toggle>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label color="primary" stacked >Hora Início</ion-label>
+              <ion-input type="time" [disabled]="!userDados.atdTer" [(ngModel)]="userDados.atdTerHrIni"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label color="primary" stacked >Hora Fim</ion-label>
+              <ion-input type="time" [disabled]="!userDados.atdTer" [(ngModel)]="userDados.atdTerHrFim"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+
+    <ion-list class="ionitem">
+      <ion-item>
+        <ion-label class="toggle">Quarta (Habilitar atendimento de Quarta)</ion-label>
+        <ion-toggle mode="ios" color="success"  [(ngModel)]="userDados.atdQua" (click)="checkDiaSemana($event,'atdQua')"></ion-toggle>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label color="primary" stacked >Hora Início</ion-label>
+              <ion-input type="time" [disabled]="!userDados.atdQua" [(ngModel)]="userDados.atdQuaHrIni"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label color="primary" stacked >Hora Fim</ion-label>
+              <ion-input type="time" [disabled]="!userDados.atdQua" [(ngModel)]="userDados.atdQuaHrFim"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+
+    <ion-list class="ionitem">
+      <ion-item>
+        <ion-label class="toggle">Quinta (Habilitar atendimento de Quinta)</ion-label>
+        <ion-toggle mode="ios" color="success"  [(ngModel)]="userDados.atdQui" (click)="checkDiaSemana($event,'atdQui')"></ion-toggle>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label color="primary" stacked >Hora Início</ion-label>
+              <ion-input type="time" [disabled]="!userDados.atdQui" [(ngModel)]="userDados.atdQuiHrIni"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label color="primary" stacked >Hora Fim</ion-label>
+              <ion-input type="time" [disabled]="!userDados.atdQui" [(ngModel)]="userDados.atdQuiHrFim"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+
+
+    <ion-list class="ionitem">
+      <ion-item>
+        <ion-label class="toggle">Sexta (Habilitar atendimento de Sexta)</ion-label>
+        <ion-toggle mode="ios" color="success"  [(ngModel)]="userDados.atdSex" (click)="checkDiaSemana($event,'atdSex')"></ion-toggle>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label color="primary" stacked >Hora Início</ion-label>
+              <ion-input type="time" [disabled]="!userDados.atdSex" [(ngModel)]="userDados.atdSexHrIni"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label color="primary" stacked >Hora Fim</ion-label>
+              <ion-input type="time" [disabled]="!userDados.atdSex" [(ngModel)]="userDados.atdSexHrFim"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  
+    <ion-list class="ionitem">
+      <ion-item>
+        <ion-label class="toggle">Sábado (Habilitar atendimento de Sábado)</ion-label>
+        <ion-toggle mode="ios" color="success"  [(ngModel)]="userDados.atdSab" (click)="checkDiaSemana($event,'atdSab')"></ion-toggle>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label color="primary" stacked >Hora Início</ion-label>
+              <ion-input type="time" [disabled]="!userDados.atdSab" [(ngModel)]="userDados.atdSabHrIni"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label color="primary" stacked >Hora Fim</ion-label>
+              <ion-input type="time" [disabled]="!userDados.atdSab" [(ngModel)]="userDados.atdSabHrFim"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+
+    <ion-list class="ionitem">
+      <ion-item>
+        <ion-label class="toggle">Domingo (Habilitar atendimento de Domingo)</ion-label>
+        <ion-toggle mode="ios" color="success"  [(ngModel)]="userDados.atdDom" (click)="checkDiaSemana($event,'atdDom')"></ion-toggle>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label color="primary" stacked >Hora Início</ion-label>
+              <ion-input type="time" [disabled]="!userDados.atdDom" [(ngModel)]="userDados.atdDomHrIni"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label color="primary" stacked >Hora Fim</ion-label>
+              <ion-input type="time" [disabled]="!userDados.atdDom" [(ngModel)]="userDados.atdDomHrFim"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </ion-list>
+
+  <ion-grid class="screen-border" style="margin-top: 30px; margin-bottom: 30px;">
+    <ion-row>
+      <ion-col class="box-detail">
+        <ion-card-header class="box-titulo">
+          <ion-card-subtitle >Permissões</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-list>
+                  <ion-item><ion-checkbox mode="ios" color="primary"  [(ngModel)]="userDados.administracao" (click)="contatoCheckboxes($event, 'administracao')"></ion-checkbox> &nbsp; Administração </ion-item>
+                  <ion-item><ion-checkbox mode="ios" color="primary"  [(ngModel)]="userDados.atendimento" (click)="contatoCheckboxes($event, 'atendimento')"></ion-checkbox> &nbsp; Atendimento </ion-item>
+                  <ion-item><ion-checkbox mode="ios" color="primary"  [(ngModel)]="userDados.cadastro" (click)="contatoCheckboxes($event, 'cadastro')"></ion-checkbox> &nbsp; Cadastro </ion-item>
+                  <ion-item><ion-checkbox mode="ios" color="primary"  [(ngModel)]="userDados.comercial" (click)="contatoCheckboxes($event, 'comercial')"></ion-checkbox> &nbsp; Comercial </ion-item>
+                  <ion-item><ion-checkbox mode="ios" color="primary"  [(ngModel)]="userDados.financeiro" (click)="contatoCheckboxes($event, 'financeiro')"></ion-checkbox> &nbsp; Financeiro </ion-item>
+                  <ion-item><ion-checkbox mode="ios" color="primary"  [(ngModel)]="userDados.fiscal" (click)="contatoCheckboxes($event, 'fiscal')"></ion-checkbox> &nbsp; Fiscal </ion-item>
+                  <ion-item><ion-checkbox mode="ios" color="primary"  [(ngModel)]="userDados.supervisao" (click)="contatoCheckboxes($event, 'supervisao')"></ion-checkbox> &nbsp; Supervisão </ion-item>
+                  <ion-item><ion-checkbox mode="ios" color="primary"  [(ngModel)]="userDados.suporte" (click)="contatoCheckboxes($event, 'suporte')"></ion-checkbox> &nbsp; Suporte </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+  
+
+
+

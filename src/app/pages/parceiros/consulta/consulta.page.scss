@@ -1,0 +1,40 @@
+.icon-origem
+{
+    min-height: 25px;
+    min-width: 25px;
+    max-height: 25px;
+    max-width: 25px;
+    border-radius: 100%;
+}
+.boxend
+{
+    display: inline-block;
+    float: right;
+    float: top;
+    text-align: right;
+}
+
+
+.badgeorigem{
+    
+    position:absolute;
+    left: 25px;
+    top: 10px;
+    z-index: 5;
+    background: transparent;
+    width: 35px;
+
+}
+.badgefavorito{
+    
+    position:absolute;
+    left: 8px;
+    bottom: 7px;
+    z-index: 5;
+    background: transparent;
+    width: 35px;
+
+}
+.ion-icon {
+    margin-right: 15px;
+}

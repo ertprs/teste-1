@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color='danger'>Acesso negado</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-text style="font-size: small;text-align: center;">
+      <p>Você não tem acesso para esta função</p>
+    </ion-text>
+    <ion-text style="font-size: small;text-align: center;">
+      <p><strong>Permissões Necessárias</strong></p>
+      <p>Para ter acesso solicite ao administrador para liberar a seguinte combinação de permissões</p>
+      <p></p>
+      <ion-list>
+        <ion-item lines='none' *ngFor='let item of permissoes '>
+          <ion-icon name="checkmark-circle-outline" slot="start" color='success'></ion-icon>
+          <ion-label>
+            {{item | titlecase }}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-text>
+
+    <ion-text style="font-size: small;text-align: center;">
+      <p><strong>Código: </strong>{{ componenteNome }}</p>
+    </ion-text>
+
+</ion-content>
+<ion-footer>
+  <ion-button expand="block" fill="outline" color='secondary' (click)="close()">Ok Entendi!</ion-button>
+</ion-footer>

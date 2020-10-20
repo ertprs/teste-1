@@ -1,0 +1,42 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-title color='primary'>Lembretes</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+  <ion-fab-button color="secondary" (click)="closeModal()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+
+  <ion-list *ngFor="let item of global.notificacoes">
+    <ion-item  lines='full'style="cursor: pointer;">
+      <ion-icon name="notifications-outline" slot="start"></ion-icon>
+      <ion-text style="text-align: justify;font-size: small;">
+        
+        <p>{{ item.createAt | date: 'dd/MM/yyyy H:mm' }}&nbsp;<strong>{{item.titulo | titlecase}}</strong></p>
+        <p>{{item.descricao}}</p>
+      </ion-text>
+      
+      <ion-text style="text-align: justify;font-size: small;" slot="end">
+        <ion-chip color='success' mode='ios' outline='true' (click)="confirmVer(item)">
+          <ion-icon name="checkmark-outline"></ion-icon>
+          <ion-label>Ok</ion-label>
+        </ion-chip>
+
+        <ion-chip color='danger' mode='ios' outline='true' (click)="delete(item)">
+          <ion-icon name="trash-outline"></ion-icon>
+          <ion-label>Excluir</ion-label>
+        </ion-chip>
+
+
+      </ion-text>
+      
+      
+    </ion-item>
+  </ion-list>
+
+</ion-content>

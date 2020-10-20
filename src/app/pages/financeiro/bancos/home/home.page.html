@@ -1,0 +1,85 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Bancos</ion-title>
+  </ion-toolbar>
+  <ion-toolbar mode="ios" class="header-busca" >
+    <ion-searchbar animated placeholder="Pesquisar" (keyup)="pesquisar($event)"></ion-searchbar>
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+  <!-- CARREGANDO REGISTROS -->
+  <ion-list *ngIf="!items.length && carregado == false">
+    <ion-item *ngFor="let item of [0]" lines='none'>
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <!-- Nao existem registros -->
+  <ion-list *ngIf="indexCount === 0 && carregado == true" class="boxNotificacao">
+    <ion-item lines='none' class="boxNotificacaoInterno" >
+      <ion-icon name="alert-circle-outline" slot="start"></ion-icon>
+      <ion-label color='ligth'>
+        Não existem registros
+      </ion-label>
+      
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngFor="let item of filtered; let i = id" style="padding: 0 !important;">
+    <ion-item-sliding #i style="padding: 0 !important;">
+      
+      <ion-item  mode='ios' detail='false'  (click)="i.open();" button style="padding: 0 !important;" >
+        <ion-label >
+          <p><strong>{{ item.nome | titlecase }}</strong></p>   
+          <p>AG: {{ item.ag }} CC: {{ item.conta }}-{{ item.contaDigito }}</p>
+        </ion-label>        
+      </ion-item>
+
+      <ion-item-options side="end" >
+        <!-- FUNCAO DE SELECIONAR -->
+        <ion-item-option color='secondary' routerLink="/financeiro/bancos/add/{{item.id}}" routerDirection="forward" *ngIf="item.codBanco != 999"><ion-icon name="pencil-outline" slot="icon-only" ></ion-icon></ion-item-option>
+        <ion-item-option color='danger'  (click)="deletar(item.id)" *ngIf="item.codBanco != 999"><ion-icon name="trash-outline" slot="icon-only" ></ion-icon></ion-item-option>
+      </ion-item-options> 
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- MENU GERAL LARA -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button >
+      <ion-avatar>
+        <img src="./../../../assets/img/lara-fundo-azul.jpg">
+      </ion-avatar>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <!-- Lara -->
+      <ion-fab-button routerLink="/lara/home" routerDirection="forward" >
+        <ion-avatar>
+          <img src="./../../../assets/img/lara-fundo-azul.jpg">
+        </ion-avatar>
+      </ion-fab-button>
+      
+      <!-- Adicionar  -->
+      <ion-fab-button  routerLink="/financeiro/bancos/add" routerDirection="forward" >
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>
